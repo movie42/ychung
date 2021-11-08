@@ -1,0 +1,28 @@
+extends ../layout/layout.pug
+
+block content 
+    .contents_wrapper
+        .contents_header_wrapper 
+            .inform_wrapper
+                h1.head_title=data.title
+                if loggedIn && user.authority === "admin"|| loggedIn && user.authority === "administrator"
+                    div.button_wrapper
+                        a(href=`/notice/${data.id}/edit`).edit_button 수정하기
+            .inform_wrapper
+                .views 
+                    span 조회수 
+                        if data.views === 0
+                            | 0
+                        else
+                            | #{data.views}
+                .date
+                    span #{data.year} 
+                    span #{data.month} 
+                    span #{data.date} 
+                    span #{data.day} 
+                    span #{data.time}
+            .component_wrapper
+                #viewer 
+                    #{data.paragraph}
+    script(src="/static/js/viewer.js") 
+                    

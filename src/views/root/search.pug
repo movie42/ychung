@@ -1,0 +1,54 @@
+extends ../layout/layout.pug
+include ../mixins/qtList.pug
+include ../mixins/weeklyList.pug
+include ../mixins/noticeList.pug
+
+block content
+    .inform_wrapper
+        h1.head_title 검색
+        if errorMessage
+            h1=errorMessage
+    .form_container
+        form(method="GET")
+            label(for="search") 검색
+            input(type="text", id="search", name="keyword" , placeholder="검색어를 입력하세요.")
+            button 검색하기
+    .search_result 
+        if data[0].length > 0 || data[1].length > 0 || data[2].length > 0
+            h2.search_keyword 검색어 
+                span #{keyword}
+            section
+                h3.search_section_title 묵상 에세이 검색결과
+                ul
+                    each item in data[0]
+                        +qtBlock({
+                            id:item.id,
+                            title:item.title,
+                            year:item.year,
+                            month:item.month,
+                            date:item.date
+                        })
+            section
+                h3.search_section_title 주보 검색결과
+                ul
+                    each item in data[1]
+                        +weeklyBlock({
+                            id:item.id,
+                            title:item.title,
+                            year:item.year,
+                            month:item.month,
+                            date:item.date
+                        })
+            section
+                h3.search_section_title 광고 검색결과
+                ul
+                    each item in data[2]
+                        +noticeBlock({
+                            id:item.id,
+                            title:item.title,
+                            year:item.year,
+                            month:item.month,
+                            date:item.date
+                        })
+        else 
+            h2.search_nothing "#{keyword}"에 대해서 아무것도 찾을 수 없었어요 : (

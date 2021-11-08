@@ -1,0 +1,13 @@
+extends ../layout/layout.pug
+
+block content
+    .inform_wrapper
+        h1.head_title 로그인
+    div.form_container
+        if errorMessage 
+            h2=errorMessage
+        form(method="POST")
+            input(type="text", name="email" ,required, placeholder="이메일을 입력하세요.")
+            input(type="password", name="password" ,required, placeholder="비밀번호를 입력해주세요.")
+            button 로그인
+        // a(href="/join") 회원가입하러가기!

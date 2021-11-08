@@ -1,0 +1,89 @@
+@mixin basic_button_style($color) {
+  display: block;
+  text-align: center;
+  box-sizing: content-box;
+  margin: 5px 0;
+  cursor: pointer;
+  border: 0;
+  border-radius: 5px;
+  background-color: $color;
+  color: #fff;
+  font-size: $basic_font_size;
+  padding: 5px 10px;
+  box-sizing: border-box;
+  border: 2px solid $color;
+  &:hover {
+    background-color: #fff;
+    color: $color;
+  }
+}
+
+@mixin button_style_2($color, $width) {
+  display: block;
+  width: $width;
+  cursor: pointer;
+  border: 1px solid $color;
+  padding: 10px 8px;
+  font-size: 0.8rem;
+  color: $color;
+  border-radius: 7px;
+  background-color: #fff;
+  text-align: center;
+  font-weight: 400;
+  box-sizing: border-box;
+  &:hover {
+    background-color: $color;
+    color: white;
+    font-weight: 600;
+  }
+  &:active {
+    background-color: red;
+  }
+}
+@mixin meterial_button_style($size: 2rem, $color: $line_color) {
+  font-size: $size;
+  color: $color;
+}
+
+@mixin animation(
+  $name,
+  $duration: 0,
+  $delay: 0,
+  $iteration: unset,
+  $direction: normal
+) {
+  animation-name: $name;
+  animation-duration: $duration;
+  animaition-delay: $delay;
+  animation-iteration-count: $iteration;
+  animation-direction: $direction;
+  -webkit-animation-name: $name;
+  -webkit-animation-duration: $duration;
+  -webkit-animaition-delay: $delay;
+  -webkit-animation-iteration-count: $iteration;
+  -webkit-animation-direction: $direction;
+}
+
+@mixin keyframe($animation_name) {
+  @keyframes #{$animation_name} {
+    @content;
+  }
+}
+
+@mixin mobile {
+  @media (min-width: #{$breakpoint-mobile}) and (max-width: #{$breakpoint-tablet - 1px}) {
+    @content;
+  }
+}
+
+@mixin tablet {
+  @media (min-width: #{$breakpoint-tablet}) and (max-width: #{$breakpoint-desktop - 1px}) {
+    @content;
+  }
+}
+
+@mixin desktop {
+  @media (min-width: #{$breakpoint-desktop}) {
+    @content;
+  }
+}

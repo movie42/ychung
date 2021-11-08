@@ -1,0 +1,9 @@
+mixin noticeBlock(notice={})
+    li
+        a(href=`notice/${notice.id}`)
+            div
+                h4=notice.title
+            div
+                span=notice.year
+                span=notice.month 
+                span=notice.date

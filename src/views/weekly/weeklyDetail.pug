@@ -1,0 +1,63 @@
+extends ../layout/layout.pug
+
+block content 
+    .contents_wrapper
+        .contents_header_wrapper 
+            .inform_wrapper
+                h1.head_title=data.title
+            .inform_wrapper
+                .inform_box
+                    .views 
+                        span 조회수 
+                            if data.views === 0
+                                | 0
+                            else
+                                | #{data.views}
+                    .date
+                        span #{data.year} 
+                        span #{data.month} 
+                        span #{data.date} 
+                        span #{data.day} 
+                        span #{data.time}
+                .button_wrapper
+                    if loggedIn && user.authority === "admin"
+                        span
+                            a(href=`/weekly/${id}/edit`).edit_button 
+                                span.material-icons-outlined edit
+            .component_wrapper
+                .bible 
+                    span 본문 
+                        a(href=`https://www.bskorea.or.kr/bible/korbibReadpage.php?version=SAENEW&book=${data.word}&chap=${data.chapter}&sec=${data.verse}`, target="_blank") #{word} #{data.chapter}장 #{data.verse} ~ #{data.verse_end}절
+                .pastor 
+                    span 강론 
+                    | #{data.pastor}
+                .worship 
+                    span 경배와 찬양 
+                    | #{data.worshipTeam}
+                .prayer 
+                    span 대표 기도 
+                    | #{data.prayer}
+                .adver
+                    span 광고 
+                    |#{data.advertisement}
+                .reader
+                    span 성경 봉독 
+                    |#{data.reader}
+                .offering
+                    span 헌금
+                    |#{data.offering}
+                .last_prayer
+                    span 봉헌기도 및 축도 
+                    |#{data.benediction}
+                if new Date().getDay() === 0 && new Date().getHours() >= 13 &&  new Date().getHours() <= 16
+                .live_button 라이브 바로가기
+                    span.youtube_btn 
+                        a(href="https://www.youtube.com/channel/UCchlEyi8F0ASeGZZZQY8uTA", target="_blank") 
+                            i.fab.fa-youtube
+                    span.zoom_btn
+                        a(href="https://us02web.zoom.us/j/4836076553?pwd=SDZQSzZDTVFybWFtWWdMSEhCcHVTQT09", target="_blank")
+                            i.fas.fa-video
+    if new Date().getDay() === 0 && new Date().getHours() >= 13 &&  new Date().getHours() <= 16
+        .youtube_live
+            iframe(src="https://www.youtube.com/embed/wDf36Ly7Rro" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen)
+            

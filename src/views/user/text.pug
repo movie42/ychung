@@ -1,0 +1,9 @@
+extends ../layout/layout.pug
+
+block content
+    .inform_wrapper
+        h1.head_title 비밀번호 변경 성공!
+    script(type='text/javascript').
+
+        const text = /\D*&#47;[0-9a-f]{24}/g.exec(window.loaction.pathname)
+        setTimeout(() => window.location=`/user/${window.location.pathname.split('/')[2]}`, 2000);

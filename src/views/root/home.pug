@@ -1,0 +1,13 @@
+extends ../layout/layout.pug
+
+block content
+    .inform_wrapper
+        if user
+            h1.head_title #{user.name}님, 환영합니다.
+        else 
+            h1.head_title 환영합니다.
+    if new Date().getDay() === 0 && new Date().getHours() >= 13 &&  new Date().getHours() <= 15
+        .video_container
+            .youtube_live
+                iframe(src="https://www.youtube.com/embed/UCchlEyi8F0ASeGZZZQY8uTA" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen)    
+    script(src="/static/js/reservation.js") 

@@ -1,0 +1,18 @@
+extends ../layout/layout.pug
+
+block content
+    .inform_wrapper
+        h1.head_title 묵상 에세이 쓰기
+    .form_container 
+        form(method="POST")
+            label(for="title") 제목 
+            input(type="text",required, id="title", name="title", placeholder="제목을 입력하세요.")
+            label(for="word") 본문
+            input(type="text",required, id="word", name="word", placeholder="묵상한 본문을 입력하세요.")
+            label(for="paragraph") 에세이
+            textarea(type="text",required, id="paragraph", name="paragraph", placeholder="어떻게 묵상하셨나요?")
+            button 에세이 올리기
+
+            
+
+    

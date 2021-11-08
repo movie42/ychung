@@ -1,0 +1,9 @@
+mixin weeklyBlock(weekly={})
+    li
+        a(href=`weekly/${weekly.id}`)
+            div
+                h4=weekly.title
+            div
+                span=weekly.year
+                span=weekly.month 
+                span=weekly.date

@@ -1,0 +1,10 @@
+extends ../layout/layout.pug
+
+block content 
+    .inform_wrapper
+        h1.head_title 광고 쓰기
+    form
+        input(type="text" name="title" class="title")
+    div#editor
+    button(type="button") 제출하기
+    script(src="/static/js/editor.js")
