@@ -35,10 +35,10 @@ app.use(
     useDefaults: true,
     directives: {
       "script-src": ["'unsafe-eval'", process.env.URL],
-      "img-src":
-        process.env.NODE_ENV === "production"
-          ? "https://yangchung.s3.ap-northeast-2.amazonaws.com"
-          : "'self'",
+      // "img-src":
+      //   process.env.NODE_ENV === "production"
+      //     ? "https://yangchung.s3.ap-northeast-2.amazonaws.com"
+      //     : "",
       "frame-src": "https://www.youtube.com/"
     }
   })

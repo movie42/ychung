@@ -7,17 +7,17 @@ const editor = new Editor({
   el: document.querySelector("#editor"),
   previewStyle: "vertical",
   height: "500px",
-  initialEditType: "markdown",
+  initialEditType: "markdown"
 });
 
 async function handleEditor(e) {
-  const editorBody = editor.getHTML();
+  const editorBody = editor.getMarkdown();
   const headTitle = title.value;
   console.log(headTitle);
   const data = await fetch("/notice/upload", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ headTitle, editorBody }),
+    body: JSON.stringify({ headTitle, editorBody })
   });
 }
 

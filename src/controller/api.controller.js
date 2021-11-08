@@ -3,6 +3,19 @@ import Notice from "../model/Notice.model";
 import User from "../model/User.model";
 import Comment from "../model/Comments.model";
 
+export const getParagraph = async (req, res) => {
+  const {
+    params: { id }
+  } = req;
+  try {
+    const notice = await Notice.findById(id);
+
+    return res.status(303).json({ notice });
+  } catch (e) {
+    console.log(e);
+  }
+};
+
 export const registerComments = async (req, res) => {
   const {
     body: { text, pathName },
