@@ -2,14 +2,13 @@ extends ../layout/layout.pug
 
 block content 
     .inform_wrapper
-        h1.head_title #{data.title} 수정
+        h1.head_title 광고 수정
         div.button_wrapper
-            a(href=`/notice/${data.id}/delete`).delete_button 삭제하기
-    .form_container 
-        form(method="POST").form
-            label(for="title") 제목
-            input(type="text", name="title", required, id="title", placeholder="제목을 적어주세요.", value=data.title)
-            label(for="paragraph") 내용
-            textarea(name="paragraph", id="paragraph", placeholder="광고 내용을 작성하세요.")=data.paragraph
-            button 광고 올리기
+            button(type="button").send_btn
+                span.material-icons-outlined send
+    .form_container.ad_write
+        form
+            input(type="text" name="title" class="title" placeholder="제목을 입력하세요." value=data.title)
+    div#editor_update
+    script(src="/static/js/editor.js")
         

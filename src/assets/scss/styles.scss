@@ -454,8 +454,10 @@ main {
       li {
         font-size: $basic_font_size;
         padding: 10px 0;
-        border-bottom: 1px solid $line_color;
         overflow: hidden;
+        &:not(:last-child) {
+          border-bottom: 1px solid $line_color;
+        }
         a {
           display: flex;
           justify-content: space-between;
@@ -544,6 +546,15 @@ main {
         font-size: $basic_font_size;
         line-height: 2rem;
       }
+    }
+  }
+
+  .form_container.ad_write {
+    form {
+      height: 5vh;
+    }
+    input {
+      height: 5vh;
     }
   }
 

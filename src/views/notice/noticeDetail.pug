@@ -7,7 +7,8 @@ block content
                 h1.head_title=data.title
                 if loggedIn && user.authority === "admin"|| loggedIn && user.authority === "administrator"
                     div.button_wrapper
-                        a(href=`/notice/${data.id}/edit`).edit_button 수정하기
+                        a(href=`/notice/${data.id}/edit`).edit_button
+                            span.material-icons-outlined edit
             .inform_wrapper
                 .views 
                     span 조회수 

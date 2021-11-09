@@ -40,14 +40,7 @@ export const postNoticeCreate = async (req, res) => {
       creator: _id
     });
 
-    console.log(data);
-
-    return res.sendStatus(303);
-    // const user = await User.findById(_id);
-    // user.notice.push(data.id);
-    // await user.save();
-
-    // return res.redirect(`/notice/${data.id}`);
+    return res.status(303).json({ data });
   } catch (e) {
     console.log(e);
     return res.status(404).render("root/404", {
@@ -94,6 +87,7 @@ export const getNoticeEdit = async (req, res) => {
 
   try {
     const data = await Notice.findById(id);
+
     if (!data) {
       return res.status(404).render("root/404", {
         pageTitle: "정보를 찾을 수 없습니다..",
@@ -101,8 +95,9 @@ export const getNoticeEdit = async (req, res) => {
           "요청한 정보는 없는 정보입니다. 오류가 계속 발생하면 관리자에게 문의하십시오."
       });
     }
+
     return res.render("notice/noticeEdit", {
-      pageTitle: `${data.titl} 수정`,
+      pageTitle: `${data.title} 수정`,
       data
     });
   } catch (e) {
@@ -118,7 +113,7 @@ export const getNoticeEdit = async (req, res) => {
 
 export const postNoticeEdit = async (req, res) => {
   const {
-    body: { title, paragraph },
+    body: { headTitle, editorBody },
     params: { id }
   } = req;
 
@@ -126,12 +121,12 @@ export const postNoticeEdit = async (req, res) => {
     const data = await Notice.findByIdAndUpdate(
       { _id: id },
       {
-        title,
-        paragraph
+        title: headTitle,
+        paragraph: editorBody
       }
     );
 
-    return res.redirect(`/notice/${data.id}`);
+    return res.status(303).json({ data });
   } catch (e) {
     console.log(e);
     return res.status(404).render("root/404", {

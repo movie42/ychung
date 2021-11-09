@@ -21,24 +21,22 @@ const app = express();
 //   optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
 // };
 
-// if (process.env.NODE_ENV === "production") {
-//   app.all(() => console.log("http"));
-// }
-// app.get("*", (req, res, next) => {
-//   console.log(req.protocol, req.headers);
-//   next();
-// });
-
+if (process.env.NODE_ENV === "production") {
+  app.get("*", (req, res, next) => {
+    let protocol = req.headers["X-Forwarded-Proto"] || req.protocol;
+    if (protocol === "http") {
+      let to = "https://" + req.headers.host + req.url;
+      res.redirect(to);
+    }
+    next();
+  });
+}
 app.use(helmet());
 app.use(
   helmet.contentSecurityPolicy({
     useDefaults: true,
     directives: {
       "script-src": ["'unsafe-eval'", process.env.URL],
-      // "img-src":
-      //   process.env.NODE_ENV === "production"
-      //     ? "https://yangchung.s3.ap-northeast-2.amazonaws.com"
-      //     : "",
       "frame-src": "https://www.youtube.com/"
     }
   })
