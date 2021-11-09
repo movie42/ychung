@@ -21,16 +21,17 @@ const app = express();
 //   optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
 // };
 
-if (process.env.NODE_ENV === "production") {
-  app.get("*", (req, res, next) => {
-    let protocol = req.headers["X-Forwarded-Proto"] || req.protocol;
-    if (protocol === "http") {
-      let to = "https://" + req.headers.host + req.url;
-      res.redirect(to);
-    }
-    next();
-  });
-}
+// if (process.env.NODE_ENV === "production") {
+//   app.get("*", (req, res, next) => {
+//     let protocol = req.headers["X-Forwarded-Proto"] || req.protocol;
+//     if (protocol === "http") {
+//       let to = "https://" + req.headers.host + req.url;
+//       res.redirect(to);
+//     }
+//     next();
+//   });
+// }
+
 app.use(helmet());
 app.use(
   helmet.contentSecurityPolicy({
