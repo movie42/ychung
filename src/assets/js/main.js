@@ -1,6 +1,5 @@
 import "../scss/styles.scss";
 import "../js/rules.js";
-import "../js/join.js";
 
 const formContainer = document.querySelector(".form_container form");
 const menuBtn = document.getElementById("menu_button");
@@ -19,8 +18,7 @@ if (getDayLocalStorageData !== String(day)) {
 const getModalBool = localStorage.getItem("modal");
 
 const handleOpenMenu = (e) => {
-  if (e.key === "Enter" || e.type === "click")
-    menuBar.classList.add("block");
+  if (e.key === "Enter" || e.type === "click") menuBar.classList.add("block");
 };
 
 const handleCloseMenu = (e) => {
@@ -32,23 +30,15 @@ function paintErrorHandler(checkList, form) {
   for (let i = 0; i < checkList.length; i++) {
     for (let j = 0; j < form.childNodes.length; j++) {
       if (form.childNodes[j].localName === "div") {
-        for (
-          let k = 0;
-          k < form.childNodes[j].childNodes.length;
-          k++
-        ) {
-          if (
-            checkList[i] === form.childNodes[j].childNodes[k].name
-          ) {
+        for (let k = 0; k < form.childNodes[j].childNodes.length; k++) {
+          if (checkList[i] === form.childNodes[j].childNodes[k].name) {
             if (
               !form.childNodes[j].childNodes[k].classList.contains(
-                "errorMessage"
+                "errorMessage",
               )
             ) {
               const errorMessage = document.createElement("p");
-              form.childNodes[j].childNodes[k].classList.add(
-                "errorMessage"
-              );
+              form.childNodes[j].childNodes[k].classList.add("errorMessage");
               errorMessage.className = "errorMessage";
               errorMessage.innerText = `${checkList[i]}를 입력해야해요!`;
               form.childNodes[j].after(errorMessage);
@@ -108,8 +98,7 @@ function modal() {
   modal_box.classList.add("modal");
   modal_box.classList.add("on");
   closeBtn.innerText = "close";
-  h1.innerText =
-    "10월 3일부터\n 청년부 예배시간이\n 2시로 변경됩니다.";
+  h1.innerText = "10월 3일부터\n 청년부 예배시간이\n 2시로 변경됩니다.";
   modal_box.append(closeBtn);
   modal_box.append(h1);
   body.append(modal_box);
@@ -131,9 +120,9 @@ async function handleFormSubmit(e) {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      Accept: "application/json"
+      Accept: "application/json",
     },
-    body: formDataJsonString
+    body: formDataJsonString,
   });
 
   const { sendValidationCheck } = await response.json();
@@ -163,9 +152,7 @@ menuBtn.addEventListener("click", handleOpenMenu);
 menuBtn.addEventListener("keydown", handleOpenMenu);
 closeBtn.addEventListener("click", handleCloseMenu);
 closeBtn.addEventListener("keydown", handleCloseMenu);
-searchBtn.forEach((value) =>
-  value.addEventListener("click", handleSearch)
-);
+searchBtn.forEach((value) => value.addEventListener("click", handleSearch));
 
 if (sendBtn) {
   sendBtn.addEventListener("click", handleFormSubmit);

@@ -195,16 +195,8 @@ a {
       rgba(255, 0, 0, 0.9),
       rgba(255, 0, 0, 0) 70.71%
     ),
-    linear-gradient(
-      127deg,
-      rgba(0, 255, 0, 0.9),
-      rgba(0, 255, 0, 0) 70.71%
-    ),
-    linear-gradient(
-      336deg,
-      rgba(0, 0, 255, 0.9),
-      rgba(0, 0, 255, 0) 70.71%
-    );
+    linear-gradient(127deg, rgba(0, 255, 0, 0.9), rgba(0, 255, 0, 0) 70.71%),
+    linear-gradient(336deg, rgba(0, 0, 255, 0.9), rgba(0, 0, 255, 0) 70.71%);
   @include animation(bgAnimation, 2s, 0, infinite, alternate);
   transition: top 0.8s ease;
   .menu {
@@ -290,16 +282,8 @@ a {
       rgba(255, 0, 0, 0.95),
       rgba(255, 0, 0, 0) 70.71%
     ),
-    linear-gradient(
-      127deg,
-      rgba(0, 255, 0, 0.95),
-      rgba(0, 255, 0, 0) 70.71%
-    ),
-    linear-gradient(
-      336deg,
-      rgba(0, 0, 255, 0.95),
-      rgba(0, 0, 255, 0) 70.71%
-    );
+    linear-gradient(127deg, rgba(0, 255, 0, 0.95), rgba(0, 255, 0, 0) 70.71%),
+    linear-gradient(336deg, rgba(0, 0, 255, 0.95), rgba(0, 0, 255, 0) 70.71%);
   background-size: 400% 400%;
   top: 0;
   transition: top 0.8s ease;
@@ -568,10 +552,22 @@ main {
         border-bottom: 1px solid $line_color;
         font-size: $basic_font_size;
         margin-bottom: 10px;
+        &.errorMessage {
+          border-bottom: 2px solid $warn_color;
+        }
+        &.successMessage {
+          border-bottom: 2px solid $sucess_color;
+        }
       }
-      .errorMessage {
-        margin-bottom: 5px;
-        color: $warn_color;
+      p {
+        &.errorMessage {
+          margin-bottom: 5px;
+          color: $warn_color;
+        }
+        &.successMessage {
+          margin-bottom: 5px;
+          color: $sucess_color;
+        }
       }
 
       button {
@@ -592,12 +588,6 @@ main {
       label {
         margin-bottom: 5px;
       }
-    }
-    .errorWarning {
-      border-bottom: 2px solid $warn_color;
-    }
-    .sucessMessage {
-      border-bottom: 2px solid $sucess_color;
     }
   }
 
@@ -903,16 +893,8 @@ footer {
       rgba(255, 0, 0, 0.95),
       rgba(255, 0, 0, 0) 70.71%
     ),
-    linear-gradient(
-      127deg,
-      rgba(0, 255, 0, 0.95),
-      rgba(0, 255, 0, 0) 70.71%
-    ),
-    linear-gradient(
-      336deg,
-      rgba(0, 0, 255, 0.95),
-      rgba(0, 0, 255, 0) 70.71%
-    );
+    linear-gradient(127deg, rgba(0, 255, 0, 0.95), rgba(0, 255, 0, 0) 70.71%),
+    linear-gradient(336deg, rgba(0, 0, 255, 0.95), rgba(0, 0, 255, 0) 70.71%);
   background-size: 400% 400%;
   @include animation(bgAnimation, 2s, 0, infinite, alternate);
   h1 {
