@@ -6,8 +6,7 @@ block content
     .form_container
         if errorMessage
             h1=errorMessage
-        form(enctype="multipart/form-data")
-            input(type="file", name="profilePhotoUrl", accept="image/*")
+        form
             input(type="text", name="email" ,required, placeholder="이메일을 입력하세요.")
             input(type="text", name="userName" ,required, placeholder="닉네임을 입력해주세요.", maxlength=10)
             input(type="text", name="name" ,required, placeholder="실명을 입력해주세요.", maxlength=5)

@@ -1,9 +1,9 @@
 import mongoose from "mongoose";
 
 mongoose.connect(process.env.MONGO_URL, {
+  useUnifiedTopology: true,
   useNewUrlParser: true,
   useCreateIndex: true,
-  useUnifiedTopology: true,
   useFindAndModify: false
 });
 

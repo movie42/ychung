@@ -24,11 +24,7 @@ rootRouter
   .post(postLogin);
 
 // join
-rootRouter
-  .route("/join")
-  .all(onlyPublic)
-  .get(getJoin)
-  .post(photoUpload, postJoin);
+rootRouter.route("/join").all(onlyPublic).get(getJoin).post(postJoin);
 
 // logout
 rootRouter.route("/logout").all(onlyPrivate).get(logout);

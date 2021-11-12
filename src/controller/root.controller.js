@@ -62,8 +62,9 @@ export const getJoin = (req, res) => {
 
 export const postJoin = async (req, res) => {
   const {
-    body: { email, name, userName, password, password2 },
-    file
+    body: {
+      body: { email, name, userName, password, password2 }
+    }
   } = req;
 
   try {
@@ -82,17 +83,12 @@ export const postJoin = async (req, res) => {
         type: "isNotpasswordError"
       });
     }
-    const isHeroku = process.env.NODE_ENV === "production";
+
     await User.create({
       email,
-      name,
       userName,
-      password,
-      profilePhotoUrl: file
-        ? isHeroku
-          ? file.transforms[0].location
-          : file.path
-        : null
+      name,
+      password
     });
 
     return res.status(201).json({

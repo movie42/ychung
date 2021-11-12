@@ -3,6 +3,24 @@ import Notice from "../model/Notice.model";
 import User from "../model/User.model";
 import Comment from "../model/Comments.model";
 
+export const getDB = async (req, res) => {
+  const {
+    params: { name, value }
+  } = req;
+  let exist;
+  try {
+    if (name === "email") {
+      exist = await User.exists({ email: value });
+    } else if (name === "userName") {
+      exist = await User.exists({ userName: value });
+    }
+
+    return res.status(200).json({ exist });
+  } catch (e) {
+    console.log(e);
+  }
+};
+
 export const getParagraph = async (req, res) => {
   const {
     params: { id }

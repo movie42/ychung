@@ -39,7 +39,8 @@ function painTextMessage(str, text) {
 }
 
 function deleteTextMessage(str) {
-  const sucessMessageList = document.querySelectorAll(".sucessMessage");
+  const sucessMessageList =
+    document.querySelectorAll(".sucessMessage");
   sucessMessageList.forEach((item) => {
     if (item.name === str) {
       item.nextElementSibling.remove();
@@ -54,7 +55,10 @@ function successMessage(message) {
   inputs.forEach((value) => {
     const sucessMessage = value.classList;
 
-    if (sucessMessage[0] === "sucessMessage" || sucessMessage.length < 1) {
+    if (
+      sucessMessage[0] === "sucessMessage" ||
+      sucessMessage.length < 1
+    ) {
       value.classList.add("sucessMessage");
       value.classList.remove("errorWarning");
     } else if (value.name === message) {
@@ -69,11 +73,12 @@ function failMessage(node) {
   console.log(node);
   const message = {
     email: "이메일을 입력하세요.",
-    userName: "사용자 이름은 영문과 숫자 조합으로만 작성할 수 있습니다.",
+    userName:
+      "사용자 이름은 영문과 숫자 조합으로만 작성할 수 있습니다.",
     name: "이름은 한글로만 작성할 수 있으며 2-6 글자만 입력할 수 있습니다.",
     password:
       "비밀번호는 특수문자, 영문, 숫자, 8글자 이상으로 작성되어야합니다.",
-    password2: "비밀번호가 앞에 입력한 비밀번호와 다릅니다.",
+    password2: "비밀번호가 앞에 입력한 비밀번호와 다릅니다."
   };
   inputs.forEach((value) => {
     const errorWarning = value.classList;
@@ -112,12 +117,14 @@ function isTrue(name, value) {
     name: /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]{2,6}$/,
     userName: /^[a-zA-Z0-9]{5,10}$/,
     password:
-      /^(?=._[A-Za-z])(?=._\d)(?=._[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$/,
+      /^(?=._[A-Za-z])(?=._\d)(?=._[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$/
   };
 
   if (name === "pw" && value["password"] !== "") {
     const isPassword = obj["password"].exec(value["password"]);
-    return isPassword ? value["password"] === value["password2"] : false;
+    return isPassword
+      ? value["password"] === value["password2"]
+      : false;
   }
 
   return obj[name].exec(value) ? true : false;

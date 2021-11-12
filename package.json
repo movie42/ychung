@@ -9,7 +9,8 @@
     "dev:assets": "webpack --mode=development -w",
     "build": "npm run build:server && npm run build:assets",
     "build:server": "babel src -d build",
-    "build:assets": "webpack --mode=production"
+    "build:assets": "webpack --mode=production",
+    "db": "brew services run mongodb-community"
   },
   "repository": {
     "type": "git",
