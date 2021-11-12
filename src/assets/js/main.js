@@ -1,5 +1,6 @@
 import "../scss/styles.scss";
 import "../js/rules.js";
+import "../js/join.js";
 
 const formContainer = document.querySelector(".form_container form");
 const menuBtn = document.getElementById("menu_button");

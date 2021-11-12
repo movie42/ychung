@@ -2,15 +2,6 @@ const form = document.querySelector(".form_container form");
 const inputs = form.querySelectorAll("input");
 const button = form.querySelector("button");
 
-async function submitJoinForm(e) {
-  e.preventDefault();
-  const data = (makeDict = ionary());
-  const checker = checkJoinData(data);
-  if (checker) {
-    postDataToServer(data);
-  }
-}
-
 async function postDataToServer() {
   const file = new FormData(form);
 
@@ -30,97 +21,6 @@ async function postDataToServer() {
     errorMessage("password", "비밀번호가 일치하지 않습니다.");
     errorMessage("password2", "비밀번호가 일치하지 않습니다.");
   }
-}
-
-function makeDictionary() {
-  const inputDict = {};
-  inputs.forEach((value) => {
-    if (!inputDict[value.name]) {
-      inputDict[value.name] = value.value.trim();
-    }
-  });
-  return inputDict;
-}
-
-function checkJoinData(obj) {
-  let result = [];
-
-  for (let item in obj) {
-    switch (item) {
-      case obj[item] === "":
-        errorMessage(item);
-        break;
-      case "email":
-        if (!isEmail(obj["email"])) {
-          errorMessage("email", "이메일을 입력하세요.");
-          result.push(0);
-          break;
-        } else {
-          successMessage("email");
-          result.push(1);
-          break;
-        }
-      case "userName":
-        if (!isUserName(obj["userName"])) {
-          errorMessage(
-            "userName",
-            "닉네임은 영문과 숫자 조합으로만 작성할 수 있습니다."
-          );
-          result.push(0);
-          break;
-        } else {
-          successMessage("userName");
-          result.push(1);
-          break;
-        }
-      case "name":
-        if (!isName(obj["name"])) {
-          errorMessage(
-            "name",
-            "이름은 한글로만 작성할 수 있으며 2-6 글자만 입력할 수 있습니다."
-          );
-          result.push(0);
-          break;
-        } else {
-          successMessage("name");
-          result.push(1);
-          break;
-        }
-      case "password":
-        if (isPassword(obj["password"])) {
-          successMessage("password");
-          result.push(1);
-          break;
-        } else {
-          errorMessage(
-            "password",
-            "비밀번호는 특수문자, 영문, 숫자, 8글자 이상으로 작성되어야합니다."
-          );
-          result.push(0);
-          break;
-        }
-      case "password2":
-        if (
-          obj["password"] !== obj["password2"] ||
-          obj["password"] === "" ||
-          obj["password2"] === ""
-        ) {
-          errorMessage(
-            "password2",
-            "비밀번호가 앞에 입력한 비밀번호와 다릅니다."
-          );
-        } else {
-          successMessage("password");
-          successMessage("password2");
-        }
-    }
-  }
-  for (let i = 0; i < result.length; i++) {
-    if (result[i] === 0) {
-      return false;
-    }
-  }
-  return true;
 }
 
 function painTextMessage(str, text) {
@@ -145,21 +45,23 @@ function deleteTextMessage(str) {
   });
 }
 
-function errorMessage(str, text) {
+// 실패 메시지
+function failMessage(message) {
   inputs.forEach((value) => {
     const errorWarning = value.classList;
     if (errorWarning[0] === "errorWarning") {
       return;
     }
-    if (value.name === str) {
+    if (value.name === message) {
       value.classList.add("errorWarning");
       value.classList.remove("sucessMessage");
-      painTextMessage(str, text);
+      painTextMessage(message, text);
     }
   });
 }
 
-function successMessage(str) {
+// 성공 메시지
+function successMessage(message) {
   inputs.forEach((value) => {
     const sucessMessage = value.classList;
 
@@ -169,39 +71,90 @@ function successMessage(str) {
     ) {
       value.classList.add("sucessMessage");
       value.classList.remove("errorWarning");
-    } else if (value.name === str) {
+    } else if (value.name === message) {
       value.classList.add("sucessMessage");
       value.classList.remove("errorWarning");
-      deleteTextMessage(str);
+      deleteTextMessage(message);
     }
   });
 }
 
-function isEmail(email) {
-  return /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.exec(
-    email
-  );
+function paintMessage(str = "잘했어요!") {
+  const message = {
+    email: "이메일을 입력하세요.",
+    userName:
+      "사용자 이름은 영문과 숫자 조합으로만 작성할 수 있습니다.",
+    name: "이름은 한글로만 작성할 수 있으며 2-6 글자만 입력할 수 있습니다.",
+    password:
+      "비밀번호는 특수문자, 영문, 숫자, 8글자 이상으로 작성되어야합니다.",
+    password2: "비밀번호가 앞에 입력한 비밀번호와 다릅니다."
+  };
 }
 
-function isName(name) {
-  return /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]{2,6}$/.exec(name);
+function message(bool, message) {
+  console.log(inputs);
+  console.log(bool, message);
+
+  const findInputValue = function (message) {
+    for (let i = 0, n = inputs.length; i < n; i++) {
+      return inputs.value === message;
+    }
+  };
+
+  return bool ? successMessage(message) : failMessage(message);
 }
 
-function isUserName(userName) {
-  const checkerUserName = /^[a-zA-Z0-9]{5,10}$/.exec(userName);
-  if (checkerUserName) {
-    return checkerUserName;
+function isTrue(name, value) {
+  const obj = {
+    email:
+      /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+    name: /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]{2,6}$/,
+    userName: /^[a-zA-Z0-9]{5,10}$/,
+    password:
+      /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$/
+  };
+  return obj[name].exec(value);
+}
+
+// 입력한 데이터가 가입 조건에 맞는지 체킹하기
+// 클릭했을 때가 아니라 입력하고 포커스가 이동하면 체크하도록 바꾸기
+function checkJoinData(data) {
+  for (let name in data) {
+    const check = isTrue(name, data[name]);
+
+    // message(check, item);
   }
 }
 
-function isPassword(password) {
-  const checkPassword =
-    /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$/.exec(
-      password
-    );
-  if (checkPassword) {
-    return checkPassword;
+// 회원가입 양식 객체로 만들기
+function makeDictionary() {
+  const inputDict = { pw: {} };
+
+  for (let i = 0, n = inputs.length; i < n; i++) {
+    let data = inputs[i];
+
+    if (data.name !== "profilePhotoUrl") {
+      if (data.name === "password" || data.name === "password2") {
+        inputDict["pw"][data.name] = data.value.trim();
+      } else {
+        inputDict[data.name] = data.value.trim();
+      }
+    }
   }
+
+  return inputDict;
+}
+
+// 서버로 회원가입 양식 보내기
+async function submitJoinForm(e) {
+  e.preventDefault();
+  const data = makeDictionary();
+  console.log(data);
+  const checker = checkJoinData(data);
+
+  // if (checker) {
+  //   postDataToServer(data);
+  // }
 }
 
 if (form) {
