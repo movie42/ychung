@@ -18,10 +18,10 @@ if (editorContainer) {
       ["hr", "quote"],
       ["ul", "ol", "task", "indent", "outdent"],
       ["table", "link"],
-      ["code", "codeblock"],
+      ["code", "codeblock"]
     ],
     language: "ko",
-    placeholder: "내용을 입력하세요.",
+    placeholder: "내용을 입력하세요."
   });
 
   async function handleEditor(e) {
@@ -35,14 +35,14 @@ if (editorContainer) {
     const data = await fetch(`/${locationName}/upload`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ headTitle, isWeekly, editorBody }),
+      body: JSON.stringify({ headTitle, isWeekly, editorBody })
     });
 
     const response = await data.json();
 
     if (data.status === 201) {
       const {
-        data: { _id },
+        data: { _id }
       } = response;
       console.log(_id);
       window.location.pathname = `/${locationName}/${_id}`;
@@ -57,23 +57,21 @@ if (updateContainer) {
     const paramsLocation = window.location.pathname.split("/");
     const locationName = paramsLocation[1];
     const locationId = paramsLocation[2];
-    const data = await fetch(`/api/${locationId}/${locationName}-data`, {
-      headers: { "Content-Type": "application/json" },
-      method: "GET",
-    });
+    const data = await fetch(
+      `/api/${locationId}/${locationName}-data`,
+      {
+        headers: { "Content-Type": "application/json" },
+        method: "GET"
+      }
+    );
     const response = await data.json();
 
-    function getCheckBox(bool) {
-      checkbox.checked = bool;
-    }
+    const { data: dbData } = response;
+    return dbData;
+  }
 
-    checkbox ? getCheckBox(response.notice.isWeekly) : null;
-
-    const {
-      data: { paragraph },
-    } = response;
-
-    return paragraph;
+  function getCheckBox(bool) {
+    checkbox.checked = bool;
   }
 
   const update = new Editor({
@@ -84,16 +82,17 @@ if (updateContainer) {
     toolbarItems: [
       ["heading", "bold", "italic", "strike"],
       ["hr", "quote"],
-      ["ul", "ol", "task", "indent", "outdent"],
+      ["ul", "ol", "task"],
       ["table", "link"],
-      ["code", "codeblock"],
+      ["code", "codeblock"]
     ],
     language: "ko",
-    placeholder: "내용을 입력하세요.",
+    placeholder: "내용을 입력하세요."
   });
 
   getData().then((result) => {
-    update.setMarkdown(result);
+    checkbox ? getCheckBox(result.isWeekly) : null;
+    update.setMarkdown(result.paragraph);
   });
 
   async function handleEditor(e) {
@@ -107,14 +106,14 @@ if (updateContainer) {
     const data = await fetch(`/${locationName}/${locationId}/edit`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ headTitle, isWeekly, editorBody }),
+      body: JSON.stringify({ headTitle, isWeekly, editorBody })
     });
 
     const response = await data.json();
 
     if (data.status === 200) {
       const {
-        data: { _id },
+        data: { _id }
       } = response;
 
       window.location.pathname = `/${locationName}/${_id}`;
