@@ -38,6 +38,7 @@ app.use(
     useDefaults: true,
     directives: {
       "script-src": ["'unsafe-eval'", process.env.URL],
+      "img-src": ["data:", "*"],
       "frame-src": "https://www.youtube.com/"
     }
   })

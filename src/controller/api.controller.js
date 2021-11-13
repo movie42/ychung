@@ -6,7 +6,7 @@ import Comment from "../model/Comments.model";
 
 export const getDB = async (req, res) => {
   const {
-    params: { name, value },
+    params: { name, value }
   } = req;
   let exist;
   try {
@@ -24,7 +24,7 @@ export const getDB = async (req, res) => {
 
 export const getParagraph = async (req, res) => {
   const {
-    params: { id },
+    params: { id }
   } = req;
   try {
     const data = await Notice.findById(id);
@@ -35,9 +35,23 @@ export const getParagraph = async (req, res) => {
   }
 };
 
+export const postEditorImage = async (req, res) => {
+  const { files } = req;
+
+  try {
+    const data =
+      process.env.NODE_ENV === "production"
+        ? files[0].transforms[0].location
+        : `/${files[0].path}`;
+    return res.status(201).json({ data });
+  } catch (e) {
+    console.log(e);
+  }
+};
+
 export const getRulesParagraph = async (req, res) => {
   const {
-    params: { id },
+    params: { id }
   } = req;
 
   try {
@@ -53,7 +67,7 @@ export const registerComments = async (req, res) => {
   const {
     body: { text, pathName },
     session: { user },
-    params: { id },
+    params: { id }
   } = req;
 
   if (user === undefined) {
@@ -61,7 +75,7 @@ export const registerComments = async (req, res) => {
   }
   const modelName = {
     qt: QT,
-    notice: Notice,
+    notice: Notice
   };
 
   try {
@@ -71,7 +85,7 @@ export const registerComments = async (req, res) => {
     }
     const comment = await Comment.create({
       text,
-      creator: user._id,
+      creator: user._id
     });
     comment[pathName] = modelData.id;
     comment.save();
@@ -90,10 +104,9 @@ export const registerComments = async (req, res) => {
 
 export const deleteComment = async (req, res) => {
   const {
-    params: { id },
+    params: { id }
   } = req;
-  console.log(id);
-  console.log("hi");
+
   await Comment.findByIdAndDelete(id);
   return res.sendStatus(200);
 };
