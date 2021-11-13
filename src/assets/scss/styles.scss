@@ -374,7 +374,8 @@ main {
   padding: 66px 10px 133.56px;
   margin: -66px auto -133.56px;
   .button_wrapper {
-    .send_btn {
+    .send_btn,
+    .send_editor_btn {
       outline: none;
       background: unset;
       border: 0;
@@ -427,10 +428,17 @@ main {
       margin-bottom: 10px;
     }
   }
-
-  .head_title {
-    font-size: $title_font_size;
-    @include animation(fontAnimation, 0.5s, 0, unset, normal);
+  h1 {
+    &.head_title {
+      font-size: $title_font_size;
+      @include animation(fontAnimation, 0.5s, 0, unset, normal);
+    }
+  }
+  h2 {
+    &.head_title {
+      font-size: $title_font_size_h2;
+      margin-bottom: 1rem;
+    }
   }
 
   .list_wrapper {
@@ -478,6 +486,24 @@ main {
       div {
         font-size: $basic_font_size;
         margin-bottom: 13px;
+      }
+      .notice_wraaper {
+        p {
+          font-size: $info_font_size;
+        }
+      }
+      .notice {
+        ul {
+          li {
+            margin-bottom: 1rem;
+            a {
+              &:hover {
+                font-weight: bold;
+                color: $basic_color;
+              }
+            }
+          }
+        }
       }
       .bible {
         a {

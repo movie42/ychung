@@ -28,7 +28,7 @@ noticeRouter.route("/:id([0-9a-f]{24})").all(preUrl, view).get(getNoticeDetail);
 // update
 noticeRouter
   .route("/:id([0-9a-f]{24})/edit")
-  .all(onlyAdministrator)
+  .all(onlyAdministrator, onlyMaster)
   .get(getNoticeEdit)
   .post(postNoticeEdit);
 

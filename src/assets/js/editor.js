@@ -3,8 +3,9 @@ import Editor from "@toast-ui/editor";
 const editorContainer = document.getElementById("editor");
 const updateContainer = document.getElementById("editor_update");
 
-const btn = document.querySelector("button");
+const btn = document.querySelector(".send_editor_btn");
 const title = document.querySelector(".title");
+const checkbox = document.querySelector("#isWeekly");
 
 if (editorContainer) {
   const editor = new Editor({
@@ -17,27 +18,28 @@ if (editorContainer) {
       ["hr", "quote"],
       ["ul", "ol", "task", "indent", "outdent"],
       ["table", "link"],
-      ["code", "codeblock"]
+      ["code", "codeblock"],
     ],
     language: "ko",
-    placeholder: "내용을 입력하세요."
+    placeholder: "내용을 입력하세요.",
   });
 
   async function handleEditor(e) {
     const editorBody = editor.getMarkdown();
     const headTitle = title.value;
+    const isWeekly = checkbox.checked;
 
     const data = await fetch("/notice/upload", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ headTitle, editorBody })
+      body: JSON.stringify({ headTitle, isWeekly, editorBody }),
     });
 
     const response = await data.json();
 
     if (data.status === 303) {
       const {
-        data: { _id }
+        data: { _id },
       } = response;
       console.log(_id);
       window.location.pathname = `/notice/${_id}`;
@@ -53,11 +55,18 @@ if (updateContainer) {
   async function getData() {
     const data = await fetch(`/api/${id}/notice-data`, {
       headers: { "Content-Type": "application/json" },
-      method: "GET"
+      method: "GET",
     });
     const response = await data.json();
+
+    function getCheckBox(bool) {
+      checkbox.checked = bool;
+    }
+
+    getCheckBox(response.notice.isWeekly);
+
     const {
-      notice: { paragraph }
+      notice: { paragraph },
     } = response;
 
     return paragraph;
@@ -73,29 +82,32 @@ if (updateContainer) {
       ["hr", "quote"],
       ["ul", "ol", "task", "indent", "outdent"],
       ["table", "link"],
-      ["code", "codeblock"]
+      ["code", "codeblock"],
     ],
     language: "ko",
-    placeholder: "내용을 입력하세요."
+    placeholder: "내용을 입력하세요.",
   });
 
-  getData().then((result) => update.setMarkdown(result));
+  getData().then((result) => {
+    update.setMarkdown(result);
+  });
 
   async function handleEditor(e) {
     const editorBody = update.getMarkdown();
     const headTitle = title.value;
+    const isWeekly = checkbox.checked;
 
     const data = await fetch(`/notice/${id}/edit`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ headTitle, editorBody })
+      body: JSON.stringify({ headTitle, isWeekly, editorBody }),
     });
 
     const response = await data.json();
 
     if (data.status === 303) {
       const {
-        data: { _id }
+        data: { _id },
       } = response;
 
       window.location.pathname = `/notice/${_id}`;
