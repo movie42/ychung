@@ -25,11 +25,14 @@ if (editorContainer) {
   });
 
   async function handleEditor(e) {
+    const paramsLocation = window.location.pathname.split("/");
+    const locationName = paramsLocation[1];
+    const locationId = paramsLocation[2];
     const editorBody = editor.getMarkdown();
     const headTitle = title.value;
-    const isWeekly = checkbox.checked;
+    const isWeekly = checkbox ? checkbox.checked : null;
 
-    const data = await fetch("/notice/upload", {
+    const data = await fetch(`/${locationName}/upload`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ headTitle, isWeekly, editorBody }),
@@ -37,12 +40,12 @@ if (editorContainer) {
 
     const response = await data.json();
 
-    if (data.status === 303) {
+    if (data.status === 201) {
       const {
         data: { _id },
       } = response;
       console.log(_id);
-      window.location.pathname = `/notice/${_id}`;
+      window.location.pathname = `/${locationName}/${_id}`;
     }
   }
 
@@ -50,10 +53,11 @@ if (editorContainer) {
 }
 
 if (updateContainer) {
-  const id = window.location.pathname.split("/")[2];
-
   async function getData() {
-    const data = await fetch(`/api/${id}/notice-data`, {
+    const paramsLocation = window.location.pathname.split("/");
+    const locationName = paramsLocation[1];
+    const locationId = paramsLocation[2];
+    const data = await fetch(`/api/${locationId}/${locationName}-data`, {
       headers: { "Content-Type": "application/json" },
       method: "GET",
     });
@@ -63,10 +67,10 @@ if (updateContainer) {
       checkbox.checked = bool;
     }
 
-    getCheckBox(response.notice.isWeekly);
+    checkbox ? getCheckBox(response.notice.isWeekly) : null;
 
     const {
-      notice: { paragraph },
+      data: { paragraph },
     } = response;
 
     return paragraph;
@@ -93,11 +97,14 @@ if (updateContainer) {
   });
 
   async function handleEditor(e) {
+    const paramsLocation = window.location.pathname.split("/");
+    const locationName = paramsLocation[1];
+    const locationId = paramsLocation[2];
     const editorBody = update.getMarkdown();
     const headTitle = title.value;
-    const isWeekly = checkbox.checked;
+    const isWeekly = checkbox ? checkbox.checked : null;
 
-    const data = await fetch(`/notice/${id}/edit`, {
+    const data = await fetch(`/${locationName}/${locationId}/edit`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ headTitle, isWeekly, editorBody }),
@@ -105,12 +112,12 @@ if (updateContainer) {
 
     const response = await data.json();
 
-    if (data.status === 303) {
+    if (data.status === 200) {
       const {
         data: { _id },
       } = response;
 
-      window.location.pathname = `/notice/${_id}`;
+      window.location.pathname = `/${locationName}/${_id}`;
     }
   }
 

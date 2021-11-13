@@ -3,16 +3,13 @@ const path = require("path");
 module.exports = {
   entry: {
     main: "./src/assets/js/main.js",
-    comments: "./src/assets/js/comments.js",
-    vote: "./src/assets/js/vote.js",
-    reservation: "./src/assets/js/reservation.js",
-    editor: "./src/assets/js/editor.js",
-    viewer: "./src/assets/js/viewer.js",
-    selectVerse: "./src/assets/js/selectVerse.js",
-    rules: "./src/assets/js/rules.js",
-    selectVerse: "./src/assets/js/selectVerse.js",
-    rules: "./src/assets/js/rules.js",
     join: "./src/assets/js/join.js",
+    selectVerse: "./src/assets/js/selectVerse.js",
+    reservation: "./src/assets/js/reservation.js",
+    vote: "./src/assets/js/vote.js",
+    editor: "./src/assets/js/editor.js",
+    comments: "./src/assets/js/comments.js",
+    viewer: "./src/assets/js/viewer.js",
   },
   plugins: [
     new MiniCssExtractPlugin({

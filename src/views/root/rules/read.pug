@@ -1,4 +1,4 @@
-extends ../layout/layout.pug
+extends ../../layout/layout.pug
 
 block content 
     .contents_wrapper
@@ -7,7 +7,7 @@ block content
                 h1.head_title=data.title
                 if loggedIn && user.authority === "master"|| loggedIn && user.authority === "administrator"
                     div.button_wrapper
-                        a(href=`/notice/${data.id}/edit`).edit_button
+                        a(href=`/rules/${data.id}/edit`).edit_button
                             span.material-icons-outlined edit
             .inform_wrapper
                 .views 
