@@ -53,10 +53,10 @@ export const preUrl = (req, res, next) => {
   next();
 };
 
-export const onlyAdmin = (req, res, next) => {
+export const onlyMaster = (req, res, next) => {
   if (req.session.loggedIn) {
     const user = req.session.user;
-    if (user.authority === "admin") {
+    if (user.authority === "master") {
       next();
     } else {
       return res.redirect("/");
@@ -69,7 +69,7 @@ export const onlyAdmin = (req, res, next) => {
 export const onlyAdministrator = (req, res, next) => {
   if (req.session.loggedIn) {
     const user = req.session.user;
-    if (user.authority === "admin") {
+    if (user.authority === "master") {
       next();
     } else if (user.authority === "administrator") {
       next();

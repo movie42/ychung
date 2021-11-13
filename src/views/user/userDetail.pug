@@ -25,46 +25,47 @@ block content
             div
                 .title_wrapper
                     h1.head_title 내가 쓴 글
-                if data.qt.length > 1
-                    section.user_log_item_wrapper
-                        .item_inform_wrapper
-                            h2.head_title 묵상 에세이   
-                        .item_list_wrapper
-                            ul 
-                                each item in data.qt
-                                    li
-                                        a(href=`/qt/${item.id}`)
-                                            div
-                                                h3=item.title 
-                                                p=item.paragraph
-                    if authority === "admin" || authority === "multimedia"
+                    
+                    if data.qt.length > 0
+                        section.user_log_item_wrapper
+                            .item_inform_wrapper
+                                h2.head_title 묵상 에세이   
+                            .item_list_wrapper
+                                ul 
+                                    each item in data.qt
+                                        li
+                                            a(href=`/qt/${item.id}`)
+                                                div
+                                                    h3=item.title 
+                                                    p=item.paragraph
+                    if data.weekly.length > 0 && data.authority === "master" || data.weekly.length >0 && data.authority === "multimedia"
                         section.user_log_item_wrapper
                             .item_inform_wrapper
                                 h2.head_title 주보   
-                                button 펼침 
+                                // button 펼침 
                             .item_list_wrapper
                                 ul 
                                     each item in data.weekly
                                         li
-                                            a(href=`/qt/${item.id}`)
+                                            a(href=`/weekly/${item.id}`)
                                                 div
                                                     h3=item.title 
                                                     p=item.paragraph
-                    if authority === "admin" || authority === "administrator"
+                    if data.notice.length > 0 && data.authority === "master" || data.notice.length > 0 && data.authority === "administrator"
                         section.user_log_item_wrapper
                             .item_inform_wrapper
                                 h2.head_title 광고  
-                                button 펼침 
+                                // button 펼침 
                             .item_list_wrapper
                                 ul 
                                     each item in data.notice
                                         li
-                                            a(href=`/qt/${item.id}`)
+                                            a(href=`/notice/${item.id}`)
                                                 div
                                                     h3=item.title 
                                                     p=item.paragraph
-                else
-                    section.user_log_item_wrapper
-                        .item_inform_wrapper
-                            .paragraph_wrapper
-                                p #{user.name}님은 아무것도 쓰지 않으셨어요 : ) 
+                    if data.qt.length < 1 && data.notice.length < 1 && data.weekly.length < 1
+                        section.user_log_item_wrapper
+                            .item_inform_wrapper
+                                .paragraph_wrapper
+                                    p #{user.name}님은 아무것도 쓰지 않으셨어요 : ) 

@@ -8,7 +8,7 @@ import {
   postNoticeEdit,
   noticeDelete,
 } from "../controller/notice.controller";
-import { onlyAdministrator, onlyAdmin, view, preUrl } from "../middleWare";
+import { onlyAdministrator, onlyMaster, view, preUrl } from "../middleWare";
 
 const noticeRouter = express.Router();
 

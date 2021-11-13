@@ -1,5 +1,5 @@
 import express from "express";
-import { onlyAdmin, preUrl, view } from "../middleWare";
+import { onlyMaster, preUrl, view } from "../middleWare";
 import {
   list,
   getWeeklyUpload,
@@ -18,7 +18,7 @@ weeklyRouter.route("/").get(list);
 // create
 weeklyRouter
   .route("/upload")
-  .all(preUrl, onlyAdmin)
+  .all(preUrl, onlyMaster)
   .get(getWeeklyUpload)
   .post(postWeeklyUpload);
 
@@ -28,14 +28,14 @@ weeklyRouter.route("/:id([0-9a-f]{24})").all(preUrl, view).get(getWeeklyDetail);
 // update
 weeklyRouter
   .route("/:id([0-9a-f]{24})/edit")
-  .all(onlyAdmin)
+  .all(onlyMaster)
   .get(getWeeklyEdit)
   .post(postWeeklyEdit);
 
 // delete
 weeklyRouter
   .route("/:id([0-9a-f]{24})/delete")
-  .all(onlyAdmin)
+  .all(onlyMaster)
   .get(weeklyDelete);
 
 export default weeklyRouter;

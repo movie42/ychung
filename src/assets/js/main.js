@@ -98,7 +98,7 @@ function modal() {
   modal_box.classList.add("modal");
   modal_box.classList.add("on");
   closeBtn.innerText = "close";
-  h1.innerText = "10월 3일부터\n 청년부 예배시간이\n 2시로 변경됩니다.";
+  h1.innerText = "12월 5일\n 정기총회가 있습니다.";
   modal_box.append(closeBtn);
   modal_box.append(h1);
   body.append(modal_box);
