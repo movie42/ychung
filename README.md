@@ -2,6 +2,7 @@
 
 - [양청 홈페이지](#양청-홈페이지)
   - [업데이트 2021.11.13](#업데이트-20211113)
+    - [앞으로 해야할일](#앞으로-해야할일)
   - [업데이트 2021. 11. 8](#업데이트-2021-11-8)
   - [1.1. 페이지](#11-페이지)
   - [1.2. 개발 일기](#12-개발-일기)
@@ -26,6 +27,30 @@
 
 - 회원가입 validation 최적화 작업
 - 광고 쓰기 업데이트 (주보에서 보이게 하기 등)
+- 사소한 버그 수정
+
+### 앞으로 해야할일
+
+- [ ] 게시판 사진 넣기
+      [참고](https://kasumil.tistory.com/177)
+      [issue](https://github.com/nhn/tui.editor/issues/57)
+- [ ] 광고 (날짜 별로) 선택해서 넣기
+- [ ] 일정 컴퓨터, 모바일에 저장하기
+- [ ] 회원 정보 스타일링
+- [ ] 회원 가입 약관, 정보 수집 회원 가입에 대한 부분 넣기
+- [ ] 도큐멘트 디자인 및 코딩 하기
+  - [ ] 회칙
+  - [ ] 메뉴얼(부서별)
+- [ ] 일대일 양육 넣기
+  - [ ] 일정 관리
+  - [ ] 양육 신청하기
+  - [ ] 말씀 암기
+- [ ] 대표기도, 안내위원 스케쥴링 하기
+  - [ ] 대표 기도 신청하기 또는 넣기
+- [ ] 회계
+  - [ ] 회계 장부 쓰기
+  - [ ] 회계 영수증 처리
+- [ ] MVC 모델 변경하기 (fetch 하면 프론트로 데이터를 뿌려주는 식으로 ???, 보안상 문제 없나?)
 
 ## 업데이트 2021. 11. 8
 
@@ -242,7 +267,7 @@ if (form) {
 async function handleSessionStorage(e) {
   e.preventDefault();
   const request = await fetch("/join", {
-    method: "POST",
+    method: "POST"
   });
 
   if (request.status === 400) {
@@ -409,7 +434,7 @@ function successMessage(str) {
 
 function isEmail(email) {
   return /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.exec(
-    email,
+    email
   );
 }
 
@@ -427,7 +452,7 @@ function isUserName(userName) {
 function isPassword(password) {
   const checkPassword =
     /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$/.exec(
-      password,
+      password
     );
   if (checkPassword) {
     return checkPassword;
@@ -454,9 +479,9 @@ async function postDataToServer(data) {
   const response = await fetch("/join", {
     method: "POST",
     headers: {
-      "Content-Type": "multipart/form-data",
+      "Content-Type": "multipart/form-data"
     },
-    body: JSON.stringify(data),
+    body: JSON.stringify(data)
   });
 
   console.log(response);
@@ -503,7 +528,7 @@ async function postDataToServer(data) {
 
   const response = await fetch("/join", {
     method: "POST",
-    body: file,
+    body: file
   });
 
   console.log(response);

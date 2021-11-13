@@ -16,18 +16,32 @@ if (editorContainer) {
     toolbarItems: [
       ["heading", "bold", "italic", "strike"],
       ["hr", "quote"],
-      ["ul", "ol", "task", "indent", "outdent"],
-      ["table", "link"],
+      ["ul", "ol", "task"],
+      ["table", "image", "link"],
       ["code", "codeblock"]
     ],
     language: "ko",
-    placeholder: "내용을 입력하세요."
+    placeholder: "내용을 입력하세요.",
+    hooks: {
+      addImageBlobHook: async (blob, callback) => {
+        let formData = new FormData();
+
+        formData.append("data", blob, blob.name);
+
+        const response = await fetch("/api/post-image", {
+          method: "POST",
+          body: formData
+        });
+
+        const { data } = await response.json();
+        callback(data, "alt text");
+      }
+    }
   });
 
   async function handleEditor(e) {
     const paramsLocation = window.location.pathname.split("/");
     const locationName = paramsLocation[1];
-    const locationId = paramsLocation[2];
     const editorBody = editor.getMarkdown();
     const headTitle = title.value;
     const isWeekly = checkbox ? checkbox.checked : null;
@@ -44,7 +58,6 @@ if (editorContainer) {
       const {
         data: { _id }
       } = response;
-      console.log(_id);
       window.location.pathname = `/${locationName}/${_id}`;
     }
   }
@@ -83,11 +96,26 @@ if (updateContainer) {
       ["heading", "bold", "italic", "strike"],
       ["hr", "quote"],
       ["ul", "ol", "task"],
-      ["table", "link"],
+      ["table", "image", "link"],
       ["code", "codeblock"]
     ],
     language: "ko",
-    placeholder: "내용을 입력하세요."
+    placeholder: "내용을 입력하세요.",
+    hooks: {
+      addImageBlobHook: async (blob, callback) => {
+        let formData = new FormData();
+
+        formData.append("data", blob, blob.name);
+
+        const response = await fetch("/api/post-image", {
+          method: "POST",
+          body: formData
+        });
+
+        const { data } = await response.json();
+        callback(data, "alt text");
+      }
+    }
   });
 
   getData().then((result) => {

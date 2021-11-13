@@ -5,8 +5,9 @@ import {
   getParagraph,
   getRulesParagraph,
   getDB,
+  postEditorImage
 } from "../controller/api.controller";
-import { onlyPrivate, preUrl } from "../middleWare";
+import { onlyPrivate, preUrl, editorImage } from "../middleWare";
 
 const api = express.Router();
 
@@ -23,6 +24,9 @@ api
 
 // get notice data
 api.route("/:id([0-9a-f]{24})/notice-data").get(getParagraph);
+
+// post image data
+api.route("/post-image").post(editorImage, postEditorImage);
 
 //rules
 api.route("/:id([0-9a-f]{24})/rules-data").get(getRulesParagraph);
