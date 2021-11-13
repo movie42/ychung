@@ -41,10 +41,13 @@ rootRouter.route("/attendence").post(attendence);
 //list
 rootRouter.route("/rules").get(getRulesList);
 //read
-rootRouter.route("/rules/:id").get(getRules);
+rootRouter.route("/rules/:id([0-9a-f]{24})").get(getRules);
 //create
 rootRouter.route("/rules/upload").get(getCreateRules).post(postCreateRules);
 //update
-rootRouter.route("/rules/:id/edit").get(getUpdateRules).post(postUpdateRules);
+rootRouter
+  .route("/rules/:id([0-9a-f]{24})/edit")
+  .get(getUpdateRules)
+  .post(postUpdateRules);
 
 export default rootRouter;
