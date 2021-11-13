@@ -1,0 +1,9 @@
+mixin rulesBlock(rules={})
+    li
+        a(href=`rules/${rules.id}`)
+            div
+                h4=rules.title
+            div
+                span=rules.year
+                span=rules.month 
+                span=rules.date

@@ -17,7 +17,7 @@ qtRouter.route("/").get(qtList);
 
 // Create
 qtRouter
-  .route("/write")
+  .route("/upload")
   .all(preUrl, onlyPrivate)
   .get(getQtWrite)
   .post(postQtWrite);
