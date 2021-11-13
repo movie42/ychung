@@ -21,8 +21,12 @@ body,
   overflow-y: auto;
   font-family: "Noto Sans KR", sans-serif;
   font-size: 14px;
-  letter-spacing: -0.5px;
+  letter-spacing: -0.03rem;
   font-weight: 100;
+  .toastui-editor-contents h1,
+  h2 {
+    border: 0;
+  }
 }
 
 .rules_wrapper {
@@ -721,7 +725,7 @@ footer {
     padding: 86px 10px 220px;
     margin: -86px auto -220px;
     .head_title {
-      font-size: $title_font_size_desktop;
+      font-size: $title_font_size_desktop_h1;
     }
     .list_wrapper {
       .list_item {
@@ -731,7 +735,7 @@ footer {
             div {
               align-items: center;
               h4 {
-                font-size: $basic_font_size_desktop;
+                font-size: $basic_font_size;
               }
               &:first-child {
                 display: flex;
@@ -742,6 +746,33 @@ footer {
             }
           }
         }
+      }
+    }
+  }
+
+  .contents_wrapper {
+    .component_wrapper {
+      h1,
+      h2,
+      h3,
+      h4,
+      h5 {
+        margin-bottom: 1.2rem;
+      }
+      h1 {
+        font-size: $title_font_size_desktop_h1;
+      }
+      h2 {
+        font-size: $title_font_size_desktop_h2;
+      }
+      h3 {
+        font-size: $title_font_size_desktop_h3;
+      }
+      h4 {
+        font-size: $title_font_size_desktop_h4;
+      }
+      h5 {
+        font-size: $title_font_size_desktop_h5;
       }
     }
   }
@@ -812,7 +843,7 @@ footer {
       .title_wrapper {
         overflow: hidden;
         .head_title {
-          font-size: $title_font_size_desktop;
+          font-size: $title_font_size_desktop_h1;
         }
       }
       .user_log_item_wrapper {
