@@ -20,7 +20,7 @@ block content
                         span #{data.day} 
                         span #{data.time}
                 .button_wrapper
-                    if loggedIn && user.authority === "admin"
+                    if loggedIn && (user.authority === "master"|| loggedIn && user.authority === "administrator")
                         span
                             a(href=`/weekly/${id}/edit`).edit_button 
                                 span.material-icons-outlined edit
@@ -51,13 +51,13 @@ block content
                     span 봉헌기도 및 축도 
                     |#{data.benediction}
                 if new Date().getDay() === 0 && new Date().getHours() >= 13 &&  new Date().getHours() <= 16
-                .live_button 라이브 바로가기
-                    span.youtube_btn 
-                        a(href="https://www.youtube.com/channel/UCchlEyi8F0ASeGZZZQY8uTA", target="_blank") 
-                            i.fab.fa-youtube
-                    span.zoom_btn
-                        a(href="https://us02web.zoom.us/j/4836076553?pwd=SDZQSzZDTVFybWFtWWdMSEhCcHVTQT09", target="_blank")
-                            i.fas.fa-video
+                    .live_button 라이브 바로가기
+                        span.youtube_btn 
+                            a(href="https://www.youtube.com/channel/UCchlEyi8F0ASeGZZZQY8uTA", target="_blank") 
+                                i.fab.fa-youtube
+                        span.zoom_btn
+                            a(href="https://us02web.zoom.us/j/4836076553?pwd=SDZQSzZDTVFybWFtWWdMSEhCcHVTQT09", target="_blank")
+                                i.fas.fa-video
             .component_wrapper
                 div.notice_wraaper
                     h2.head_title 광고

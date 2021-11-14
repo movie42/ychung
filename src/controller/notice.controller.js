@@ -7,13 +7,13 @@ export const getNoticeData = async (req, res) => {
     const data = await Notice.find({});
     return res.render("notice/noticeList", {
       pageTitle: "광고",
-      data,
+      data
     });
   } catch (e) {
     console.log(e);
     return res.status(404).render("root/404", {
       pageTitle: "광고를 만들 수 없습니다.",
-      errorMessage: "오류가 계속 발생하면 관리자에게 문의하십시오.",
+      errorMessage: "오류가 계속 발생하면 관리자에게 문의하십시오."
     });
   }
 };
@@ -21,7 +21,7 @@ export const getNoticeData = async (req, res) => {
 // Create
 export const getNoticeCreate = (req, res) => {
   return res.render("notice/noticeCreate", {
-    pageTitle: "광고 쓰기",
+    pageTitle: "광고 쓰기"
   });
 };
 
@@ -29,8 +29,8 @@ export const postNoticeCreate = async (req, res) => {
   const {
     body: { headTitle, isWeekly, editorBody },
     session: {
-      user: { _id },
-    },
+      user: { _id }
+    }
   } = req;
 
   try {
@@ -38,7 +38,7 @@ export const postNoticeCreate = async (req, res) => {
       title: headTitle,
       isWeekly,
       paragraph: editorBody,
-      creator: _id,
+      creator: _id
     });
 
     return res.status(201).json({ data });
@@ -46,7 +46,7 @@ export const postNoticeCreate = async (req, res) => {
     console.log(e);
     return res.status(404).render("root/404", {
       pageTitle: "광고를 만들 수 없습니다.",
-      errorMessage: "오류가 계속 발생하면 관리자에게 문의하십시오.",
+      errorMessage: "오류가 계속 발생하면 관리자에게 문의하십시오."
     });
   }
 };
@@ -54,7 +54,7 @@ export const postNoticeCreate = async (req, res) => {
 // Read
 export const getNoticeDetail = async (req, res) => {
   const {
-    params: { id },
+    params: { id }
   } = req;
 
   try {
@@ -63,19 +63,19 @@ export const getNoticeDetail = async (req, res) => {
     if (!data) {
       return res.status(404).render("root/404", {
         pageTitle: "광고를 만들 수 없습니다.",
-        errorMessage: "오류가 계속 발생하면 관리자에게 문의하십시오.",
+        errorMessage: "오류가 계속 발생하면 관리자에게 문의하십시오."
       });
     }
 
     return res.render("notice/noticeDetail", {
       pageTitle: data.title,
-      data,
+      data
     });
   } catch (e) {
     console.log(e);
     return res.status(404).render("root/404", {
       pageTitle: "광고를 만들 수 없습니다.",
-      errorMessage: "오류가 계속 발생하면 관리자에게 문의하십시오.",
+      errorMessage: "오류가 계속 발생하면 관리자에게 문의하십시오."
     });
   }
 };
@@ -83,7 +83,7 @@ export const getNoticeDetail = async (req, res) => {
 // Update
 export const getNoticeEdit = async (req, res) => {
   const {
-    params: { id },
+    params: { id }
   } = req;
 
   try {
@@ -93,20 +93,21 @@ export const getNoticeEdit = async (req, res) => {
       return res.status(404).render("root/404", {
         pageTitle: "정보를 찾을 수 없습니다..",
         errorMessage:
-          "요청한 정보는 없는 정보입니다. 오류가 계속 발생하면 관리자에게 문의하십시오.",
+          "요청한 정보는 없는 정보입니다. 오류가 계속 발생하면 관리자에게 문의하십시오."
       });
     }
 
     return res.render("notice/noticeEdit", {
       pageTitle: `${data.title} 수정`,
-      data,
+      data
     });
   } catch (e) {
     console.log(e);
     return res.status(404).render("root/404", {
-      pageTitle: "광고 수정 페이지를 알 수 없는 이유로 표시할 수 없습니다.",
+      pageTitle:
+        "광고 수정 페이지를 알 수 없는 이유로 표시할 수 없습니다.",
       errorMessage:
-        "광고 수정 페이지를 알 수 없는 이유로 표시할 수 없습니다. 오류가 계속 발생하면 관리자에게 문의하십시오.",
+        "광고 수정 페이지를 알 수 없는 이유로 표시할 수 없습니다. 오류가 계속 발생하면 관리자에게 문의하십시오."
     });
   }
 };
@@ -114,7 +115,7 @@ export const getNoticeEdit = async (req, res) => {
 export const postNoticeEdit = async (req, res) => {
   const {
     body: { headTitle, isWeekly, editorBody },
-    params: { id },
+    params: { id }
   } = req;
 
   try {
@@ -123,8 +124,8 @@ export const postNoticeEdit = async (req, res) => {
       {
         title: headTitle,
         isWeekly,
-        paragraph: editorBody,
-      },
+        paragraph: editorBody
+      }
     );
 
     return res.status(200).json({ data });
@@ -133,7 +134,7 @@ export const postNoticeEdit = async (req, res) => {
     return res.status(404).render("root/404", {
       pageTitle: "광고를 수정할 수 없습니다.",
       errorMessage:
-        "광고를 수정할 수 없습니다. 오류가 계속 발생하면 관리자에게 문의하십시오.",
+        "광고를 수정할 수 없습니다. 오류가 계속 발생하면 관리자에게 문의하십시오."
     });
   }
 };
@@ -141,17 +142,17 @@ export const postNoticeEdit = async (req, res) => {
 // Delete
 export const noticeDelete = async (req, res) => {
   const {
-    params: { id },
+    params: { id }
   } = req;
   try {
-    await Notice.findByIdAndRemove(id);
+    await Notice.findByIdAndDelete(id);
     return res.redirect("/notice");
   } catch (e) {
     console.log(e);
     return res.status(404).render("root/404", {
       pageTitle: "광고를 수정할 수 없습니다.",
       errorMessage:
-        "광고를 수정할 수 없습니다. 오류가 계속 발생하면 관리자에게 문의하십시오.",
+        "광고를 수정할 수 없습니다. 오류가 계속 발생하면 관리자에게 문의하십시오."
     });
   }
 };

@@ -4,9 +4,10 @@ include ../../mixins/rulesList.pug
 block content
     .inform_wrapper
         h1.head_title 회칙
-        .button_wrapper
-            a(href="rules/upload").write_button
-                span.material-icons-outlined add_circle
+        if loggedIn && (user.authority === 'master' || user.authority === 'administrator')
+            .button_wrapper
+                a(href="rules/upload").write_button
+                    span.material-icons-outlined add_circle
     .list_wrapper
         ul.list_item
             each item in data
