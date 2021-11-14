@@ -7,7 +7,12 @@ import {
   getDB,
   postEditorImage
 } from "../controller/api.controller";
-import { onlyPrivate, preUrl, editorImage } from "../middleWare";
+import {
+  onlyMaster,
+  onlyPrivate,
+  preUrl,
+  editorImage
+} from "../middleWare";
 
 const api = express.Router();
 
