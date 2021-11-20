@@ -10,6 +10,26 @@ const checkbox = document.querySelector("#isWeekly");
 if (editorContainer) {
   const editor = new Editor({
     el: document.querySelector("#editor"),
+    customHTMLRenderer: {
+      htmlBlock: {
+        iframe(node) {
+          return [
+            {
+              type: "openTag",
+              tagName: "iframe",
+              outerNewLine: true,
+              attributes: node.attrs
+            },
+            { type: "html", content: node.childrenHTML },
+            {
+              type: "closeTag",
+              tagName: "iframe",
+              outerNewLine: true
+            }
+          ];
+        }
+      }
+    },
     previewStyle: "vertical",
     height: "60vh",
     initialEditType: "markdown",
@@ -36,7 +56,8 @@ if (editorContainer) {
         const { data } = await response.json();
         callback(data, "alt text");
       }
-    }
+    },
+    exts: ["youtube"]
   });
 
   async function handleEditor(e) {
@@ -89,6 +110,26 @@ if (updateContainer) {
 
   const update = new Editor({
     el: document.querySelector("#editor_update"),
+    customHTMLRenderer: {
+      htmlBlock: {
+        iframe(node) {
+          return [
+            {
+              type: "openTag",
+              tagName: "iframe",
+              outerNewLine: true,
+              attributes: node.attrs
+            },
+            { type: "html", content: node.childrenHTML },
+            {
+              type: "closeTag",
+              tagName: "iframe",
+              outerNewLine: true
+            }
+          ];
+        }
+      }
+    },
     previewStyle: "vertical",
     height: "60vh",
     initialEditType: "markdown",
