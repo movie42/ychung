@@ -20,7 +20,7 @@
     - [2021년 9월 7일](#2021년-9월-7일)
       - [image resize](#image-resize)
     - [2021년 10월 9일](#2021년-10월-9일)
-      - [웹 컴포넌트](#웹-컴포넌트)
+        - [웹 컴포넌트](#웹-컴포넌트)
   - [1.3. 참조](#13-참조)
 
 ## 업데이트 2021.11.13
@@ -39,9 +39,14 @@
 - [x] 게시판 사진 넣기
       [참고](https://kasumil.tistory.com/177)
       [issue](https://github.com/nhn/tui.editor/issues/57)
+- debounc throttle?
+- [x] 동영상 넣기
+      [참고](https://github.com/nhn/tui.editor/blob/master/docs/ko/custom-block.md#html-%EB%85%B8%EB%93%9C)
 
 - [ ] 게시판 최적화하기
+
   - [ ] 재사용 가능한 함수 만들기 (tubeClone에서 작업했던거 가져오기)
+
 - [ ] 검색 기능 수정 (통합 검색이 안됨)
 - [ ] 광고 (날짜 별로) 선택해서 넣기
 - [ ] 일정 컴퓨터, 모바일에 저장하기
