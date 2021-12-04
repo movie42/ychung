@@ -45,15 +45,15 @@ app.use(
     directives: {
       "script-src": ["'unsafe-eval'", process.env.URL],
       "img-src": ["data:", "*"],
-      "frame-src": "https://www.youtube.com/"
-    }
-  })
+      "frame-src": "https://www.youtube.com/",
+    },
+  }),
 );
 app.use(
   helmet.hsts({
     maxAge: 31536000,
-    preload: true
-  })
+    preload: true,
+  }),
 );
 app.use(morgan("dev"));
 app.use(express.json());
@@ -65,9 +65,9 @@ app.use(
     resave: false,
     saveUninitialized: false,
     store: MongoStore.create({
-      mongoUrl: process.env.MONGO_URL
-    })
-  })
+      mongoUrl: process.env.MONGO_URL,
+    }),
+  }),
 );
 
 app.set("views", process.cwd() + "/src/views");
