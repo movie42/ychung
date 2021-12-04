@@ -1,23 +1,20 @@
-import Weekly from "../model/Weekly.model";
+import Worship from "../model/Worship.model";
 import Notice from "../model/Notice.model";
 import User from "../model/User.model";
 
 // list
 export const list = async (req, res) => {
   try {
-    const data = await (
-      await Weekly.find().sort({ updateAt: "desc" })
-    ).reverse();
-
+    const data = (await Worship.find().sort({ updateAt: "desc" })).reverse();
     if (!data) {
-      return res.status(404).render("weekly/weeklyList", {
+      return res.status(404).render("worship/worshipList", {
         pageTitle: "주보",
         data: [],
         errorMessage: "주보 데이터를 찾을 수 없습니다. ",
       });
     }
 
-    return res.render("weekly/weeklyList", {
+    return res.render("worship/worshipList", {
       pageTitle: "주보",
       data,
     });
@@ -31,9 +28,10 @@ export const list = async (req, res) => {
 };
 
 // create
-export const getWeeklyUpload = (req, res) => res.render("weekly/weeklyCreate");
+export const getWorshipUpload = (req, res) =>
+  res.render("worship/worshipCreate");
 
-export const postWeeklyUpload = async (req, res) => {
+export const postWorshipUpload = async (req, res) => {
   const {
     body: {
       title,
@@ -65,7 +63,7 @@ export const postWeeklyUpload = async (req, res) => {
   }
 
   try {
-    const data = await Weekly.create({
+    const data = await Worship.create({
       title,
       pastor,
       worshipTeam,
@@ -88,14 +86,13 @@ export const postWeeklyUpload = async (req, res) => {
 };
 
 // read
-export const getWeeklyDetail = async (req, res) => {
+export const getWorshipDetail = async (req, res) => {
   const {
     params: { id },
   } = req;
   try {
-    const data = await Weekly.findById(id);
-    const noticeData = await Notice.find({ isWeekly: true });
-
+    const data = await Worship.findById(id);
+    const noticeData = await Notice.find({ isworship: true });
     const dataSet = {
       gen: "창세기",
       exo: "출애굽기",
@@ -167,7 +164,7 @@ export const getWeeklyDetail = async (req, res) => {
 
     const word = dataSet[data.word];
 
-    return res.render("weekly/weeklyDetail", {
+    return res.render("worship/worshipDetail", {
       pageTitle: data.title,
       id,
       data,
@@ -184,13 +181,13 @@ export const getWeeklyDetail = async (req, res) => {
 };
 
 // update
-export const getWeeklyEdit = async (req, res) => {
+export const getWorshipEdit = async (req, res) => {
   const {
     params: { id },
   } = req;
   try {
-    const data = await Weekly.findById(id);
-    return res.render("weekly/weeklyEdit", {
+    const data = await Worship.findById(id);
+    return res.render("worship/worshipEdit", {
       pageTitle: "주보 수정",
       data,
     });
@@ -202,7 +199,7 @@ export const getWeeklyEdit = async (req, res) => {
     });
   }
 };
-export const postWeeklyEdit = async (req, res) => {
+export const postWorshipEdit = async (req, res) => {
   const {
     params: { id },
     body: {
@@ -221,7 +218,7 @@ export const postWeeklyEdit = async (req, res) => {
     },
   } = req;
   try {
-    const data = await Weekly.findByIdAndUpdate(id, {
+    const data = await Worship.findByIdAndUpdate(id, {
       title,
       word,
       chapter,
@@ -235,17 +232,17 @@ export const postWeeklyEdit = async (req, res) => {
       offering,
       benediction,
     });
-    return res.redirect(`/weekly/${data._id}`);
+    return res.redirect(`/worship/${data._id}`);
   } catch (error) {
     console.log(error);
     return res
       .status(400)
-      .render("weekly/weeklyEdit", { pageTitle: "주보 수정", data });
+      .render("worship/worshipEdit", { pageTitle: "주보 수정", data });
   }
 };
 
 // delete
-export const weeklyDelete = async (req, res) => {
+export const worshipDelete = async (req, res) => {
   const {
     session: {
       user: { _id: sessionUserId, authority },
@@ -265,18 +262,18 @@ export const weeklyDelete = async (req, res) => {
 
     if (
       String(sessionUserId) === String(userData._id) &&
-      authority === "admin"
+      authority === "master"
     ) {
-      await Weekly.findByIdAndDelete(id);
-      return res.redirect("/weekly");
+      await Worship.findByIdAndDelete(id);
+      return res.redirect("/worship");
     }
 
     return res.status(404).render("root/404", {
       pageTitle: "삭제 권한이 없습니다.",
       errorMessage: "삭제 권한이 없습니다. 관리자에게 문의하세요.",
     });
-  } catch (e) {
-    console.log(e);
+  } catch (error) {
+    console.log(error);
     return res.status(404).render("root/404", {
       pageTitle: "해당 정보를 삭제할 수 없습니다.",
       errorMessage:

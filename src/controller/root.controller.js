@@ -1,9 +1,7 @@
 import User from "../model/User.model";
 import QT from "../model/QT.model";
-import Weekly from "../model/Weekly.model";
+import Weekly from "../model/Worship.model";
 import Notice from "../model/Notice.model";
-import Attendence from "../model/Attendence.model";
-import Rules from "../model/Rules.model";
 import bcrypt from "bcrypt";
 
 // home
@@ -134,136 +132,6 @@ export const search = async (req, res) => {
     return res.status(400).render("root/join", {
       pageTitle: "회원가입",
       errorMessage: "회원가입을 완료할 수 없습니다",
-    });
-  }
-};
-
-export const attendence = async (req, res) => {
-  const {
-    session: { user },
-  } = req;
-
-  const newDate = new Date();
-  const date = newDate.getDate();
-  const month = newDate.getMonth();
-
-  if (user === undefined) {
-    return res.redirect("/login");
-  }
-
-  try {
-    const data = await Attendence.findOne({
-      name: `${month}월 ${date}일`,
-    });
-
-    if (!data) {
-      await Attendence.create({
-        name: `${month}월 ${date}일`,
-        user: user._id,
-      });
-      return res.status(201).json({ exists: true });
-    }
-
-    const exists = data.user;
-
-    if (exists.indexOf(user._id) !== -1) {
-      return res.status(404).json({ exists });
-    }
-
-    data.user.push(user._id);
-    localStorage.setItem("출석 체크", "true");
-    await data.save();
-    return res.status(201).json({ exists: true });
-  } catch (e) {
-    console.log(e);
-    return res.sendStatus(404);
-  }
-};
-
-//rules
-export const getRulesList = async (req, res) => {
-  try {
-    const data = await Rules.find({});
-    return res.render("root/rules/list", { pageTitle: "회칙", data });
-  } catch (e) {
-    console.log(e);
-  }
-};
-
-export const getRules = async (req, res) => {
-  const {
-    params: { id },
-  } = req;
-
-  try {
-    const data = await Rules.findById(id);
-    return res.render("root/rules/read", { pageTitle: data.title, data });
-  } catch (e) {
-    console.log(e);
-  }
-};
-
-export const getCreateRules = (req, res) => {
-  return res.render("root/rules/create", { pageTitle: "회칙 쓰기" });
-};
-
-export const postCreateRules = async (req, res) => {
-  const {
-    body: { headTitle, editorBody },
-    session: {
-      user: { _id },
-    },
-  } = req;
-
-  try {
-    const data = await Rules.create({
-      title: headTitle,
-      paragraph: editorBody,
-      creator: _id,
-    });
-
-    return res.status(201).json({ data });
-  } catch (e) {
-    console.log(e);
-    return res.status(404).render("root/404", {
-      pageTitle: "회칙을 만들 수 없습니다.",
-      errorMessage: "오류가 계속 발생하면 관리자에게 문의하십시오.",
-    });
-  }
-};
-export const getUpdateRules = async (req, res) => {
-  const {
-    params: { id },
-  } = req;
-  try {
-    const data = await Rules.findById(id);
-    return res.render("root/rules/update", { pageTitle: data.title, data });
-  } catch (e) {
-    console.log(e);
-  }
-};
-export const postUpdateRules = async (req, res) => {
-  const {
-    body: { headTitle, editorBody },
-    params: { id },
-  } = req;
-
-  try {
-    const data = await Rules.findByIdAndUpdate(
-      { _id: id },
-      {
-        title: headTitle,
-        paragraph: editorBody,
-      },
-    );
-
-    return res.status(200).json({ data });
-  } catch (e) {
-    console.log(e);
-    return res.status(404).render("root/404", {
-      pageTitle: "회칙을 수정할 수 없습니다.",
-      errorMessage:
-        "회칙을 수정할 수 없습니다. 오류가 계속 발생하면 관리자에게 문의하십시오.",
     });
   }
 };

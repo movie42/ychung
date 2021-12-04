@@ -7,7 +7,7 @@ block content
                 h1.head_title 주보 수정
                 if loggedIn && user.authority === "admin"
                     div.button_wrapper
-                        a(href=`/weekly/${data.id}/delete`).delete_button 삭제하기
+                        a(href=`/worship/${data.id}/delete`).delete_button 삭제하기
     .form_container 
         form(method="POST").form
             label(for="title") 제목

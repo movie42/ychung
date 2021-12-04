@@ -1,12 +1,12 @@
 import QT from "../model/QT.model";
 import Notice from "../model/Notice.model";
 import User from "../model/User.model";
-import Rules from "../model/Rules.model";
+import Documents from "../model/Documents.model";
 import Comment from "../model/Comments.model";
 
 export const getDB = async (req, res) => {
   const {
-    params: { name, value }
+    params: { name, value },
   } = req;
   let exist;
   try {
@@ -24,7 +24,7 @@ export const getDB = async (req, res) => {
 
 export const getParagraph = async (req, res) => {
   const {
-    params: { id }
+    params: { id },
   } = req;
   try {
     const data = await Notice.findById(id);
@@ -49,13 +49,13 @@ export const postEditorImage = async (req, res) => {
   }
 };
 
-export const getRulesParagraph = async (req, res) => {
+export const getDocumentsParagraph = async (req, res) => {
   const {
-    params: { id }
+    params: { id },
   } = req;
 
   try {
-    const data = await Rules.findById(id);
+    const data = await Documents.findById(id);
 
     return res.status(200).json({ data });
   } catch (e) {
@@ -67,7 +67,7 @@ export const registerComments = async (req, res) => {
   const {
     body: { text, pathName },
     session: { user },
-    params: { id }
+    params: { id },
   } = req;
 
   if (user === undefined) {
@@ -75,7 +75,7 @@ export const registerComments = async (req, res) => {
   }
   const modelName = {
     qt: QT,
-    notice: Notice
+    notice: Notice,
   };
 
   try {
@@ -85,7 +85,7 @@ export const registerComments = async (req, res) => {
     }
     const comment = await Comment.create({
       text,
-      creator: user._id
+      creator: user._id,
     });
     comment[pathName] = modelData.id;
     comment.save();
@@ -104,7 +104,7 @@ export const registerComments = async (req, res) => {
 
 export const deleteComment = async (req, res) => {
   const {
-    params: { id }
+    params: { id },
   } = req;
 
   await Comment.findByIdAndDelete(id);

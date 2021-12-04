@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 
 const now = new Date();
-const rulesSchema = mongoose.Schema({
+const documentsSchema = mongoose.Schema({
   title: {
     type: String,
     required: true,
@@ -49,6 +49,6 @@ const rulesSchema = mongoose.Schema({
   updateAt: { type: Date },
 });
 
-const model = mongoose.model("Rules", rulesSchema);
+const model = mongoose.model("Documents", documentsSchema);
 
 export default model;

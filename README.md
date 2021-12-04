@@ -1,6 +1,7 @@
 # 양청 홈페이지
 
 - [양청 홈페이지](#양청-홈페이지)
+  - [업데이트 2021. 12. 4](#업데이트-2021-12-4)
   - [업데이트 2021.11.13](#업데이트-20211113)
   - [업데이트 2021. 11. 8](#업데이트-2021-11-8)
   - [앞으로 해야할일](#앞으로-해야할일)
@@ -22,6 +23,14 @@
     - [2021년 10월 9일](#2021년-10월-9일)
         - [웹 컴포넌트](#웹-컴포넌트)
   - [1.3. 참조](#13-참조)
+
+## 업데이트 2021. 12. 4
+
+- 디자인 변경
+- 사용하지 않는 컨트롤러 삭제
+- 메뉴 변경
+  - 도큐멘트, 예배, 공지사항, 블로그 추가
+  - 광고, 주보, 묵상에세이 삭제
 
 ## 업데이트 2021.11.13
 
@@ -277,7 +286,7 @@ if (form) {
 async function handleSessionStorage(e) {
   e.preventDefault();
   const request = await fetch("/join", {
-    method: "POST"
+    method: "POST",
   });
 
   if (request.status === 400) {
@@ -444,7 +453,7 @@ function successMessage(str) {
 
 function isEmail(email) {
   return /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.exec(
-    email
+    email,
   );
 }
 
@@ -462,7 +471,7 @@ function isUserName(userName) {
 function isPassword(password) {
   const checkPassword =
     /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$/.exec(
-      password
+      password,
     );
   if (checkPassword) {
     return checkPassword;
@@ -489,9 +498,9 @@ async function postDataToServer(data) {
   const response = await fetch("/join", {
     method: "POST",
     headers: {
-      "Content-Type": "multipart/form-data"
+      "Content-Type": "multipart/form-data",
     },
-    body: JSON.stringify(data)
+    body: JSON.stringify(data),
   });
 
   console.log(response);
@@ -538,7 +547,7 @@ async function postDataToServer(data) {
 
   const response = await fetch("/join", {
     method: "POST",
-    body: file
+    body: file,
   });
 
   console.log(response);

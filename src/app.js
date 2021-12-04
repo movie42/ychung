@@ -1,18 +1,16 @@
 import express from "express";
 import morgan from "morgan";
 import rootRouter from "./router/root.router";
-import weeklyRouter from "./router/weekly.router";
-import qtRouter from "./router/qt.router";
+import worshipRouter from "./router/worship.router";
 import noticeRouter from "./router/notice.router";
 import api from "./router/api.router";
 import userRouter from "./router/user.router";
-import voteRouter from "./router/vote.router";
 import session from "express-session";
 import cookieParser from "cookie-parser";
 import MongoStore from "connect-mongo";
 import helmet from "helmet";
-import cors from "cors";
 import { locals, preUrl } from "./middleWare";
+import documentsRouter from "./router/documents.router";
 
 const app = express();
 
@@ -39,15 +37,15 @@ app.use(
     directives: {
       "script-src": ["'unsafe-eval'", process.env.URL],
       "img-src": ["data:", "*"],
-      "frame-src": "https://www.youtube.com/"
-    }
-  })
+      "frame-src": "https://www.youtube.com/",
+    },
+  }),
 );
 app.use(
   helmet.hsts({
     maxAge: 31536000,
-    preload: true
-  })
+    preload: true,
+  }),
 );
 // app.use(cors(corsOptions));
 app.use(morgan("dev"));
@@ -60,14 +58,15 @@ app.use(
     resave: false,
     saveUninitialized: false,
     store: MongoStore.create({
-      mongoUrl: process.env.MONGO_URL
-    })
-  })
+      mongoUrl: process.env.MONGO_URL,
+    }),
+  }),
 );
 
 app.set("views", process.cwd() + "/src/views");
 app.set("view engine", "pug");
 app.use("/static", express.static("client"));
+app.use("/favicon", express.static("favicon"));
 app.use("/uploads", express.static("uploads"));
 
 app.use((req, res, next) => {
@@ -78,11 +77,12 @@ app.use((req, res, next) => {
 
 app.use(locals);
 app.use("/", rootRouter);
-app.use("/weekly", weeklyRouter);
-app.use("/qt", qtRouter);
 app.use("/notice", noticeRouter);
+app.use("/worship", worshipRouter);
+app.use("/documents", documentsRouter);
+
 app.use("/user", userRouter);
-app.use("/vote", voteRouter);
+
 app.use("/api", api);
 
 export default app;

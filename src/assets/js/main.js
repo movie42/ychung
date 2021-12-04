@@ -115,7 +115,7 @@ async function handleFormSubmit(e) {
   const plainFormData = Object.fromEntries(formData.entries());
   const formDataJsonString = JSON.stringify(plainFormData);
 
-  const response = await fetch("/weekly/upload", {
+  const response = await fetch("/worship/upload", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -127,7 +127,7 @@ async function handleFormSubmit(e) {
   const { sendValidationCheck } = await response.json();
 
   if (sendValidationCheck == 302) {
-    window.location.pathname = "/weekly";
+    window.location.pathname = "/worship";
   } else if (sendValidationCheck.length > 0) {
     paintErrorHandler(sendValidationCheck, form);
     paintSuccessHandler(sendValidationCheck, form);

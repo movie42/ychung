@@ -3,16 +3,11 @@ import {
   registerComments,
   deleteComment,
   getParagraph,
-  getRulesParagraph,
+  getDocumentsParagraph,
   getDB,
-  postEditorImage
+  postEditorImage,
 } from "../controller/api.controller";
-import {
-  onlyMaster,
-  onlyPrivate,
-  preUrl,
-  editorImage
-} from "../middleWare";
+import { onlyMaster, onlyPrivate, preUrl, editorImage } from "../middleWare";
 
 const api = express.Router();
 
@@ -34,7 +29,7 @@ api.route("/:id([0-9a-f]{24})/notice-data").get(getParagraph);
 api.route("/post-image").post(editorImage, postEditorImage);
 
 //rules
-api.route("/:id([0-9a-f]{24})/rules-data").get(getRulesParagraph);
+api.route("/:id([0-9a-f]{24})/rules-data").get(getDocumentsParagraph);
 
 // checked email, userName
 api.route("/checked-db/:name=:value").get(getDB);

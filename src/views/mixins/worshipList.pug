@@ -1,0 +1,9 @@
+mixin worshipBlock(worship={})
+    li
+        a(href=`worship/${worship.id}`)
+            div
+                h4=worship.title
+            div
+                span=worship.year
+                span=worship.month 
+                span=worship.date
