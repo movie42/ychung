@@ -33,6 +33,7 @@
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
     "express-session": "^1.17.2",
+    "express-sslify": "^1.2.0",
     "helmet": "^4.6.0",
     "jstransformer-coffee-script": "^1.1.1",
     "jstransformer-markdown-it": "^2.1.0",

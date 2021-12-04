@@ -12,16 +12,13 @@ import helmet from "helmet";
 import { locals, preUrl } from "./middleWare";
 import documentsRouter from "./router/documents.router";
 import blogRouter from "./router/blog.router";
+import enforce from "express-sslify";
 
 const app = express();
 
 app.use((req, res, next) => {
   if (process.env.NODE_ENV === "production") {
-    if (req.secure) {
-      next();
-    } else {
-      res.redirect(`https://${req.headers.host}${req.url}`);
-    }
+    enforce.HTTPS({ trustXForwardedHostHeader: true });
   } else {
     next();
   }
