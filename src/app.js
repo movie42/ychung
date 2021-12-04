@@ -16,13 +16,16 @@ import blogRouter from "./router/blog.router";
 const app = express();
 
 app.use((req, res, next) => {
-  if (process.env.NODE_ENV === "production") {
-    console.log(req.headers["X-Forwarded-Proto"]);
-    return req.headers["X-Forwarded-Proto"] === "http"
-      ? res.redirect(`https://${req.headers.host}${req.url}`)
-      : next();
-  } else {
+  if (req.get("X-Forwarded-Proto") == "https" || req.hostname == "localhost") {
+    //Serve Angular App by passing control to the next middleware
     next();
+  } else if (
+    req.get("X-Forwarded-Proto") != "https" &&
+    req.get("X-Forwarded-Port") != "443"
+  ) {
+    console.log(req.get("X-Forwarded-Proto"));
+    //Redirect if not HTTP with original request URL
+    res.redirect(`https://${req.hostname}${req.url}`);
   }
 });
 
