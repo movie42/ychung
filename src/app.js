@@ -11,6 +11,7 @@ import MongoStore from "connect-mongo";
 import helmet from "helmet";
 import { locals, preUrl } from "./middleWare";
 import documentsRouter from "./router/documents.router";
+import blogRouter from "./router/blog.router";
 
 const app = express();
 
@@ -37,15 +38,15 @@ app.use(
     directives: {
       "script-src": ["'unsafe-eval'", process.env.URL],
       "img-src": ["data:", "*"],
-      "frame-src": "https://www.youtube.com/",
-    },
-  }),
+      "frame-src": "https://www.youtube.com/"
+    }
+  })
 );
 app.use(
   helmet.hsts({
     maxAge: 31536000,
-    preload: true,
-  }),
+    preload: true
+  })
 );
 // app.use(cors(corsOptions));
 app.use(morgan("dev"));
@@ -58,9 +59,9 @@ app.use(
     resave: false,
     saveUninitialized: false,
     store: MongoStore.create({
-      mongoUrl: process.env.MONGO_URL,
-    }),
-  }),
+      mongoUrl: process.env.MONGO_URL
+    })
+  })
 );
 
 app.set("views", process.cwd() + "/src/views");
@@ -80,6 +81,7 @@ app.use("/", rootRouter);
 app.use("/notice", noticeRouter);
 app.use("/worship", worshipRouter);
 app.use("/documents", documentsRouter);
+app.use("/blog", blogRouter);
 
 app.use("/user", userRouter);
 

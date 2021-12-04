@@ -1,0 +1,9 @@
+mixin blogBlock(blog={})
+    li 
+        a(href=`/blog/${blog.id}`)
+            div
+                h4=blog.title 
+            div
+                span=blog.year
+                span=blog.month 
+                span=blog.date

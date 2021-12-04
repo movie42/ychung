@@ -1,5 +1,5 @@
 import User from "../model/User.model";
-import QT from "../model/QT.model";
+import QT from "../model/Blog.model";
 import Weekly from "../model/Worship.model";
 import Notice from "../model/Notice.model";
 import bcrypt from "bcrypt";
@@ -15,7 +15,7 @@ export const getLogin = (req, res) => {
 
 export const postLogin = async (req, res) => {
   const {
-    body: { email, password },
+    body: { email, password }
   } = req;
   try {
     const user = await User.findOne({ email });
@@ -23,7 +23,7 @@ export const postLogin = async (req, res) => {
     if (!user) {
       return res.status(400).render("root/login", {
         pageTitle: "로그인",
-        errorMessage: "회원 정보가 존재하지 않습니다.",
+        errorMessage: "회원 정보가 존재하지 않습니다."
       });
     }
 
@@ -32,7 +32,7 @@ export const postLogin = async (req, res) => {
     if (!confirm) {
       return res.status(400).render("root/login", {
         pageTitle: "로그인",
-        errorMessage: "잘못된 비밀번호를 입력하였습니다.",
+        errorMessage: "잘못된 비밀번호를 입력하였습니다."
       });
     }
 
@@ -49,7 +49,7 @@ export const postLogin = async (req, res) => {
     console.log(e);
     return res.status(400).render("root/join", {
       pageTitle: "회원가입",
-      errorMessage: "회원가입을 완료할 수 없습니다",
+      errorMessage: "회원가입을 완료할 수 없습니다"
     });
   }
 };
@@ -62,24 +62,24 @@ export const getJoin = (req, res) => {
 export const postJoin = async (req, res) => {
   const {
     body: {
-      body: { email, name, userName, password, password2 },
-    },
+      body: { email, name, userName, password, password2 }
+    }
   } = req;
 
   try {
     const exists = await User.exists({
-      $or: [{ userName }, { email }],
+      $or: [{ userName }, { email }]
     });
 
     if (exists) {
       return res.status(400).json({
-        type: "isExistsError",
+        type: "isExistsError"
       });
     }
 
     if (password !== password2) {
       return res.status(400).json({
-        type: "isNotpasswordError",
+        type: "isNotpasswordError"
       });
     }
 
@@ -87,11 +87,11 @@ export const postJoin = async (req, res) => {
       email,
       userName,
       name,
-      password,
+      password
     });
 
     return res.status(201).json({
-      type: "success",
+      type: "success"
     });
   } catch (error) {
     console.log(error);
@@ -110,13 +110,13 @@ export const search = async (req, res) => {
   try {
     if (keyword) {
       const qtData = await QT.find({
-        title: new RegExp(keyword, "ig"),
+        title: new RegExp(keyword, "ig")
       });
       const weeklyData = await Weekly.find({
-        title: new RegExp(keyword, "ig"),
+        title: new RegExp(keyword, "ig")
       });
       const noticeData = await Notice.find({
-        title: new RegExp(keyword, "ig"),
+        title: new RegExp(keyword, "ig")
       });
       data.push(qtData);
       data.push(weeklyData);
@@ -125,13 +125,13 @@ export const search = async (req, res) => {
     return res.render("root/search", {
       pageTitle: keyword,
       keyword,
-      data,
+      data
     });
   } catch (e) {
     console.log(e);
     return res.status(400).render("root/join", {
       pageTitle: "회원가입",
-      errorMessage: "회원가입을 완료할 수 없습니다",
+      errorMessage: "회원가입을 완료할 수 없습니다"
     });
   }
 };
