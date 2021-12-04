@@ -17,6 +17,7 @@ const app = express();
 
 app.use((req, res, next) => {
   if (process.env.NODE_ENV === "production") {
+    console.log(req.headers["X-Forwarded-Proto"]);
     return req.headers["X-Forwarded-Proto"] === "http"
       ? res.redirect(`https://${req.headers.host}${req.url}`)
       : next();
