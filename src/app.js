@@ -15,24 +15,9 @@ import blogRouter from "./router/blog.router";
 
 const app = express();
 
-// var corsOptions = {
-//   origin: process.env.ORIGIN,
-//   optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
-// };
-
-//   app.get("*", (req, res, next) => {
-//     let protocol = req.headers["X-Forwarded-Proto"] || req.protocol;
-//     if (protocol === "http") {
-//       let to = "https://" + req.headers.host + req.url;
-//       res.redirect(to);
-//     }
-//     next();
-//   });
-// }
-
 app.use((req, res, next) => {
   if (process.env.NODE_ENV === "production" && !req.secure) {
-    res.redirect(`https://y-chung.com/${req.url}`);
+    res.redirect(`https://y-chung.com${req.url}`);
   } else {
     next();
   }
