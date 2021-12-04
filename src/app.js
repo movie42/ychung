@@ -20,7 +20,6 @@ const app = express();
 //   optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
 // };
 
-// if (process.env.NODE_ENV === "production") {
 //   app.get("*", (req, res, next) => {
 //     let protocol = req.headers["X-Forwarded-Proto"] || req.protocol;
 //     if (protocol === "http") {
@@ -31,6 +30,14 @@ const app = express();
 //   });
 // }
 
+app.use((req, res, next) => {
+  if (process.env.NODE_ENV === "production" && !req.secure) {
+    res.redirect(`https://y-chung.com/${req.url}`);
+  } else {
+    next();
+  }
+});
+
 app.use(helmet());
 app.use(
   helmet.contentSecurityPolicy({
@@ -38,17 +45,16 @@ app.use(
     directives: {
       "script-src": ["'unsafe-eval'", process.env.URL],
       "img-src": ["data:", "*"],
-      "frame-src": "https://www.youtube.com/"
-    }
-  })
+      "frame-src": "https://www.youtube.com/",
+    },
+  }),
 );
 app.use(
   helmet.hsts({
     maxAge: 31536000,
-    preload: true
-  })
+    preload: true,
+  }),
 );
-// app.use(cors(corsOptions));
 app.use(morgan("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -59,9 +65,9 @@ app.use(
     resave: false,
     saveUninitialized: false,
     store: MongoStore.create({
-      mongoUrl: process.env.MONGO_URL
-    })
-  })
+      mongoUrl: process.env.MONGO_URL,
+    }),
+  }),
 );
 
 app.set("views", process.cwd() + "/src/views");
