@@ -3,7 +3,6 @@ import {
   registerComments,
   deleteComment,
   getParagraph,
-  getRulesParagraph,
   getDB,
   postEditorImage
 } from "../controller/api.controller";
@@ -30,11 +29,14 @@ api
 // get notice data
 api.route("/:id([0-9a-f]{24})/notice-data").get(getParagraph);
 
+// get blog data
+api.route("/:id([0-9a-f]{24})/blog-data").get(getParagraph);
+
+// get rules data
+api.route("/:id([0-9a-f]{24})/rules-data").get(getParagraph);
+
 // post image data
 api.route("/post-image").post(editorImage, postEditorImage);
-
-//rules
-api.route("/:id([0-9a-f]{24})/rules-data").get(getRulesParagraph);
 
 // checked email, userName
 api.route("/checked-db/:name=:value").get(getDB);

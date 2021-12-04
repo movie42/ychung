@@ -1,7 +1,7 @@
 import multer from "multer";
 import Notice from "./model/Notice.model";
-import Weekly from "./model/Weekly.model";
-import QT from "./model/QT.model";
+import Worship from "./model/Worship.model";
+import Blog from "./model/Blog.model";
 import multerS3 from "multer-s3-transform";
 import aws from "aws-sdk";
 import sharp from "sharp";
@@ -141,9 +141,9 @@ export const view = async (req, res, next) => {
     const dataName = req.baseUrl.slice(1);
 
     const DATA = {
-      qt: QT,
+      blog: Blog,
       notice: Notice,
-      weekly: Weekly
+      worship: Worship
     };
 
     const data = await DATA[dataName].findById(id);

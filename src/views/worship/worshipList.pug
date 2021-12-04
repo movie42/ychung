@@ -1,17 +1,17 @@
 extends ../layout/layout.pug
-include ../mixins/noticeList.pug
+include ../mixins/worshipList.pug
 
 block content
     .inform_wrapper
-        h1.head_title 공지사항
+        h1.head_title 예배
         if loggedIn && (user.authority === 'master' || user.authority === 'administrator')
             .button_wrapper
-                a(href="/notice/upload").write_button
+                a(href="/worship/upload").write_button
                     span.material-icons-outlined add_circle
     .list_wrapper
         ul.list_item
             each item in data
-                +noticeBlock({
+                +worshipBlock({
                     id:item.id,
                     title:item.title,
                     year:item.year,

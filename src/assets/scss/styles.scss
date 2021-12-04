@@ -199,16 +199,8 @@ a {
       rgba(255, 0, 0, 0.9),
       rgba(255, 0, 0, 0) 70.71%
     ),
-    linear-gradient(
-      127deg,
-      rgba(0, 255, 0, 0.9),
-      rgba(0, 255, 0, 0) 70.71%
-    ),
-    linear-gradient(
-      336deg,
-      rgba(0, 0, 255, 0.9),
-      rgba(0, 0, 255, 0) 70.71%
-    );
+    linear-gradient(127deg, rgba(0, 255, 0, 0.9), rgba(0, 255, 0, 0) 70.71%),
+    linear-gradient(336deg, rgba(0, 0, 255, 0.9), rgba(0, 0, 255, 0) 70.71%);
   @include animation(bgAnimation, 2s, 0, infinite, alternate);
   transition: top 0.8s ease;
   .menu {
@@ -294,16 +286,8 @@ a {
       rgba(255, 0, 0, 0.95),
       rgba(255, 0, 0, 0) 70.71%
     ),
-    linear-gradient(
-      127deg,
-      rgba(0, 255, 0, 0.95),
-      rgba(0, 255, 0, 0) 70.71%
-    ),
-    linear-gradient(
-      336deg,
-      rgba(0, 0, 255, 0.95),
-      rgba(0, 0, 255, 0) 70.71%
-    );
+    linear-gradient(127deg, rgba(0, 255, 0, 0.95), rgba(0, 255, 0, 0) 70.71%),
+    linear-gradient(336deg, rgba(0, 0, 255, 0.95), rgba(0, 0, 255, 0) 70.71%);
   background-size: 400% 400%;
   top: 0;
   transition: top 0.8s ease;
@@ -388,9 +372,6 @@ a {
 }
 
 main {
-  box-sizing: border-box;
-  word-wrap: break-word;
-  min-height: 100%;
   padding: 66px 10px 133.56px;
   margin: -66px auto -133.56px;
   .button_wrapper {
@@ -736,12 +717,6 @@ footer {
   body {
     font-size: 20px;
   }
-  .container.layout2 {
-    display: flex;
-    justify-content: space-between;
-    height: 100%;
-    margin: 0 auto -220px;
-  }
 
   main {
     box-sizing: border-box;
@@ -749,22 +724,6 @@ footer {
     min-height: 100%;
     padding: 86px 10px 220px;
     margin: -86px auto -220px;
-    // layout2
-    &.main-display {
-      padding: unset;
-      margin: unset;
-      .inform_wrapper {
-        display: unset;
-        overflow: unset;
-        justify-content: unset;
-        align-items: unset;
-        margin-bottom: unset;
-        .head_title {
-          font-size: 10vw;
-          font-weight: 800;
-        }
-      }
-    }
     .head_title {
       font-size: $title_font_size_desktop_h1;
     }
@@ -911,32 +870,7 @@ footer {
       }
     }
   }
-  #header {
-    &.layout_home {
-      display: block;
-      .menu_block {
-        ul {
-          display: block;
-          line-height: 5.2rem;
-          .login {
-            margin-top: 36vh;
-            li {
-              margin-top: -2rem;
-              a {
-                font-size: 4vw;
-              }
-            }
-          }
-          li {
-            margin: unset;
-            a {
-              font-size: 6vw;
-            }
-          }
-        }
-      }
-    }
-  }
+
   .menu_block {
     display: block;
     box-sizing: border-box;
@@ -1016,16 +950,8 @@ footer {
       rgba(255, 0, 0, 0.95),
       rgba(255, 0, 0, 0) 70.71%
     ),
-    linear-gradient(
-      127deg,
-      rgba(0, 255, 0, 0.95),
-      rgba(0, 255, 0, 0) 70.71%
-    ),
-    linear-gradient(
-      336deg,
-      rgba(0, 0, 255, 0.95),
-      rgba(0, 0, 255, 0) 70.71%
-    );
+    linear-gradient(127deg, rgba(0, 255, 0, 0.95), rgba(0, 255, 0, 0) 70.71%),
+    linear-gradient(336deg, rgba(0, 0, 255, 0.95), rgba(0, 0, 255, 0) 70.71%);
   background-size: 400% 400%;
   @include animation(bgAnimation, 2s, 0, infinite, alternate);
   h1 {

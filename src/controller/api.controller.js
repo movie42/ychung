@@ -1,7 +1,7 @@
-import QT from "../model/QT.model";
+import Blog from "../model/Blog.model";
 import Notice from "../model/Notice.model";
 import User from "../model/User.model";
-import Rules from "../model/Rules.model";
+import Documents from "../model/Documents.model";
 import Comment from "../model/Comments.model";
 
 export const getDB = async (req, res) => {
@@ -24,10 +24,19 @@ export const getDB = async (req, res) => {
 
 export const getParagraph = async (req, res) => {
   const {
+    session: { preUrl },
     params: { id }
   } = req;
+
   try {
-    const data = await Notice.findById(id);
+    const rootPathName = preUrl.split("/")[1];
+    const DATA = {
+      blog: Blog,
+      notice: Notice,
+      documents: Documents
+    };
+
+    const data = await DATA[rootPathName].findById(id);
 
     return res.status(303).json({ data });
   } catch (e) {
@@ -49,20 +58,6 @@ export const postEditorImage = async (req, res) => {
   }
 };
 
-export const getRulesParagraph = async (req, res) => {
-  const {
-    params: { id }
-  } = req;
-
-  try {
-    const data = await Rules.findById(id);
-
-    return res.status(200).json({ data });
-  } catch (e) {
-    console.log(e);
-  }
-};
-
 export const registerComments = async (req, res) => {
   const {
     body: { text, pathName },
@@ -74,7 +69,7 @@ export const registerComments = async (req, res) => {
     return res.snedStatus(404);
   }
   const modelName = {
-    qt: QT,
+    blog: Blog,
     notice: Notice
   };
 
