@@ -92,7 +92,7 @@ export const getWorshipDetail = async (req, res) => {
   } = req;
   try {
     const data = await Worship.findById(id);
-    const noticeData = await Notice.find({ isworship: true });
+    const noticeData = await Notice.find({ isWeekly: true });
     const dataSet = {
       gen: "창세기",
       exo: "출애굽기",
@@ -163,6 +163,8 @@ export const getWorshipDetail = async (req, res) => {
     };
 
     const word = dataSet[data.word];
+
+    console.log(noticeData);
 
     return res.render("worship/worshipDetail", {
       pageTitle: data.title,
