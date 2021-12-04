@@ -19,7 +19,6 @@ const app = express();
 //   optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
 // };
 
-// if (process.env.NODE_ENV === "production") {
 //   app.get("*", (req, res, next) => {
 //     let protocol = req.headers["X-Forwarded-Proto"] || req.protocol;
 //     if (protocol === "http") {
@@ -29,6 +28,14 @@ const app = express();
 //     next();
 //   });
 // }
+
+app.use((req, res, next) => {
+  if (process.env.NODE_ENV === "production" && !req.secure) {
+    res.redirect(`https://y-chung.com/${req.url}`);
+  } else {
+    next();
+  }
+});
 
 app.use(helmet());
 app.use(
@@ -47,7 +54,6 @@ app.use(
     preload: true,
   }),
 );
-// app.use(cors(corsOptions));
 app.use(morgan("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
