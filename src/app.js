@@ -16,10 +16,12 @@ import blogRouter from "./router/blog.router";
 const app = express();
 
 app.use((req, res, next) => {
-  if (process.env.NODE_ENV === "production" && !req.secure) {
-    res.redirect(`https://${req.headers.host}${req.url}`);
-  } else {
+  if (process.env.NODE_ENV === "production" && req.secure) {
+    console.log(req.secure);
     next();
+  } else {
+    console.log(req.secure);
+    res.redirect(`https://${req.headers.host}${req.url}`);
   }
 });
 
@@ -49,6 +51,8 @@ app.use(
     secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
+    httpOnly: true,
+    secure: true,
     store: MongoStore.create({
       mongoUrl: process.env.MONGO_URL,
     }),
