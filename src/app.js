@@ -16,12 +16,14 @@ import blogRouter from "./router/blog.router";
 const app = express();
 
 app.use((req, res, next) => {
-  if (process.env.NODE_ENV === "production" && req.secure) {
-    console.log(req.secure);
-    next();
+  if (process.env.NODE_ENV === "production") {
+    if (req.secure) {
+      next();
+    } else {
+      res.redirect(`https://${req.headers.host}${req.url}`);
+    }
   } else {
-    console.log(req.secure);
-    res.redirect(`https://${req.headers.host}${req.url}`);
+    next();
   }
 });
 
