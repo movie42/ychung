@@ -6,7 +6,7 @@ block content
             h1.head_title=data.title
             if loggedIn && String(user._id) === String(data.creator ? data.creator._id : "none")
                 div.button_wrapper
-                    a(href=`/qt/${data.id}/edit`).edit_button 수정하기
+                    a(href=`/blog/${data.id}/edit`).edit_button 수정하기
         .inform_wrapper
             .views 
                 span 조회수 

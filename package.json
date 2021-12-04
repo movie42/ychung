@@ -37,7 +37,7 @@
     "jstransformer-coffee-script": "^1.1.1",
     "jstransformer-markdown-it": "^2.1.0",
     "moment-timezone": "^0.5.33",
-    "mongoose": "^5.13.2",
+    "mongoose": "^5.13.13",
     "morgan": "^1.10.0",
     "multer": "^1.4.2",
     "multer-s3": "^2.9.0",
