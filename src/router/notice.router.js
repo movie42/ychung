@@ -6,14 +6,9 @@ import {
   getNoticeDetail,
   getNoticeEdit,
   postNoticeEdit,
-  noticeDelete
+  noticeDelete,
 } from "../controller/notice.controller";
-import {
-  onlyAdministrator,
-  onlyMaster,
-  view,
-  preUrl
-} from "../middleWare";
+import { onlyAdministrator, onlyMaster, view, preUrl } from "../middleWare";
 
 const noticeRouter = express.Router();
 
@@ -28,10 +23,7 @@ noticeRouter
   .post(postNoticeCreate);
 
 // read
-noticeRouter
-  .route("/:id([0-9a-f]{24})")
-  .all(preUrl, view)
-  .get(getNoticeDetail);
+noticeRouter.route("/:id([0-9a-f]{24})").all(preUrl, view).get(getNoticeDetail);
 
 // update
 noticeRouter

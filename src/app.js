@@ -9,9 +9,12 @@ import session from "express-session";
 import cookieParser from "cookie-parser";
 import MongoStore from "connect-mongo";
 import helmet from "helmet";
-import { locals, preUrl } from "./middleWare";
+import { locals, preUrl, corsOptions } from "./middleWare";
 import documentsRouter from "./router/documents.router";
 import blogRouter from "./router/blog.router";
+import permissionsPolicy from "permissions-policy";
+import cors from "cors";
+import csurf from "csurf";
 
 const app = express();
 
@@ -26,14 +29,16 @@ app.use((req, res, next) => {
   }
 });
 
+app.use(cors(corsOptions));
 app.use(helmet());
 app.use(
   helmet.contentSecurityPolicy({
     useDefaults: true,
     directives: {
-      "script-src": ["'unsafe-eval'", process.env.URL],
-      "img-src": ["data:", "*"],
+      "script-src": ["'unsafe-eval'", process.env.URL], //development mode should allow 'unsafe-eval' because eval function
+      "img-src": ["'self'", "data:", "https:"],
       "frame-src": "https://www.youtube.com/",
+      "font-src": ["data:", "https:"],
     },
   }),
 );
@@ -43,7 +48,20 @@ app.use(
     preload: true,
   }),
 );
+app.use(helmet.xssFilter());
+app.use(
+  permissionsPolicy({
+    features: {
+      fullscreen: ["self", '"https://www.youtube.com"'],
+      displayCapture: ["self"],
+      autoplay: [],
+      camera: [],
+    },
+  }),
+);
+
 app.use(morgan("dev"));
+const csrfProtection = csurf({ cookie: true });
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
@@ -59,9 +77,11 @@ app.use(
     }),
   }),
 );
+app.use(csrfProtection);
 
 app.set("views", process.cwd() + "/src/views");
 app.set("view engine", "pug");
+
 app.use("/static", express.static("client"));
 app.use("/favicon", express.static("favicon"));
 app.use("/uploads", express.static("uploads"));

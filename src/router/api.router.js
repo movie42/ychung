@@ -4,14 +4,9 @@ import {
   deleteComment,
   getParagraph,
   getDB,
-  postEditorImage
+  postEditorImage,
 } from "../controller/api.controller";
-import {
-  onlyMaster,
-  onlyPrivate,
-  preUrl,
-  editorImage
-} from "../middleWare";
+import { onlyMaster, onlyPrivate, preUrl, editorImage } from "../middleWare";
 
 const api = express.Router();
 
