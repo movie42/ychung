@@ -4,7 +4,8 @@ import {
   deleteComment,
   getParagraph,
   getDB,
-  postEditorImage
+  postEditorImage,
+  getVoteData
 } from "../controller/api.controller";
 import {
   onlyMaster,
@@ -41,4 +42,7 @@ api.route("/post-image").post(editorImage, postEditorImage);
 // checked email, userName
 api.route("/checked-db/:name=:value").get(getDB);
 
+// get Vote DB
+
+api.route("/get-vote-db").get(getVoteData);
 export default api;

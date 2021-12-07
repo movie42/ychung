@@ -1,51 +1,68 @@
-const main = document.querySelector("body main");
-const submitBtn = document.querySelector(".submitBtn");
+const container = document.querySelector(".vote_container");
+const listContainer = document.querySelector(".vote_list_container");
+const form = container.querySelector("form");
+const input = container.querySelector("input");
+const button = container.querySelector("button");
+const voteListContainer = document.createElement("ul");
 
-const selectorAddBtn = document.querySelector(".vote_selector_add_btn");
-const formWrapper = document.createElement("div");
+function paintData(data) {
+  const voteList = document.createElement("li");
+  const title = document.createElement("h3");
+  const agree = document.createElement("p");
+  const disagree = document.createElement("p");
+  const agreeBtn = document.createElement("button");
+  const disagreeBtn = document.createElement("button");
 
-formWrapper.id = "formWrapper";
-main.appendChild(formWrapper);
-let selectNum = 0;
-const random = () => {
-  const randomStore = [];
-  const string = "afeignrignsldkfj1230SXVSKDnsdjfe356SZN";
-  for (let i = 0; i < 10; i++) {
-    let num = 0;
-    do {
-      num = Math.floor(Math.random() * 100);
-    } while (num > 40);
-    randomStore.push(string[num]);
-  }
-  const data = randomStore.join("");
-  return data;
-};
+  agreeBtn.className = "agreeBtn";
+  disagreeBtn.className = "disagreeBtn";
 
-function handleMakeForm(e) {
-  e.preventDefault();
-  const textareaWrapper = document.createElement("div");
-  const textarea = document.createElement("textarea");
-  const deleteBtn = document.createElement("button");
-  textareaWrapper.className = `select-wrapper`;
-  textareaWrapper.id = `select-${random()}`;
-  deleteBtn.innerText = "삭제";
-  textarea.id = selectNum;
-  textarea.name = `select${selectNum}`;
-  selectNum++;
-  textareaWrapper.append(textarea);
-  textareaWrapper.append(deleteBtn);
-  formWrapper.append(textareaWrapper);
+  agreeBtn.innerText = "찬성";
+  disagreeBtn.innerText = "반대";
+
+  title.innerText = data.voteName;
+  agree.innerText = data.agree;
+  disagree.innerText = data.disagree;
+
+  voteList.append(title);
+  voteList.append(agree);
+  voteList.append(agreeBtn);
+  voteList.append(disagree);
+  voteList.append(disagreeBtn);
+  voteListContainer.append(voteList);
 }
 
-async function handleSubmit() {
-  const textarea = document.querySelector("form textarea").value;
-  console.log(textarea);
-  await fetch("/vote/create", {
+async function getVoteData() {
+  listContainer.append(voteListContainer);
+  const request = await fetch("/api/get-vote-db", {
+    method: "GET"
+  });
+  const { data } = await request.json();
+  for (let i = 0; i < data.length; i++) {
+    paintData(data[i]);
+  }
+}
+
+async function handleVoteName(e) {
+  e.preventDefault();
+  const voteName = input.value;
+  const request = await fetch("/vote", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ textarea }),
+    body: JSON.stringify({ voteName })
   });
+  const { data } = await request.json();
+  paintData(data);
 }
 
-selectorAddBtn.addEventListener("click", handleMakeForm);
-submitBtn.addEventListener("click", handleSubmit);
+function handleNumberData(e) {
+  e.preventDefault();
+  console.log(e.target);
+}
+
+if (container) {
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+  });
+  button.addEventListener("click", handleVoteName);
+}
+getVoteData();

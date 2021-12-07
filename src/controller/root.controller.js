@@ -2,6 +2,7 @@ import User from "../model/User.model";
 import QT from "../model/Blog.model";
 import Weekly from "../model/Worship.model";
 import Notice from "../model/Notice.model";
+import Vote from "../model/Vote.model";
 import bcrypt from "bcrypt";
 
 // home
@@ -133,5 +134,29 @@ export const search = async (req, res) => {
       pageTitle: "회원가입",
       errorMessage: "회원가입을 완료할 수 없습니다"
     });
+  }
+};
+
+export const getVote = (req, res) => {
+  return res.render("root/vote", { pageTitle: "투표" });
+};
+
+export const postVote = async (req, res) => {
+  const {
+    body: { voteName },
+    session: {
+      user: { _id }
+    }
+  } = req;
+
+  try {
+    const data = await Vote.create({
+      voteName,
+      creator: _id
+    });
+
+    return res.status(200).json({ data });
+  } catch (e) {
+    console.log(e);
   }
 };

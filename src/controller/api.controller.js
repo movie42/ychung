@@ -1,6 +1,7 @@
 import Blog from "../model/Blog.model";
 import Notice from "../model/Notice.model";
 import User from "../model/User.model";
+import Vote from "../model/Vote.model";
 import Documents from "../model/Documents.model";
 import Comment from "../model/Comments.model";
 
@@ -104,4 +105,12 @@ export const deleteComment = async (req, res) => {
 
   await Comment.findByIdAndDelete(id);
   return res.sendStatus(200);
+};
+
+// vote
+
+export const getVoteData = async (req, res) => {
+  const data = await Vote.find({});
+
+  res.status(200).json({ data });
 };
