@@ -4,8 +4,7 @@ import {
   deleteComment,
   getParagraph,
   getDB,
-  postEditorImage,
-  getVoteData
+  postEditorImage
 } from "../controller/api.controller";
 import {
   onlyMaster,

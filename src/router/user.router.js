@@ -4,7 +4,7 @@ import {
   getEditUser,
   postEditUser,
   getEditPassword,
-  postEditPassword
+  postEditPassword,
 } from "../controller/user.controller";
 import { onlyPrivate, preUrl, photoUpload } from "../middleWare";
 

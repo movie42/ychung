@@ -6,7 +6,7 @@ import {
   blogDetail,
   getBlogUpdate,
   postBlogUpdate,
-  blogDelete
+  blogDelete,
 } from "../controller/blog.controller";
 import { onlyPrivate, preUrl, view } from "../middleWare";
 
@@ -23,10 +23,7 @@ blogRouter
   .post(postBlogWrite);
 
 // Read
-blogRouter
-  .route("/:id([0-9a-f]{24})")
-  .all(preUrl, view)
-  .get(blogDetail);
+blogRouter.route("/:id([0-9a-f]{24})").all(preUrl, view).get(blogDetail);
 
 // Update
 blogRouter
@@ -36,9 +33,6 @@ blogRouter
   .post(postBlogUpdate);
 
 // Delete
-blogRouter
-  .route("/:id([0-9a-f]{24})/delete")
-  .all(onlyPrivate)
-  .get(blogDelete);
+blogRouter.route("/:id([0-9a-f]{24})/delete").all(onlyPrivate).get(blogDelete);
 
 export default blogRouter;
