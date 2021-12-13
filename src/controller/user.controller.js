@@ -1,7 +1,7 @@
 import bcrypt from "bcrypt";
 import User from "../model/User.model";
 
-//detail
+// detail
 export const userDetail = async (req, res) => {
   const {
     params: { id }

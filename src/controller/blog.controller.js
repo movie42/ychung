@@ -4,7 +4,9 @@ import User from "../model/User.model";
 // list
 export const blogList = async (req, res) => {
   try {
-    const data = await Blog.find().sort({ updateAt: "desc" });
+    const data = (
+      await Blog.find().sort({ updateAt: "desc" })
+    ).reverse();
     return res.render("blog/blogList", {
       pageTitle: "블로그",
       data
