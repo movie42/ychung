@@ -36,7 +36,7 @@ app.use((req, res, next) => {
   }
 });
 
-app.use(cors(corsOptions));
+// app.use(cors(corsOptions));
 app.use(helmet());
 app.use(
   helmet.contentSecurityPolicy({
@@ -85,12 +85,6 @@ app.use(
   })
 );
 app.use(csrfProtection);
-app.use(function (err, req, res, next) {
-  if (err.code !== "EBADCSRFTOKEN") return next(err);
-  res
-    .status(403)
-    .json({ error: "session has expired or tampered with" });
-});
 
 app.set("views", process.cwd() + "/src/views");
 app.set("view engine", "pug");

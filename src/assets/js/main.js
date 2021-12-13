@@ -1,23 +1,24 @@
 import "../scss/styles.scss";
 
-const formContainer = document.querySelector(".form_container form");
+// const formContainer = document.querySelector(".form_container form");
 const menuBtn = document.getElementById("menu_button");
 const closeBtn = document.querySelector(".close_button");
 const menuBar = document.querySelector(".menu_block");
 const searchBtn = document.querySelectorAll(".search");
 const sendBtn = document.querySelector(".send_btn");
 const youtubeVideo = document.querySelector(".youtube_live");
-const date = new Date();
-const day = date.getDay();
-const getDayLocalStorageData = localStorage.getItem("day");
-if (getDayLocalStorageData !== String(day)) {
-  localStorage.setItem("day", day);
-  localStorage.setItem("modal", true);
-}
-const getModalBool = localStorage.getItem("modal");
+// const date = new Date();
+// const day = date.getDay();
+// const getDayLocalStorageData = localStorage.getItem("day");
+// if (getDayLocalStorageData !== String(day)) {
+//   localStorage.setItem("day", day);
+//   localStorage.setItem("modal", true);
+// }
+// const getModalBool = localStorage.getItem("modal");
 
 const handleOpenMenu = (e) => {
-  if (e.key === "Enter" || e.type === "click") menuBar.classList.add("block");
+  if (e.key === "Enter" || e.type === "click")
+    menuBar.classList.add("block");
 };
 
 const handleCloseMenu = (e) => {
@@ -29,15 +30,23 @@ function paintErrorHandler(checkList, form) {
   for (let i = 0; i < checkList.length; i++) {
     for (let j = 0; j < form.childNodes.length; j++) {
       if (form.childNodes[j].localName === "div") {
-        for (let k = 0; k < form.childNodes[j].childNodes.length; k++) {
-          if (checkList[i] === form.childNodes[j].childNodes[k].name) {
+        for (
+          let k = 0;
+          k < form.childNodes[j].childNodes.length;
+          k++
+        ) {
+          if (
+            checkList[i] === form.childNodes[j].childNodes[k].name
+          ) {
             if (
               !form.childNodes[j].childNodes[k].classList.contains(
-                "errorMessage",
+                "errorMessage"
               )
             ) {
               const errorMessage = document.createElement("p");
-              form.childNodes[j].childNodes[k].classList.add("errorMessage");
+              form.childNodes[j].childNodes[k].classList.add(
+                "errorMessage"
+              );
               errorMessage.className = "errorMessage";
               errorMessage.innerText = `${checkList[i]}를 입력해야해요!`;
               form.childNodes[j].after(errorMessage);
@@ -84,53 +93,58 @@ function paintErrorHandler(checkList, form) {
 //   }
 // }
 
-function modal() {
-  if (getDayLocalStorageData === "false") {
-    return;
-  }
-  const body = document.querySelector("body");
-  const modal_box = document.createElement("div");
-  const h1 = document.createElement("h1");
-  const closeBtn = document.createElement("span");
-  closeBtn.classList.add("material-icons-outlined");
-  closeBtn.classList.add("close_button");
-  modal_box.classList.add("modal");
-  modal_box.classList.add("on");
-  closeBtn.innerText = "close";
-  h1.innerText = "12월 5일\n 정기총회가 있습니다.";
-  modal_box.append(closeBtn);
-  modal_box.append(h1);
-  body.append(modal_box);
-  closeBtn.addEventListener("click", () => {
-    modal_box.classList.remove("on");
-    localStorage.setItem("modal", "false");
-  });
-}
+// function modal() {
+//   if (getDayLocalStorageData === "false") {
+//     return;
+//   }
+//   const body = document.querySelector("body");
+//   const modal_box = document.createElement("div");
+//   const h1 = document.createElement("h1");
+//   const closeBtn = document.createElement("span");
+//   closeBtn.classList.add("material-icons-outlined");
+//   closeBtn.classList.add("close_button");
+//   modal_box.classList.add("modal");
+//   modal_box.classList.add("on");
+//   closeBtn.innerText = "close";
+//   h1.innerText = "12월 5일\n 정기총회가 있습니다.";
+//   modal_box.append(closeBtn);
+//   modal_box.append(h1);
+//   body.append(modal_box);
+//   closeBtn.addEventListener("click", () => {
+//     modal_box.classList.remove("on");
+//     localStorage.setItem("modal", "false");
+//   });
+// }
 
 async function handleFormSubmit(e) {
   e.preventDefault();
   const form = document.querySelector(".form_container .form");
-
   const formData = new FormData(form);
-  const plainFormData = Object.fromEntries(formData.entries());
-  const formDataJsonString = JSON.stringify(plainFormData);
+
+  const body = {};
+
+  for (let [name, value] of formData) {
+    body[name] = value;
+  }
 
   const response = await fetch("/worship/upload", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      Accept: "application/json",
+      "X-XSRF-TOKEN": document
+        .querySelector("meta[name='csrf-token']")
+        .getAttribute("content")
     },
-    body: formDataJsonString,
+    body: JSON.stringify({ body })
   });
 
-  const { sendValidationCheck } = await response.json();
+  if (response.status === 200) {
+    const {
+      data: { _id }
+    } = await response.json();
 
-  if (sendValidationCheck == 302) {
-    window.location.pathname = "/worship";
-  } else if (sendValidationCheck.length > 0) {
-    paintErrorHandler(sendValidationCheck, form);
-    paintSuccessHandler(sendValidationCheck, form);
+    window.location.pathname = `/worship/${_id}`;
+  } else {
   }
 }
 
@@ -151,7 +165,9 @@ menuBtn.addEventListener("click", handleOpenMenu);
 menuBtn.addEventListener("keydown", handleOpenMenu);
 closeBtn.addEventListener("click", handleCloseMenu);
 closeBtn.addEventListener("keydown", handleCloseMenu);
-searchBtn.forEach((value) => value.addEventListener("click", handleSearch));
+searchBtn.forEach((value) =>
+  value.addEventListener("click", handleSearch)
+);
 
 if (sendBtn) {
   sendBtn.addEventListener("click", handleFormSubmit);
@@ -170,6 +186,6 @@ if (youtubeVideo) {
   handleVideoSize();
 }
 
-if (getModalBool === null || getModalBool !== "false") {
-  modal();
-}
+// if (getModalBool === null || getModalBool !== "false") {
+//   modal();
+// }

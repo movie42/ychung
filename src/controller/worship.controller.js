@@ -5,62 +5,56 @@ import User from "../model/User.model";
 // list
 export const list = async (req, res) => {
   try {
-    const data = (await Worship.find().sort({ updateAt: "desc" })).reverse();
+    const data = (
+      await Worship.find().sort({ updateAt: "desc" })
+    ).reverse();
     if (!data) {
       return res.status(404).render("worship/worshipList", {
         pageTitle: "주보",
         data: [],
-        errorMessage: "주보 데이터를 찾을 수 없습니다. ",
+        errorMessage: "주보 데이터를 찾을 수 없습니다. "
       });
     }
 
     return res.render("worship/worshipList", {
       pageTitle: "주보",
-      data,
+      data
     });
   } catch (error) {
     console.log(error);
     return res.status(404).render("root/404", {
       pageTitle: "페이지를 찾을 수 없습니다.",
-      errorMessage: "페이지를 찾을 수 없습니다. ",
+      errorMessage: "페이지를 찾을 수 없습니다. "
     });
   }
 };
 
 // create
 export const getWorshipUpload = (req, res) =>
-  res.render("worship/worshipCreate");
+  res.render("worship/worshipCreate", { pageTitle: "주보 만들기" });
 
 export const postWorshipUpload = async (req, res) => {
   const {
     body: {
-      title,
-      word,
-      chapter,
-      verse,
-      verse_end,
-      pastor,
-      worshipTeam,
-      prayer,
-      advertisement,
-      reader,
-      offering,
-      benediction,
+      body: {
+        title,
+        word,
+        chapter,
+        verse,
+        verse_end,
+        pastor,
+        worshipTeam,
+        prayer,
+        advertisement,
+        reader,
+        offering,
+        benediction
+      }
     },
     session: {
-      user: { _id },
-    },
-  } = req;
-
-  // validation
-  const formData = req.body;
-  const sendValidationCheck = [];
-
-  for (let i in formData) {
-    if (formData[i] === "") {
-      sendValidationCheck.push(i);
+      user: { _id }
     }
-  }
+  } = req;
 
   try {
     const data = await Worship.create({
@@ -76,9 +70,9 @@ export const postWorshipUpload = async (req, res) => {
       reader,
       offering,
       benediction,
-      creator: _id,
+      creator: _id
     });
-    return res.status(302).json({ sendValidationCheck: 302 });
+    return res.status(200).json({ data });
   } catch (error) {
     console.log(error);
     return res.status(400).json({ sendValidationCheck });
@@ -88,7 +82,7 @@ export const postWorshipUpload = async (req, res) => {
 // read
 export const getWorshipDetail = async (req, res) => {
   const {
-    params: { id },
+    params: { id }
   } = req;
   try {
     const data = await Worship.findById(id);
@@ -159,7 +153,7 @@ export const getWorshipDetail = async (req, res) => {
       "2jn": "요한2서",
       "3jn": "요한3서",
       jud: "유다서",
-      rev: "요한계시록",
+      rev: "요한계시록"
     };
 
     const word = dataSet[data.word];
@@ -171,13 +165,13 @@ export const getWorshipDetail = async (req, res) => {
       id,
       data,
       word,
-      noticeData,
+      noticeData
     });
   } catch (error) {
     console.log(error);
     return res.status(404).render("404", {
       pageTitle: "404",
-      errorMessage: "페이지를 찾을 수 없습니다.",
+      errorMessage: "페이지를 찾을 수 없습니다."
     });
   }
 };
@@ -185,19 +179,19 @@ export const getWorshipDetail = async (req, res) => {
 // update
 export const getWorshipEdit = async (req, res) => {
   const {
-    params: { id },
+    params: { id }
   } = req;
   try {
     const data = await Worship.findById(id);
     return res.render("worship/worshipEdit", {
       pageTitle: "주보 수정",
-      data,
+      data
     });
   } catch (e) {
     console.log(error);
     return res.status(404).render("404", {
       pageTitle: "404",
-      errorMessage: "페이지를 찾을 수 없습니다.",
+      errorMessage: "페이지를 찾을 수 없습니다."
     });
   }
 };
@@ -216,8 +210,8 @@ export const postWorshipEdit = async (req, res) => {
       advertisement,
       reader,
       offering,
-      benediction,
-    },
+      benediction
+    }
   } = req;
   try {
     const data = await Worship.findByIdAndUpdate(id, {
@@ -232,14 +226,15 @@ export const postWorshipEdit = async (req, res) => {
       advertisement,
       reader,
       offering,
-      benediction,
+      benediction
     });
     return res.redirect(`/worship/${data._id}`);
   } catch (error) {
     console.log(error);
-    return res
-      .status(400)
-      .render("worship/worshipEdit", { pageTitle: "주보 수정", data });
+    return res.status(400).render("worship/worshipEdit", {
+      pageTitle: "주보 수정",
+      data
+    });
   }
 };
 
@@ -247,9 +242,9 @@ export const postWorshipEdit = async (req, res) => {
 export const worshipDelete = async (req, res) => {
   const {
     session: {
-      user: { _id: sessionUserId, authority },
+      user: { _id: sessionUserId, authority }
     },
-    params: { id },
+    params: { id }
   } = req;
 
   try {
@@ -258,7 +253,8 @@ export const worshipDelete = async (req, res) => {
     if (!userData) {
       return res.status(404).render("root/404", {
         pageTitle: "사용자 정보를 찾을 수 없습니다.",
-        errorMessage: "사용자 정보를 찾을 수 없습니다. 관리자에게 문의하세요.",
+        errorMessage:
+          "사용자 정보를 찾을 수 없습니다. 관리자에게 문의하세요."
       });
     }
 
@@ -272,14 +268,14 @@ export const worshipDelete = async (req, res) => {
 
     return res.status(404).render("root/404", {
       pageTitle: "삭제 권한이 없습니다.",
-      errorMessage: "삭제 권한이 없습니다. 관리자에게 문의하세요.",
+      errorMessage: "삭제 권한이 없습니다. 관리자에게 문의하세요."
     });
   } catch (error) {
     console.log(error);
     return res.status(404).render("root/404", {
       pageTitle: "해당 정보를 삭제할 수 없습니다.",
       errorMessage:
-        "해당 정보를 삭제하는 과정에서 알 수 없는 오류를 발견했습니다.",
+        "해당 정보를 삭제하는 과정에서 알 수 없는 오류를 발견했습니다."
     });
   }
 };
