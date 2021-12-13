@@ -5,11 +5,11 @@
   "main": "index.js",
   "scripts": {
     "start": "node build/server.js",
-    "dev:server": "nodemon --exec babel-node src/server.js",
-    "dev:assets": "webpack --mode=development -w",
+    "dev:server": "nodemon",
+    "dev:assets": "webpack --config webpack.dev.js",
     "build": "npm run build:server && npm run build:assets",
     "build:server": "babel src -d build",
-    "build:assets": "webpack --mode=production",
+    "build:assets": "webpack --config webpack.prod.js",
     "db": "brew services run mongodb-community"
   },
   "repository": {
@@ -29,6 +29,7 @@
     "bcrypt": "^5.0.1",
     "connect-mongo": "^4.4.1",
     "cookie-parser": "^1.4.5",
+    "core-js": "^2.6.12",
     "cors": "^2.8.5",
     "csurf": "^1.11.0",
     "dotenv": "^10.0.0",
@@ -38,7 +39,7 @@
     "jstransformer-coffee-script": "^1.1.1",
     "jstransformer-markdown-it": "^2.1.0",
     "moment-timezone": "^0.5.33",
-    "mongoose": "^5.13.13",
+    "mongoose": "^6.1.1",
     "morgan": "^1.10.0",
     "multer": "^1.4.2",
     "multer-s3": "^2.9.0",
@@ -54,15 +55,20 @@
     "@babel/cli": "^7.15.7",
     "@babel/core": "^7.14.6",
     "@babel/node": "^7.14.7",
+    "@babel/polyfill": "^7.12.1",
     "@babel/preset-env": "^7.14.7",
     "babel-loader": "^8.2.2",
     "css-loader": "^5.2.6",
+    "eslint": "^8.4.1",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.25.3",
     "mini-css-extract-plugin": "^2.1.0",
     "nodemon": "^2.0.10",
     "sass": "^1.35.2",
     "sass-loader": "^12.1.0",
     "style-loader": "^3.0.0",
     "webpack": "^5.44.0",
-    "webpack-cli": "^4.7.2"
+    "webpack-cli": "^4.7.2",
+    "webpack-merge": "^5.8.0"
   }
 }

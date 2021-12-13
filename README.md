@@ -1,6 +1,7 @@
 # 양청 홈페이지
 
 - [양청 홈페이지](#양청-홈페이지)
+  - [업데이트 2021. 12.13](#업데이트-2021-1213)
   - [업데이트 2021. 12. 4](#업데이트-2021-12-4)
   - [업데이트 2021.11.13](#업데이트-20211113)
   - [업데이트 2021. 11. 8](#업데이트-2021-11-8)
@@ -23,6 +24,12 @@
     - [2021년 10월 9일](#2021년-10월-9일)
         - [웹 컴포넌트](#웹-컴포넌트)
   - [1.3. 참조](#13-참조)
+
+## 업데이트 2021. 12.13
+
+server 경고창에 deprecation 옵션에 대한 경고 메시지가 지속적으로 표시되는 문제 해결
+
+- mongoose ver. 6.1.1 ([no more deprecation warning options](https://mongoosejs.com/docs/migrating_to_6.html#no-more-deprecation-warning-options))
 
 ## 업데이트 2021. 12. 4
 
@@ -286,7 +293,7 @@ if (form) {
 async function handleSessionStorage(e) {
   e.preventDefault();
   const request = await fetch("/join", {
-    method: "POST",
+    method: "POST"
   });
 
   if (request.status === 400) {
@@ -453,7 +460,7 @@ function successMessage(str) {
 
 function isEmail(email) {
   return /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.exec(
-    email,
+    email
   );
 }
 
@@ -471,7 +478,7 @@ function isUserName(userName) {
 function isPassword(password) {
   const checkPassword =
     /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$/.exec(
-      password,
+      password
     );
   if (checkPassword) {
     return checkPassword;
@@ -498,9 +505,9 @@ async function postDataToServer(data) {
   const response = await fetch("/join", {
     method: "POST",
     headers: {
-      "Content-Type": "multipart/form-data",
+      "Content-Type": "multipart/form-data"
     },
-    body: JSON.stringify(data),
+    body: JSON.stringify(data)
   });
 
   console.log(response);
@@ -547,7 +554,7 @@ async function postDataToServer(data) {
 
   const response = await fetch("/join", {
     method: "POST",
-    body: file,
+    body: file
   });
 
   console.log(response);
