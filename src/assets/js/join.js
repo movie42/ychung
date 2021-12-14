@@ -1,14 +1,18 @@
 const form = document.querySelector(".form_container form");
-const inputs = form.querySelectorAll("input");
-const button = form.querySelector("button");
+const inputs = document.querySelectorAll(
+  ".form_container form input"
+);
+const button = document.querySelector(".form_container form button");
 
 const message = {
   email: "이메일을 입력하세요.",
-  userName: "사용자 이름은 영문과 숫자 조합으로만 작성할 수 있습니다.",
+  userName:
+    "사용자 이름은 영문과 숫자 조합으로만 작성할 수 있습니다.",
   name: "이름은 한글로만 작성할 수 있으며 2-6 글자만 입력할 수 있습니다.",
-  password: "비밀번호는 특수문자, 영문, 숫자, 8글자 이상으로 작성되어야합니다.",
+  password:
+    "비밀번호는 특수문자, 영문, 숫자, 8글자 이상으로 작성되어야합니다.",
   password2: "비밀번호가 앞에 입력한 비밀번호와 다릅니다.",
-  exist: "이미 다른 사람이 사용하는 중이에요!",
+  exist: "이미 다른 사람이 사용하는 중이에요!"
 };
 
 function checkedMessageNode(name) {
@@ -60,7 +64,7 @@ function isTrue(name, value) {
       name: /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]{2,6}$/,
       userName: /^[a-zA-Z0-9]{5,10}$/,
       password:
-        /^(?=.*[a-zA-z])(?=.*[0-9])(?=.*[$`~!@$!%*#^?&\\(\\)\-_=+]).{8,}$/,
+        /^(?=.*[a-zA-z])(?=.*[0-9])(?=.*[$`~!@$!%*#^?&\\(\\)\-_=+]).{8,}$/
     };
     return obj[name].exec(value) ? true : false;
   }
@@ -79,7 +83,7 @@ async function checkedDataBase(bool, node) {
 
   if (name === "email" || name === "userName") {
     const response = await fetch(`/api/checked-db/${name}=${value}`, {
-      method: "GET",
+      method: "GET"
     });
 
     const { exist } = await response.json();
@@ -131,7 +135,7 @@ async function handleSubmit(e) {
   const response = await fetch("/join", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ body }),
+    body: JSON.stringify({ body })
   });
 
   if (response.status === 201) {

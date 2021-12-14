@@ -3,14 +3,7 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 module.exports = {
   entry: {
-    main: "./src/assets/js/main.js",
-    join: "./src/assets/js/join.js",
-    selectVerse: "./src/assets/js/selectVerse.js",
-    reservation: "./src/assets/js/reservation.js",
-    vote: "./src/assets/js/vote.js",
-    editor: "./src/assets/js/editor.js",
-    comments: "./src/assets/js/comments.js",
-    viewer: "./src/assets/js/viewer.js"
+    main: "./src/assets/js/main.js"
   },
   plugins: [
     new MiniCssExtractPlugin({

@@ -1,3 +1,10 @@
+// const getDayLocalStorageData = localStorage.getItem("day");
+// if (getDayLocalStorageData !== String(day)) {
+//   localStorage.setItem("day", day);
+//   localStorage.setItem("modal", true);
+// }
+// const getModalBool = localStorage.getItem("modal");
+
 // const date = new Date();
 // const day = date.getDay();
 // const hour = date.getHours();
