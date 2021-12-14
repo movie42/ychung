@@ -1,7 +1,7 @@
 {
   "ignore": [
     "webpack.config.js",
-    "assets/*",
+    "./src/assets/*",
     ".git",
     "node_modules/**/node_moduels"
   ],
