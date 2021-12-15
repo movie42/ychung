@@ -1,16 +1,11 @@
 import { menuContainer } from "./selectors";
 
-const handleOpenMenu = (event) => {
+export const handleOpenMenu = (event) => {
   if (event.key === "Enter" || event.type === "click")
     menuContainer.classList.add("block");
 };
 
-const handleCloseMenu = (event) => {
+export const handleCloseMenu = (event) => {
   if (event.key === "Enter" || event.type === "click")
     menuContainer.classList.remove("block");
 };
-
-menuButton.addEventListener("click", handleOpenMenu);
-menuButton.addEventListener("keydown", handleOpenMenu);
-closeButton.addEventListener("click", handleCloseMenu);
-closeButton.addEventListener("keydown", handleCloseMenu);

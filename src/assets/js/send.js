@@ -1,11 +1,9 @@
 // requestHTTP
-import { sendButton } from "./button";
-
 import { getUrl, editorBodyData } from "./get";
 
 export function redirect(response, locationName) {
   const {
-    data: { _id },
+    data: { _id }
   } = response;
   window.location.pathname = `/${locationName}/${_id}`;
 }
@@ -13,17 +11,15 @@ export function redirect(response, locationName) {
 export async function createEditorData(body, path) {
   const { locationName } = path;
 
-  console.log(locationName);
-
   const request = await fetch(`/${locationName}/upload`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      "X-CSRF-Token": document.querySelector("meta[name='csrf-token']")[
-        "content"
-      ],
+      "X-CSRF-Token": document.querySelector(
+        "meta[name='csrf-token']"
+      )["content"]
     },
-    body: JSON.stringify({ body }),
+    body: JSON.stringify({ body })
   });
 
   const result = await request.json();
@@ -38,11 +34,11 @@ export async function editEditorData(body, path) {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      "X-CSRF-Token": document.querySelector("meta[name='csrf-token']")[
-        "content"
-      ],
+      "X-CSRF-Token": document.querySelector(
+        "meta[name='csrf-token']"
+      )["content"]
     },
-    body: JSON.stringify({ body }),
+    body: JSON.stringify({ body })
   });
 
   const result = await request.json();
@@ -50,7 +46,7 @@ export async function editEditorData(body, path) {
   if (request.status === 200) return redirect(result, locationName);
 }
 
-function handleClick(event) {
+export function handleClick(event) {
   const body = editorBodyData();
   const path = getUrl();
   if (path.method === "upload") {
@@ -58,8 +54,4 @@ function handleClick(event) {
   } else {
     editEditorData(body, path);
   }
-}
-
-if (sendButton) {
-  sendButton.addEventListener("click", handleClick);
 }

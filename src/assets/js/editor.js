@@ -1,8 +1,7 @@
 import Editor from "@toast-ui/editor";
+import { editorContainer } from "./selectors";
 
 export const editor = (function () {
-  const editor = document.querySelector("#editor");
-
   function paintEditor(attr) {
     return new Editor({
       el: attr,
@@ -14,17 +13,17 @@ export const editor = (function () {
                 type: "openTag",
                 tagName: "iframe",
                 outerNewLine: true,
-                attributes: node.attrs,
+                attributes: node.attrs
               },
               { type: "html", content: node.childrenHTML },
               {
                 type: "closeTag",
                 tagName: "iframe",
-                outerNewLine: true,
-              },
+                outerNewLine: true
+              }
             ];
-          },
-        },
+          }
+        }
       },
       previewStyle: "vertical",
       height: "60vh",
@@ -34,7 +33,7 @@ export const editor = (function () {
         ["hr", "quote"],
         ["ul", "ol", "task"],
         ["table", "image", "link"],
-        ["code", "codeblock"],
+        ["code", "codeblock"]
       ],
       language: "ko",
       placeholder: "내용을 입력하세요.",
@@ -46,16 +45,18 @@ export const editor = (function () {
 
           const response = await fetch("/api/post-image", {
             method: "POST",
-            body: formData,
+            body: formData
           });
 
           const { data } = await response.json();
           callback(data, "alt text");
-        },
+        }
       },
-      exts: ["youtube"],
+      exts: ["youtube"]
     });
   }
 
-  return editor !== null ? paintEditor(editor) : null;
+  return editorContainer !== null
+    ? paintEditor(editorContainer)
+    : null;
 })();

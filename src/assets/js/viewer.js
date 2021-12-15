@@ -1,9 +1,7 @@
 import View from "@toast-ui/editor/dist/toastui-editor-viewer";
-import { getEditorData } from "./get";
+import { viewContainer } from "./selectors";
 
-const viewer = (async function () {
-  const viewerContainer = document.querySelector("#viewer");
-
+export const viewer = (function () {
   function paintView(attr) {
     return new View({
       el: attr,
@@ -15,23 +13,20 @@ const viewer = (async function () {
                 type: "openTag",
                 tagName: "iframe",
                 outerNewLine: true,
-                attributes: node.attrs,
+                attributes: node.attrs
               },
               { type: "html", content: node.childrenHTML },
               {
                 type: "closeTag",
                 tagName: "iframe",
-                outerNewLine: true,
-              },
+                outerNewLine: true
+              }
             ];
-          },
-        },
-      },
+          }
+        }
+      }
     });
   }
 
-  if (viewerContainer !== null) {
-    const paragraph = await getEditorData();
-    paintView(viewerContainer).setMarkdown(paragraph);
-  }
+  return viewContainer !== null ? paintView(viewContainer) : null;
 })();

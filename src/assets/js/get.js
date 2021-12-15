@@ -6,12 +6,14 @@ export function getUrl() {
   return {
     locationName: paramsLocation[1],
     itemId: paramsLocation[2],
-    method: paramsLocation[len - 1],
+    method: paramsLocation[len - 1]
   };
 }
 
 export function editorBodyData() {
-  const headTitle = document.querySelector("input[name='title']").value;
+  const headTitle = document.querySelector(
+    "input[name='title']"
+  ).value;
   const checkbox = document.querySelector("input[name='isWeekly']");
   const editorBody = editor.getMarkdown();
   const isWeekly = checkbox ? checkbox.checked : null;
@@ -19,23 +21,24 @@ export function editorBodyData() {
   return {
     headTitle,
     editorBody,
-    isWeekly,
+    isWeekly
   };
 }
 
-export async function getEditorData() {
+export async function getEditorData(func) {
   const { locationName, itemId } = getUrl();
 
-  const data = await fetch(`/api/${itemId}/${locationName}-data`, {
-    headers: { "Content-Type": "application/json" },
+  const request = await fetch(`/api/${locationName}/${itemId}/get`, {
     method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      "X-CSRF-Token": document.querySelector(
+        "meta[name='csrf-token']"
+      )["content"]
+    }
   });
 
-  const response = await data.json();
+  const response = await request.json();
 
-  const {
-    data: { paragraph },
-  } = response;
-
-  return paragraph;
+  return func(response);
 }
