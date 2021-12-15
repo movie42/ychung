@@ -3,6 +3,7 @@ import Notice from "../model/Notice.model";
 import User from "../model/User.model";
 import Vote from "../model/Vote.model";
 import Documents from "../model/Documents.model";
+import Worship from "../model/Worship.model";
 import Comment from "../model/Comments.model";
 
 export const getDB = async (req, res) => {
@@ -35,7 +36,8 @@ export const getParagraph = async (req, res) => {
     const DATA = {
       blog: Blog,
       notice: Notice,
-      documents: Documents
+      documents: Documents,
+      worship: Worship
     };
 
     const data = await DATA[rootPathName].findById(id);

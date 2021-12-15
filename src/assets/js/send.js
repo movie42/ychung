@@ -19,7 +19,7 @@ export async function createEditorData(body, path) {
         "meta[name='csrf-token']"
       )["content"]
     },
-    body: JSON.stringify({ body })
+    body: JSON.stringify({ ...body })
   });
 
   const result = await request.json();
@@ -29,7 +29,7 @@ export async function createEditorData(body, path) {
 
 export async function editEditorData(body, path) {
   const { locationName, itemId } = path;
-
+  console.log(locationName, itemId, body);
   const request = await fetch(`/${locationName}/${itemId}/edit`, {
     method: "POST",
     headers: {
@@ -38,7 +38,7 @@ export async function editEditorData(body, path) {
         "meta[name='csrf-token']"
       )["content"]
     },
-    body: JSON.stringify({ body })
+    body: JSON.stringify({ ...body })
   });
 
   const result = await request.json();

@@ -1,5 +1,10 @@
 import express from "express";
-import { onlyMaster, preUrl, view, onlyAdministrator } from "../middleWare";
+import {
+  onlyMaster,
+  preUrl,
+  view,
+  onlyAdministrator
+} from "../middleWare";
 import {
   list,
   getWorshipUpload,
@@ -7,7 +12,7 @@ import {
   getWorshipDetail,
   getWorshipEdit,
   postWorshipEdit,
-  worshipDelete,
+  worshipDelete
 } from "../controller/worship.controller";
 
 const worshipRouter = express.Router();

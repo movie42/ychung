@@ -36,14 +36,14 @@ export const getWorshipUpload = (req, res) =>
 export const postWorshipUpload = async (req, res) => {
   const {
     body: {
-      body: {
+      formData: {
         title,
+        pastor,
+        worshipTeam,
         word,
         chapter,
         verse,
         verse_end,
-        pastor,
-        worshipTeam,
         prayer,
         advertisement,
         reader,
@@ -75,7 +75,7 @@ export const postWorshipUpload = async (req, res) => {
     return res.status(200).json({ data });
   } catch (error) {
     console.log(error);
-    return res.status(400).json({ sendValidationCheck });
+    return res.status(400).render("root/404");
   }
 };
 
@@ -180,10 +180,9 @@ export const getWorshipEdit = async (req, res) => {
     params: { id }
   } = req;
   try {
-    const data = await Worship.findById(id);
     return res.render("worship/worshipEdit", {
       pageTitle: "주보 수정",
-      data
+      id
     });
   } catch (e) {
     console.log(error);
@@ -193,22 +192,25 @@ export const getWorshipEdit = async (req, res) => {
     });
   }
 };
+
 export const postWorshipEdit = async (req, res) => {
   const {
     params: { id },
     body: {
-      title,
-      word,
-      chapter,
-      verse,
-      verse_end,
-      pastor,
-      worshipTeam,
-      prayer,
-      advertisement,
-      reader,
-      offering,
-      benediction
+      formData: {
+        title,
+        word,
+        chapter,
+        verse,
+        verse_end,
+        pastor,
+        worshipTeam,
+        prayer,
+        advertisement,
+        reader,
+        offering,
+        benediction
+      }
     }
   } = req;
   try {
@@ -226,7 +228,7 @@ export const postWorshipEdit = async (req, res) => {
       offering,
       benediction
     });
-    return res.redirect(`/worship/${data._id}`);
+    return res.status(200).json({ data });
   } catch (error) {
     console.log(error);
     return res.status(400).render("worship/worshipEdit", {

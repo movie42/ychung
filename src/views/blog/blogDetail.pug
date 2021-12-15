@@ -6,7 +6,8 @@ block content
             h1.head_title=data.title
             if loggedIn && String(user._id) === String(data.creator ? data.creator._id : "none")
                 div.button_wrapper
-                    a(href=`/blog/${data.id}/edit`).edit_button 수정하기
+                    a(href=`/blog/${data.id}/edit`).edit_button 
+                        span.material-icons-outlined edit
         .inform_wrapper
             .views 
                 span 조회수 
@@ -20,27 +21,24 @@ block content
                 span #{data.date} 
                 span #{data.day} 
                 span #{data.time}
-        .qt_word_wrapper
-            p.qt_word=data.word 
-        .qt_paragraph_wrapper
-            p.qt_paragraph=data.paragraph
-    if !loggedIn
-        .comments_form_wrapper
-            a(href="/login") 로그인해야 댓글을 달 수 있습니다. 로그인 하러 가기
-    else
-        .comments_form_wrapper
-            form
-                textarea(placeholder="댓글을 입력해주세요")
-                button 댓글 등록
-        .comments_item_wrapper
-            ul 
-                if data.comments.length > 0
-                    each item in data.comments.reverse()
-                        li.comment_item(data-id=item.id)
-                            .comment_user_text_wrapper
-                                span.comment_creator #{data.creator ? data.creator.name : "알 수 없음"}
-                                span.comment_text #{item.text}
-                            .comment_infom_button_wrapper 
-                                span.edit_button 수정 
-                                span.delete_button 삭제
-    script(src="/static/js/comments.js") 
+        .component_wrapper
+            #viewer
+    //- if !loggedIn
+    //-     .comments_form_wrapper
+    //-         a(href="/login") 로그인해야 댓글을 달 수 있습니다. 로그인 하러 가기
+    //- else
+    //-     .comments_form_wrapper
+    //-         form
+    //-             textarea(placeholder="댓글을 입력해주세요")
+    //-             button 댓글 등록
+    //-     .comments_item_wrapper
+    //-         ul 
+    //-             if data.comments.length > 0
+    //-                 each item in data.comments.reverse()
+    //-                     li.comment_item(data-id=item.id)
+    //-                         .comment_user_text_wrapper
+    //-                             span.comment_creator #{data.creator ? data.creator.name : "알 수 없음"}
+    //-                             span.comment_text #{item.text}
+    //-                         .comment_infom_button_wrapper 
+    //-                             span.edit_button 수정 
+    //-                             span.delete_button 삭제

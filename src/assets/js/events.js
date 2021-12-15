@@ -4,8 +4,11 @@ import {
   sendButton,
   editorTitle,
   editorCheckbox,
-  editorContainer,
-  viewContainer
+  updateContainer,
+  viewContainer,
+  formInputList,
+  worshipFormContainer,
+  formSelector
 } from "./selectors";
 import { handleOpenMenu, handleCloseMenu } from "./menu";
 import { handleClick } from "./send";
@@ -42,14 +45,14 @@ closeButton !== null
 // document event
 
 // edit
-editorContainer !== null
+updateContainer !== null
   ? getEditorData(function () {
       const {
         data: { title, paragraph, isWeekly }
       } = arguments[0];
 
       editorTitle.value = title;
-      editorCheckbox.checked = isWeekly;
+      editorCheckbox ? (editorCheckbox.checked = isWeekly) : null;
 
       editor.setMarkdown(paragraph);
     })
@@ -63,5 +66,18 @@ viewContainer !== null
       } = arguments[0];
 
       viewer.setMarkdown(paragraph);
+    })
+  : null;
+
+// worship
+worshipFormContainer !== null
+  ? getEditorData(function () {
+      const { data } = arguments[0];
+      formSelector.value = data.word;
+      formInputList.forEach((input) => {
+        if (input.name) {
+          input.value = data[input.name];
+        }
+      });
     })
   : null;

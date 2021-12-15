@@ -1,4 +1,5 @@
 import { editor } from "./editor";
+import { form, verseSelector } from "./selectors";
 
 export function getUrl() {
   const paramsLocation = window.location.pathname.split("/");
@@ -11,17 +12,17 @@ export function getUrl() {
 }
 
 export function editorBodyData() {
-  const headTitle = document.querySelector(
-    "input[name='title']"
-  ).value;
-  const checkbox = document.querySelector("input[name='isWeekly']");
-  const editorBody = editor.getMarkdown();
-  const isWeekly = checkbox ? checkbox.checked : null;
+  const getForm = new FormData(form);
+  const editorBody = editor ? editor.getMarkdown() : null;
+
+  const formData = {};
+  for (let [name, value] of getForm) {
+    formData[name] = value;
+  }
 
   return {
-    headTitle,
-    editorBody,
-    isWeekly
+    formData,
+    editorBody
   };
 }
 

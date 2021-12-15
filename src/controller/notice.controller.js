@@ -27,17 +27,19 @@ export const getNoticeCreate = (req, res) => {
 export const postNoticeCreate = async (req, res) => {
   const {
     body: {
-      body: { headTitle, isWeekly, editorBody }
+      formData: { title, isWeekly },
+      editorBody
     },
     session: {
       user: { _id }
     }
   } = req;
 
+  console.log(req.body);
   try {
     const data = await Notice.create({
-      title: headTitle,
-      isWeekly,
+      title,
+      isWeekly: isWeekly === "on" ? true : false,
       paragraph: editorBody,
       creator: _id
     });
@@ -107,7 +109,8 @@ export const getNoticeEdit = async (req, res) => {
 export const postNoticeEdit = async (req, res) => {
   const {
     body: {
-      body: { headTitle, isWeekly, editorBody }
+      formData: { title, isWeekly },
+      editorBody
     },
     params: { id }
   } = req;
@@ -116,8 +119,8 @@ export const postNoticeEdit = async (req, res) => {
     const data = await Notice.findByIdAndUpdate(
       { _id: id },
       {
-        title: headTitle,
-        isWeekly,
+        title,
+        isWeekly: isWeekly === "on" ? true : false,
         paragraph: editorBody
       }
     );

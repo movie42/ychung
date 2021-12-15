@@ -30,6 +30,9 @@ api.route("/blog/:id([0-9a-f]{24})/get").get(getParagraph);
 // get rules data
 api.route("/rules/:id([0-9a-f]{24})/get").get(getParagraph);
 
+// get blog data
+api.route("/worship/:id([0-9a-f]{24})/get").get(getParagraph);
+
 // post image data
 api.route("/post-image").post(editorImage, postEditorImage);
 

@@ -45,6 +45,11 @@ export const editor = (function () {
 
           const response = await fetch("/api/post-image", {
             method: "POST",
+            headers: {
+              "X-CSRF-Token": document.querySelector(
+                "meta[name='csrf-token']"
+              )["content"]
+            },
             body: formData
           });
 
