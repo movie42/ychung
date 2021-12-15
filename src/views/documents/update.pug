@@ -1,9 +1,8 @@
-extends ../../layout/layout.pug
+extends ../layout/layout.pug
 
 block content 
     .inform_wrapper
-        h1.head_title 회칙 수정
-        p 새롭게 변경되는 회칙은 회칙 쓰기를 통해서만 진행해주시기 바랍니다.
+        h1.head_title #{pageName} 수정
         div.button_wrapper
             button(type="button").send_btn
                 span.material-icons-outlined send

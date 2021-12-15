@@ -1,17 +1,17 @@
 extends ../../layout/layout.pug
-include ../../mixins/rulesList.pug
+include ../../mixins/documentsList.pug
 
 block content
     .inform_wrapper
-        h1.head_title 회칙
-        if loggedIn && (user.authority === 'master' || user.authority === 'administrator')
+        h1.head_title #{pageName}
+        if loggedIn && (user.authority === 'master')
             .button_wrapper
-                a(href="rules/upload").write_button
+                a(href="/documents/applications/upload").write_button
                     span.material-icons-outlined add_circle
     .list_wrapper
         ul.list_item
             each item in data
-                +rulesBlock({
+                +documentsBlock({
                     id:item.id,
                     title:item.title,
                     year:item.year,
