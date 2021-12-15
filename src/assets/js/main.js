@@ -1,10 +1,15 @@
 import "../scss/styles.scss";
-import "./comments";
-import "./editor";
-import "./send";
-import "./join";
+// menu button
+import "./button";
 import "./menu";
+
+// editor
+import "./editor";
+import "./viewer";
+
+import "./send";
+
+import "./comments";
+import "./join";
 import "./modal";
 import "./reservation";
-import "./selectVerse";
-import "./button";

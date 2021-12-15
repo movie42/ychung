@@ -1,41 +1,29 @@
 // requestHTTP
 import { sendButton } from "./button";
-import { editor } from "./editor";
-import { getUrl } from "./get";
 
-function editorBodyData() {
-  const headTitle = document.querySelector(
-    "input[name='title']"
-  ).value;
-  const checkbox = document.querySelector("input[name='isWeekly']");
-  const editorBody = editor.getMarkdown();
-  const isWeekly = checkbox ? checkbox.checked : null;
-
-  return {
-    headTitle,
-    editorBody,
-    isWeekly
-  };
-}
+import { getUrl, editorBodyData } from "./get";
 
 export function redirect(response, locationName) {
   const {
-    data: { _id }
+    data: { _id },
   } = response;
   window.location.pathname = `/${locationName}/${_id}`;
 }
 
 export async function createEditorData(body, path) {
   const { locationName } = path;
+
+  console.log(locationName);
+
   const request = await fetch(`/${locationName}/upload`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      "X-CSRF-Token": document.querySelector(
-        "meta[name='csrf-token']"
-      )["content"]
+      "X-CSRF-Token": document.querySelector("meta[name='csrf-token']")[
+        "content"
+      ],
     },
-    body: JSON.stringify({ body })
+    body: JSON.stringify({ body }),
   });
 
   const result = await request.json();
@@ -50,11 +38,11 @@ export async function editEditorData(body, path) {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      "X-CSRF-Token": document.querySelector(
-        "meta[name='csrf-token']"
-      )["content"]
+      "X-CSRF-Token": document.querySelector("meta[name='csrf-token']")[
+        "content"
+      ],
     },
-    body: JSON.stringify({ body })
+    body: JSON.stringify({ body }),
   });
 
   const result = await request.json();

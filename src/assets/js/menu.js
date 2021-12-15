@@ -1,6 +1,4 @@
-import { menuButton, closeButton } from "./button";
-
-const menuContainer = document.querySelector(".menu_block");
+import { menuContainer } from "./selectors";
 
 const handleOpenMenu = (event) => {
   if (event.key === "Enter" || event.type === "click")

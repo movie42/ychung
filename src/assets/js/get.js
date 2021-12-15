@@ -1,4 +1,4 @@
-import { viewer } from "./editor";
+import { editor } from "./editor";
 
 export function getUrl() {
   const paramsLocation = window.location.pathname.split("/");
@@ -6,7 +6,20 @@ export function getUrl() {
   return {
     locationName: paramsLocation[1],
     itemId: paramsLocation[2],
-    method: paramsLocation[len - 1]
+    method: paramsLocation[len - 1],
+  };
+}
+
+export function editorBodyData() {
+  const headTitle = document.querySelector("input[name='title']").value;
+  const checkbox = document.querySelector("input[name='isWeekly']");
+  const editorBody = editor.getMarkdown();
+  const isWeekly = checkbox ? checkbox.checked : null;
+
+  return {
+    headTitle,
+    editorBody,
+    isWeekly,
   };
 }
 
@@ -15,15 +28,14 @@ export async function getEditorData() {
 
   const data = await fetch(`/api/${itemId}/${locationName}-data`, {
     headers: { "Content-Type": "application/json" },
-    method: "GET"
+    method: "GET",
   });
 
   const response = await data.json();
 
   const {
-    data: { paragraph }
+    data: { paragraph },
   } = response;
 
-  viewer.setMarkdown(paragraph);
+  return paragraph;
 }
-getEditorData();
