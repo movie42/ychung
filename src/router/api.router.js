@@ -2,16 +2,11 @@ import express from "express";
 import {
   registerComments,
   deleteComment,
-  getParagraph,
   getDB,
+  getParagraph,
   postEditorImage
 } from "../controller/api.controller";
-import {
-  onlyMaster,
-  onlyPrivate,
-  preUrl,
-  editorImage
-} from "../middleWare";
+import { onlyPrivate, preUrl, editorImage } from "../middleWare";
 
 const api = express.Router();
 
@@ -27,13 +22,13 @@ api
   .get(deleteComment);
 
 // get notice data
-api.route("/:id([0-9a-f]{24})/notice-data").get(getParagraph);
+api.route("/notice/:id([0-9a-f]{24})/get").get(getParagraph);
 
 // get blog data
-api.route("/:id([0-9a-f]{24})/blog-data").get(getParagraph);
+api.route("/blog/:id([0-9a-f]{24})/get").get(getParagraph);
 
 // get rules data
-api.route("/:id([0-9a-f]{24})/rules-data").get(getParagraph);
+api.route("/rules/:id([0-9a-f]{24})/get").get(getParagraph);
 
 // post image data
 api.route("/post-image").post(editorImage, postEditorImage);

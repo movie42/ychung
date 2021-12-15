@@ -158,8 +158,6 @@ export const getWorshipDetail = async (req, res) => {
 
     const word = dataSet[data.word];
 
-    console.log(noticeData);
-
     return res.render("worship/worshipDetail", {
       pageTitle: data.title,
       id,
