@@ -3,6 +3,7 @@ import Notice from "../model/Notice.model";
 import User from "../model/User.model";
 import Vote from "../model/Vote.model";
 import Documents from "../model/Documents.model";
+import Worship from "../model/Worship.model";
 import Comment from "../model/Comments.model";
 
 export const getDB = async (req, res) => {
@@ -31,15 +32,17 @@ export const getParagraph = async (req, res) => {
 
   try {
     const rootPathName = preUrl.split("/")[1];
+
     const DATA = {
       blog: Blog,
       notice: Notice,
-      documents: Documents
+      documents: Documents,
+      worship: Worship
     };
 
     const data = await DATA[rootPathName].findById(id);
 
-    return res.status(303).json({ data });
+    return res.status(200).json({ data });
   } catch (e) {
     console.log(e);
   }

@@ -4,7 +4,9 @@ import User from "../model/User.model";
 // list
 export const blogList = async (req, res) => {
   try {
-    const data = await Blog.find().sort({ updateAt: "desc" });
+    const data = (
+      await Blog.find().sort({ updateAt: "desc" })
+    ).reverse();
     return res.render("blog/blogList", {
       pageTitle: "블로그",
       data
@@ -21,26 +23,32 @@ export const blogList = async (req, res) => {
 
 // create
 export const getBlogWrite = (req, res) => {
-  return res.render("blog/blogUpload", { pageTitle: "블로그" });
+  return res.render("blog/blogUpload", { pageTitle: "블로깅" });
 };
 
 export const postBlogWrite = async (req, res) => {
   const {
-    body: { headTitle, editorBody },
+    body: {
+      formData: { title },
+      editorBody
+    },
     session: {
       user: { _id }
     }
   } = req;
+
   try {
     const data = await Blog.create({
-      title: headTitle,
+      title,
       paragraph: editorBody,
       creator: _id
     });
     const user = await User.findById(_id);
+
     user.blog.push(data._id);
     await user.save();
-    return res.status(201).json({ data });
+
+    return res.status(200).json({ data });
   } catch (e) {
     console.log(e);
     const errorMessage =
@@ -92,12 +100,14 @@ export const getBlogUpdate = async (req, res) => {
   } = req;
   try {
     const data = await Blog.findById(id);
+
     if (String(data.creator) !== String(_id)) {
       return res.status(404).render("root/404", {
         pageTitle: "수정 권한이 없습니다.",
         errorMessage: "수정 권한이 없습니다."
       });
     }
+
     return res.render("blog/blogEdit", {
       pageTitle: "블로그 수정",
       data
@@ -144,6 +154,7 @@ export const blogDelete = async (req, res) => {
       user: { _id }
     }
   } = req;
+
   try {
     const data = await Blog.findById(id);
 
@@ -153,6 +164,7 @@ export const blogDelete = async (req, res) => {
         errorMessage: "삭제 권한이 없습니다."
       });
     }
+
     await Blog.findByIdAndDelete(id);
     return res.redirect("/blog");
   } catch (e) {

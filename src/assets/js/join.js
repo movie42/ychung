@@ -1,6 +1,6 @@
-const form = document.querySelector(".form_container form");
-const inputs = form.querySelectorAll("input");
-const button = form.querySelector("button");
+const form = document.querySelector(".form_container#join form");
+const inputs = document.querySelectorAll(".form_container#join form input");
+const button = document.querySelector(".form_container#join form button");
 
 const message = {
   email: "이메일을 입력하세요.",
@@ -121,16 +121,23 @@ async function handleSubmit(e) {
       return;
     }
   }
+
   const formData = new FormData(form);
 
   const body = {};
+
   for (let [name, value] of formData) {
     body[name] = value;
   }
 
   const response = await fetch("/join", {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
+    headers: {
+      "Content-Type": "application/json",
+      "X-CSRF-Token": document.querySelector("meta[name='csrf-token']")[
+        "content"
+      ],
+    },
     body: JSON.stringify({ body }),
   });
 

@@ -1,12 +1,30 @@
 const contentId = document.querySelector(".contents_wrapper");
 const commentForm = document.querySelector(".comments_form_wrapper");
-const postCommentBtn = commentForm.querySelector("button");
-const commentTextarea = commentForm.querySelector("textarea");
+const postCommentBtn = document.querySelector(
+  ".comments_form_wrapper button"
+);
+const commentTextarea = document.querySelector(
+  ".comments_form_wrapper textarea"
+);
 const commentItemWrapper = document.querySelector(
   ".comments_item_wrapper"
 );
-const commentList = commentItemWrapper.querySelector("ul");
-const listLength = commentList.getElementsByClassName("comment_item");
+const commentList = document.querySelector(
+  ".comments_item_wrapper ul"
+);
+const listLength = document.querySelector(
+  ".comments_item_wrapper ul comment_item"
+);
+
+const handleDeleteComment = async (e) => {
+  const commentBody = e.target.parentElement.parentElement;
+  const commentId = document.querySelector(".comment_item");
+  const { id } = commentId.dataset;
+  const response = await fetch(`/api/${id}/comments/delete`, {
+    method: "GET"
+  });
+  if (response.status === 200) commentBody.remove();
+};
 
 const addComment = (text, id, userName) => {
   const ul = document.querySelector(".comments_item_wrapper ul");
@@ -38,16 +56,6 @@ const addComment = (text, id, userName) => {
   ul.prepend(newComment);
 };
 
-const handleDeleteComment = async (e) => {
-  const commentBody = e.target.parentElement.parentElement;
-  const commentId = document.querySelector(".comment_item");
-  const { id } = commentId.dataset;
-  const response = await fetch(`/api/${id}/comments/delete`, {
-    method: "GET"
-  });
-  if (response.status === 200) commentBody.remove();
-};
-
 const handlePostComments = async (e) => {
   e.preventDefault();
   const { id } = contentId.dataset;
@@ -76,9 +84,9 @@ if (commentForm) {
   postCommentBtn.addEventListener("click", handlePostComments);
 }
 
-if (listLength.length > 0) {
-  for (let i = 0; i < listLength.length; i++) {
-    const deleteBtn = listLength[i].querySelector(".delete_button");
-    deleteBtn.addEventListener("click", handleDeleteComment);
-  }
-}
+// if (listLength.length > 0) {
+//   for (let i = 0; i < listLength.length; i++) {
+//     const deleteBtn = listLength[i].querySelector(".delete_button");
+//     deleteBtn.addEventListener("click", handleDeleteComment);
+//   }
+// }

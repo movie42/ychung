@@ -1,49 +1,32 @@
-import Viewer from "@toast-ui/editor/dist/toastui-editor-viewer";
+import View from "@toast-ui/editor/dist/toastui-editor-viewer";
+import { viewContainer } from "./selectors";
 
-const viewer = new Viewer({
-  el: document.querySelector("#viewer"),
-  customHTMLRenderer: {
-    htmlBlock: {
-      iframe(node) {
-        return [
-          {
-            type: "openTag",
-            tagName: "iframe",
-            outerNewLine: true,
-            attributes: node.attrs
-          },
-          { type: "html", content: node.childrenHTML },
-          {
-            type: "closeTag",
-            tagName: "iframe",
-            outerNewLine: true
+export const viewer = (function () {
+  function paintView(attr) {
+    return new View({
+      el: attr,
+      customHTMLRenderer: {
+        htmlBlock: {
+          iframe(node) {
+            return [
+              {
+                type: "openTag",
+                tagName: "iframe",
+                outerNewLine: true,
+                attributes: node.attrs
+              },
+              { type: "html", content: node.childrenHTML },
+              {
+                type: "closeTag",
+                tagName: "iframe",
+                outerNewLine: true
+              }
+            ];
           }
-        ];
+        }
       }
-    }
+    });
   }
-});
 
-const getData = async () => {
-  const paramsLocation = window.location.pathname.split("/");
-  const locationName = paramsLocation[1];
-  const locationId = paramsLocation[2];
-
-  const data = await fetch(
-    `/api/${locationId}/${locationName}-data`,
-    {
-      headers: { "Content-Type": "application/json" },
-      method: "GET"
-    }
-  );
-
-  const response = await data.json();
-
-  const {
-    data: { paragraph }
-  } = response;
-
-  viewer.setMarkdown(paragraph);
-};
-
-getData();
+  return viewContainer !== null ? paintView(viewContainer) : null;
+})();

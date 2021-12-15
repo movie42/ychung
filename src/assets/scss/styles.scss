@@ -199,8 +199,16 @@ a {
       rgba(255, 0, 0, 0.9),
       rgba(255, 0, 0, 0) 70.71%
     ),
-    linear-gradient(127deg, rgba(0, 255, 0, 0.9), rgba(0, 255, 0, 0) 70.71%),
-    linear-gradient(336deg, rgba(0, 0, 255, 0.9), rgba(0, 0, 255, 0) 70.71%);
+    linear-gradient(
+      127deg,
+      rgba(0, 255, 0, 0.9),
+      rgba(0, 255, 0, 0) 70.71%
+    ),
+    linear-gradient(
+      336deg,
+      rgba(0, 0, 255, 0.9),
+      rgba(0, 0, 255, 0) 70.71%
+    );
   @include animation(bgAnimation, 2s, 0, infinite, alternate);
   transition: top 0.8s ease;
   .menu {
@@ -286,8 +294,16 @@ a {
       rgba(255, 0, 0, 0.95),
       rgba(255, 0, 0, 0) 70.71%
     ),
-    linear-gradient(127deg, rgba(0, 255, 0, 0.95), rgba(0, 255, 0, 0) 70.71%),
-    linear-gradient(336deg, rgba(0, 0, 255, 0.95), rgba(0, 0, 255, 0) 70.71%);
+    linear-gradient(
+      127deg,
+      rgba(0, 255, 0, 0.95),
+      rgba(0, 255, 0, 0) 70.71%
+    ),
+    linear-gradient(
+      336deg,
+      rgba(0, 0, 255, 0.95),
+      rgba(0, 0, 255, 0) 70.71%
+    );
   background-size: 400% 400%;
   top: 0;
   transition: top 0.8s ease;
@@ -308,6 +324,7 @@ a {
     visibility: visible;
     right: 0;
     width: 100vw;
+    z-index: 1;
     transition: all 0.5s ease;
     .close_button {
       visibility: visible;
@@ -375,11 +392,19 @@ main {
   padding: 66px 10px 133.56px;
   margin: -66px auto -133.56px;
   .button_wrapper {
-    .send_btn,
-    .send_editor_btn {
+    .delete_btn {
+      .material-icons-outlined {
+        @include meterial_button_style();
+        &:hover {
+          color: $basic_color;
+        }
+      }
+    }
+    .send_btn {
       outline: none;
       background: unset;
       border: 0;
+      cursor: pointer;
       .material-icons-outlined {
         @include meterial_button_style();
         &:hover {
@@ -388,15 +413,13 @@ main {
       }
     }
     .edit_button {
+      cursor: pointer;
       .material-icons-outlined {
         @include meterial_button_style();
         &:hover {
           color: $basic_color;
         }
       }
-    }
-    .delete_button {
-      @include button_style_2($basic_color, 25vw);
     }
     .write_button {
       .material-icons-outlined {
@@ -950,8 +973,16 @@ footer {
       rgba(255, 0, 0, 0.95),
       rgba(255, 0, 0, 0) 70.71%
     ),
-    linear-gradient(127deg, rgba(0, 255, 0, 0.95), rgba(0, 255, 0, 0) 70.71%),
-    linear-gradient(336deg, rgba(0, 0, 255, 0.95), rgba(0, 0, 255, 0) 70.71%);
+    linear-gradient(
+      127deg,
+      rgba(0, 255, 0, 0.95),
+      rgba(0, 255, 0, 0) 70.71%
+    ),
+    linear-gradient(
+      336deg,
+      rgba(0, 0, 255, 0.95),
+      rgba(0, 0, 255, 0) 70.71%
+    );
   background-size: 400% 400%;
   @include animation(bgAnimation, 2s, 0, infinite, alternate);
   h1 {
