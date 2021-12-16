@@ -22,16 +22,16 @@ api
   .get(deleteComment);
 
 // get notice data
-api.route("/notice/:id([0-9a-f]{24})/get").get(getParagraph);
+api.route("/notice/:id([0-9a-f]{24})").get(getParagraph);
 
 // get blog data
-api.route("/blog/:id([0-9a-f]{24})/get").get(getParagraph);
+api.route("/blog/:id([0-9a-f]{24})").get(getParagraph);
 
 // get rules data
-api.route("/rules/:id([0-9a-f]{24})/get").get(getParagraph);
+api.route("/rules/:id([0-9a-f]{24})").get(getParagraph);
 
 // get blog data
-api.route("/worship/:id([0-9a-f]{24})/get").get(getParagraph);
+api.route("/worship/:id([0-9a-f]{24})").get(getParagraph);
 
 // post image data
 api.route("/post-image").post(editorImage, postEditorImage);

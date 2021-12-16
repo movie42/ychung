@@ -1,17 +1,17 @@
 // requestHTTP
 import { getUrl, editorBodyData } from "./get";
 
-export function redirect(response, locationName) {
+export function redirect(response, pathName) {
   const {
     data: { _id }
   } = response;
-  window.location.pathname = `/${locationName}/${_id}`;
+  window.location.pathname = `/${pathName}/${_id}`;
 }
 
-export async function createEditorData(body, path) {
-  const { locationName } = path;
+export async function createEditorData(body) {
+  const { pathName, method } = getUrl();
 
-  const request = await fetch(`/${locationName}/upload`, {
+  const request = await fetch(`/${pathName}/${method}`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -24,13 +24,13 @@ export async function createEditorData(body, path) {
 
   const result = await request.json();
 
-  if (request.status === 200) return redirect(result, locationName);
+  if (request.status === 200) return redirect(result, pathName);
 }
 
-export async function editEditorData(body, path) {
-  const { locationName, itemId } = path;
-  console.log(locationName, itemId, body);
-  const request = await fetch(`/${locationName}/${itemId}/edit`, {
+export async function editEditorData(body) {
+  const { pathName, id } = getUrl();
+
+  const request = await fetch(`/${pathName}/${id}/edit`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -43,15 +43,16 @@ export async function editEditorData(body, path) {
 
   const result = await request.json();
 
-  if (request.status === 200) return redirect(result, locationName);
+  if (request.status === 200) return redirect(result, pathName);
 }
 
 export function handleClick(event) {
   const body = editorBodyData();
-  const path = getUrl();
-  if (path.method === "upload") {
-    createEditorData(body, path);
+  const { method } = getUrl();
+  console.log(method);
+  if (method !== "edit") {
+    createEditorData(body);
   } else {
-    editEditorData(body, path);
+    editEditorData(body);
   }
 }

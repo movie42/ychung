@@ -187,7 +187,7 @@ export const getDocuments = async (req, res) => {
 
   try {
     const data = await Documents.findById(id);
-    return res.render("documents/rules/read", {
+    return res.render("documents/read", {
       pageTitle: data.title,
       data
     });

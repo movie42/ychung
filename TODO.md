@@ -34,43 +34,45 @@
 
 - 고치기
 
-#### getUrl 함수 수정 및 api fetch 다시 설정하기
+#### getUrl 함수 수정 및 api fetch 다시 설정하기(완료)
 
 - url path가 총 3개일때는 관계 없지만 그 이상일 때 api 요청을 할 때 문제가 있음.
 - 즉... 재사용이 어렵다는 이야기
 - 함수를 더 쪼개보거나 재설계 해보기
 
-#### documents design
+path, id, method로 나눠서 fetch나 redirect에 값을 전달해 주도록 재설계 하였다.
+
+#### documents design(완료)
 
 ##### document router and controller
 
 1. landing page
 
-   - [ ] landing page : /documents
+   - [x] landing page : /documents
      - documents/rules
      - documents/manual
      - /documents/applications
 
 2. rules
 
-   - [ ] documents/rules
-   - [ ] documents/rules/upload
-   - [ ] documents/rules/:id/edit
-   - [ ] documents/rules/:id/delete
+   - [x] documents/rules
+   - [x] documents/rules/upload
+   - [x] documents/rules/:id/edit
+   - [x] documents/rules/:id/delete
 
 3. manual
 
-   - [ ] documents/manual : 리스트
-   - [ ] documents/manual/upload
-   - [ ] documents/manual/:id/edit
-   - [ ] documents/manual/:id/delete
+   - [x] documents/manual : 리스트
+   - [x] documents/manual/upload
+   - [x] documents/manual/:id/edit
+   - [x] documents/manual/:id/delete
 
 4. applications
 
-   - [ ] documents/applications : 리스트
-   - [ ] documents/applications/upload
-   - [ ] documents/applications/:id/edit
-   - [ ] documents/applications/:id/delete
+   - [x] documents/applications : 리스트
+   - [x] documents/applications/upload
+   - [x] documents/applications/:id/edit
+   - [x] documents/applications/:id/delete
 
 ## 2021년 12월 15일 이전
 
