@@ -3,7 +3,8 @@
 window.onload = (function () {
   const canvas = document.createElement("canvas");
   const ctx = canvas.getContext("2d");
-
+  const amountSnow = 2;
+  let createdSnow = [];
   document.body.prepend(canvas);
 
   function resize() {
@@ -13,39 +14,53 @@ window.onload = (function () {
     canvas.width = width;
     canvas.height = height;
     ctx.scale(2, 2);
+
     return {
       width,
-      height,
+      height
     };
   }
 
   const { width, height } = resize();
 
-  function addFlakes() {
-    const x = Math.ceil(Math.random() * width);
-    const speed = Math.ceil(Math.random() * 5);
+  function AddFlakes() {
+    let x = Math.ceil(Math.random() * width);
+    let y = Math.ceil(Math.random() * height);
+    const speedX = random(-2, 2);
+    const speedY = random(0, 2);
+    const size = random(0, 5);
     const radius = 10 * Math.PI;
 
-    return { x, y: 0, speed, radius };
+    function drawSnow() {
+      ctx.beginPath();
+      ctx.fillStyle = "#e6f3ff";
+      ctx.arc((x += speedX), (y += speedY), size, 0, radius);
+      ctx.fill();
+      ctx.closePath();
+    }
+
+    return { drawSnow };
   }
 
-  function drawSnow(x, y, speed, radius) {
-    let vy = speed;
-    let vx = speed;
+  const random = (min, max) => {
+    return min + Math.random() * (max - min + 1);
+  };
 
-    ctx.beginPath();
-    ctx.fillStyle = "#F7F7F7";
-
-    ctx.arc(x, (y += vy), speed * 0.8, 0, radius);
-    ctx.fill();
+  function createSnow() {
+    for (let i = 0; i < amountSnow; i++) {
+      createdSnow.push(new AddFlakes());
+    }
   }
 
   function animation() {
-    window.requestAnimationFrame(animation);
-    let { x, y, speed, radius } = addFlakes();
-    drawSnow(x, y, speed, radius);
-    addFlakes();
+    ctx.clearRect(0, 0, width, height);
+
+    createdSnow.forEach((value) => value.drawSnow());
+    createSnow();
+    requestAnimationFrame(animation);
   }
+
+  createSnow();
 
   window.requestAnimationFrame(animation);
   window.addEventListener("resize", resize);
