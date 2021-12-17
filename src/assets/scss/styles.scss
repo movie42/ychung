@@ -29,6 +29,36 @@ body,
   }
 }
 
+#christmas canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+}
+
+.inform_wrapper.christmas {
+  display: flex;
+  height: 70vh;
+  justify-content: center;
+  align-items: center;
+  h1 {
+    text-align: center;
+    font-size: 8vw;
+    font-weight: 900;
+    color: rgb(199, 0, 0);
+  }
+  p:not(:last-child) {
+    text-align: center;
+    margin-top: 2.5rem;
+    font-size: 2.3vw;
+  }
+  p:last-child {
+    text-align: left;
+    margin-top: 1rem;
+    font-size: 2vw;
+  }
+}
+
 .rules_wrapper {
   position: absolute;
   display: none;
