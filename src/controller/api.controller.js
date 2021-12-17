@@ -8,7 +8,7 @@ import Comment from "../model/Comments.model";
 
 export const getDB = async (req, res) => {
   const {
-    params: { name, value }
+    params: { name, value },
   } = req;
   let exist;
   try {
@@ -27,17 +27,18 @@ export const getDB = async (req, res) => {
 export const getParagraph = async (req, res) => {
   const {
     session: { preUrl },
-    params: { id }
+    path,
+    params: { id },
   } = req;
 
   try {
-    const rootPathName = preUrl.split("/")[1];
+    const rootPathName = path.split("/")[1];
 
     const DATA = {
       blog: Blog,
       notice: Notice,
       documents: Documents,
-      worship: Worship
+      worship: Worship,
     };
 
     const data = await DATA[rootPathName].findById(id);
@@ -66,7 +67,7 @@ export const registerComments = async (req, res) => {
   const {
     body: { text, pathName },
     session: { user },
-    params: { id }
+    params: { id },
   } = req;
 
   if (user === undefined) {
@@ -74,7 +75,7 @@ export const registerComments = async (req, res) => {
   }
   const modelName = {
     blog: Blog,
-    notice: Notice
+    notice: Notice,
   };
 
   try {
@@ -84,7 +85,7 @@ export const registerComments = async (req, res) => {
     }
     const comment = await Comment.create({
       text,
-      creator: user._id
+      creator: user._id,
     });
     comment[pathName] = modelData.id;
     comment.save();
@@ -103,7 +104,7 @@ export const registerComments = async (req, res) => {
 
 export const deleteComment = async (req, res) => {
   const {
-    params: { id }
+    params: { id },
   } = req;
 
   await Comment.findByIdAndDelete(id);
