@@ -4,7 +4,7 @@ import {
   deleteComment,
   getDB,
   getParagraph,
-  postEditorImage
+  postEditorImage,
 } from "../controller/api.controller";
 import { onlyPrivate, preUrl, editorImage } from "../middleWare";
 
@@ -22,16 +22,25 @@ api
   .get(deleteComment);
 
 // get notice data
-api.route("/notice/:id([0-9a-f]{24})/get").get(getParagraph);
+api.route("/notice/:id([0-9a-f]{24})").get(getParagraph);
 
 // get blog data
-api.route("/blog/:id([0-9a-f]{24})/get").get(getParagraph);
+api.route("/blog/:id([0-9a-f]{24})").get(getParagraph);
 
 // get rules data
-api.route("/rules/:id([0-9a-f]{24})/get").get(getParagraph);
+api.route("/rules/:id([0-9a-f]{24})").get(getParagraph);
 
 // get blog data
-api.route("/worship/:id([0-9a-f]{24})/get").get(getParagraph);
+api.route("/worship/:id([0-9a-f]{24})").get(getParagraph);
+
+// get documents rules data
+api.route("/documents/rules/:id([0-9a-f]{24})").get(getParagraph);
+
+// get documents manuals data
+api.route("/documents/manuals/:id([0-9a-f]{24})").get(getParagraph);
+
+// get documents applications data
+api.route("/documents/applications/:id([0-9a-f]{24})").get(getParagraph);
 
 // post image data
 api.route("/post-image").post(editorImage, postEditorImage);

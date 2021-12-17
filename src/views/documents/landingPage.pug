@@ -1,0 +1,15 @@
+extends ../layout/layout.pug
+include ../mixins/documentsList.pug
+
+block content
+    .inform_wrapper
+        h1.head_title 도큐먼트
+        //- 일단 하드코딩 이후에 쓰기에서 item을 추가하는 방식으로 수정하기
+    .component_wrapper
+        section
+            a(href="/documents/rules") 회칙
+        section
+            a(href="/documents/manuals") 메뉴얼
+        section
+            a(href="/documents/applications") 지원서
+         

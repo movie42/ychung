@@ -9,12 +9,7 @@ import session from "express-session";
 import cookieParser from "cookie-parser";
 import MongoStore from "connect-mongo";
 import helmet from "helmet";
-import {
-  locals,
-  preUrl,
-  corsOptions,
-  csrfProtection
-} from "./middleWare";
+import { locals, preUrl, corsOptions, csrfProtection } from "./middleWare";
 import documentsRouter from "./router/documents.router";
 import blogRouter from "./router/blog.router";
 import permissionsPolicy from "permissions-policy";
@@ -23,10 +18,7 @@ import cors from "cors";
 const app = express();
 
 app.use((req, res, next) => {
-  if (
-    req.get("X-Forwarded-Proto") == "https" ||
-    req.hostname == "localhost"
-  ) {
+  if (req.get("X-Forwarded-Proto") == "https" || req.hostname == "localhost") {
     next();
   } else if (
     req.get("X-Forwarded-Proto") != "https" &&
@@ -45,15 +37,15 @@ app.use(
       "script-src": ["'unsafe-eval'", process.env.URL], //development mode should allow 'unsafe-eval' because eval function
       "img-src": ["'self'", "data:", "https:"],
       "frame-src": "https://www.youtube.com/",
-      "font-src": ["data:", "https:"]
-    }
-  })
+      "font-src": ["data:", "https:"],
+    },
+  }),
 );
 app.use(
   helmet.hsts({
     maxAge: 31536000,
-    preload: true
-  })
+    preload: true,
+  }),
 );
 app.use(helmet.xssFilter());
 app.use(
@@ -62,9 +54,9 @@ app.use(
       fullscreen: ["self", '"https://www.youtube.com"'],
       displayCapture: ["self"],
       autoplay: [],
-      camera: []
-    }
-  })
+      camera: [],
+    },
+  }),
 );
 
 app.use(morgan("dev"));
@@ -80,9 +72,9 @@ app.use(
     httpOnly: true,
     secure: true,
     store: MongoStore.create({
-      mongoUrl: process.env.MONGO_URL
-    })
-  })
+      mongoUrl: process.env.MONGO_URL,
+    }),
+  }),
 );
 app.use(csrfProtection);
 

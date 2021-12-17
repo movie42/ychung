@@ -1,0 +1,21 @@
+extends ../../layout/layout.pug
+include ../../mixins/documentsList.pug
+
+block content
+    .inform_wrapper
+        h1.head_title #{pageName}
+        if loggedIn && (user.authority === 'master')
+            .button_wrapper
+                a(href="/documents/manuals/upload").write_button
+                    span.material-icons-outlined add_circle
+    .list_wrapper
+        ul.list_item
+            each item in data
+                +documentsBlock({
+                    id:item.id,
+                    title:item.title,
+                    year:item.year,
+                    month:item.month,
+                    date:item.date
+                })
+

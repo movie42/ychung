@@ -1,14 +1,42 @@
 import { editor } from "./editor";
-import { form, verseSelector } from "./selectors";
+import { form } from "./selectors";
 
 export function getUrl() {
-  const paramsLocation = window.location.pathname.split("/");
-  const len = paramsLocation.length;
-  return {
-    locationName: paramsLocation[1],
-    itemId: paramsLocation[2],
-    method: paramsLocation[len - 1]
-  };
+  const windowLocation = window.location.pathname
+    .split("/")
+    .filter((value) => value !== "");
+  const len = windowLocation.length;
+  const id = (function () {
+    return windowLocation
+      .filter((value) => {
+        if (/[0-9a-f]{24}/.exec(value) !== null) {
+          return value;
+        }
+      })
+      .join("");
+  })();
+
+  const idIndex = windowLocation.indexOf(id);
+
+  if (idIndex !== -1) {
+    const pathName = windowLocation.splice(0, idIndex).join("/");
+    const method = windowLocation.splice(idIndex).join();
+
+    return {
+      pathName,
+      id,
+      method
+    };
+  } else {
+    const method = windowLocation[len - 1];
+    const methodIndex = windowLocation.indexOf(method);
+    const pathName = windowLocation.splice(0, methodIndex).join("/");
+
+    return {
+      pathName,
+      method
+    };
+  }
 }
 
 export function editorBodyData() {
@@ -16,6 +44,7 @@ export function editorBodyData() {
   const editorBody = editor ? editor.getMarkdown() : null;
 
   const formData = {};
+
   for (let [name, value] of getForm) {
     formData[name] = value;
   }
@@ -27,9 +56,9 @@ export function editorBodyData() {
 }
 
 export async function getEditorData(func) {
-  const { locationName, itemId } = getUrl();
+  const { pathName, id } = getUrl();
 
-  const request = await fetch(`/api/${locationName}/${itemId}/get`, {
+  const request = await fetch(`/api/${pathName}/${id}`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
