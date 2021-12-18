@@ -38,7 +38,7 @@ body,
 
 .inform_wrapper.christmas {
   display: flex;
-  height: 70vh;
+  height: 55vh;
   justify-content: center;
   align-items: center;
   h1 {
@@ -229,16 +229,8 @@ a {
       rgba(255, 0, 0, 0.9),
       rgba(255, 0, 0, 0) 70.71%
     ),
-    linear-gradient(
-      127deg,
-      rgba(0, 255, 0, 0.9),
-      rgba(0, 255, 0, 0) 70.71%
-    ),
-    linear-gradient(
-      336deg,
-      rgba(0, 0, 255, 0.9),
-      rgba(0, 0, 255, 0) 70.71%
-    );
+    linear-gradient(127deg, rgba(0, 255, 0, 0.9), rgba(0, 255, 0, 0) 70.71%),
+    linear-gradient(336deg, rgba(0, 0, 255, 0.9), rgba(0, 0, 255, 0) 70.71%);
   @include animation(bgAnimation, 2s, 0, infinite, alternate);
   transition: top 0.8s ease;
   .menu {
@@ -324,16 +316,8 @@ a {
       rgba(255, 0, 0, 0.95),
       rgba(255, 0, 0, 0) 70.71%
     ),
-    linear-gradient(
-      127deg,
-      rgba(0, 255, 0, 0.95),
-      rgba(0, 255, 0, 0) 70.71%
-    ),
-    linear-gradient(
-      336deg,
-      rgba(0, 0, 255, 0.95),
-      rgba(0, 0, 255, 0) 70.71%
-    );
+    linear-gradient(127deg, rgba(0, 255, 0, 0.95), rgba(0, 255, 0, 0) 70.71%),
+    linear-gradient(336deg, rgba(0, 0, 255, 0.95), rgba(0, 0, 255, 0) 70.71%);
   background-size: 400% 400%;
   top: 0;
   transition: top 0.8s ease;
@@ -1003,16 +987,8 @@ footer {
       rgba(255, 0, 0, 0.95),
       rgba(255, 0, 0, 0) 70.71%
     ),
-    linear-gradient(
-      127deg,
-      rgba(0, 255, 0, 0.95),
-      rgba(0, 255, 0, 0) 70.71%
-    ),
-    linear-gradient(
-      336deg,
-      rgba(0, 0, 255, 0.95),
-      rgba(0, 0, 255, 0) 70.71%
-    );
+    linear-gradient(127deg, rgba(0, 255, 0, 0.95), rgba(0, 255, 0, 0) 70.71%),
+    linear-gradient(336deg, rgba(0, 0, 255, 0.95), rgba(0, 0, 255, 0) 70.71%);
   background-size: 400% 400%;
   @include animation(bgAnimation, 2s, 0, infinite, alternate);
   h1 {

@@ -3,7 +3,7 @@
 window.onload = (function () {
   const canvas = document.createElement("canvas");
   const ctx = canvas.getContext("2d");
-  const amountSnow = 2;
+  const amountSnow = 300;
   let createdSnow = [];
   document.body.prepend(canvas);
 
@@ -17,7 +17,7 @@ window.onload = (function () {
 
     return {
       width,
-      height
+      height,
     };
   }
 
@@ -25,10 +25,10 @@ window.onload = (function () {
 
   function AddFlakes() {
     let x = Math.ceil(Math.random() * width);
-    let y = Math.ceil(Math.random() * height);
-    const speedX = random(-2, 2);
-    const speedY = random(0, 2);
-    const size = random(0, 5);
+    let y = 0;
+    let size = random(0, 5);
+    const speedX = random(-1, 1);
+    const speedY = random(0, 1);
     const radius = 10 * Math.PI;
 
     function drawSnow() {
@@ -37,6 +37,12 @@ window.onload = (function () {
       ctx.arc((x += speedX), (y += speedY), size, 0, radius);
       ctx.fill();
       ctx.closePath();
+
+      if (y > height) {
+        y = -1;
+        x = Math.ceil(Math.random() * width);
+        size = random(0, 6);
+      }
     }
 
     return { drawSnow };
@@ -54,9 +60,7 @@ window.onload = (function () {
 
   function animation() {
     ctx.clearRect(0, 0, width, height);
-
     createdSnow.forEach((value) => value.drawSnow());
-    createSnow();
     requestAnimationFrame(animation);
   }
 
