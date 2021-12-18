@@ -27,6 +27,16 @@ body,
   h2 {
     border: 0;
   }
+
+  header {
+    .cls-1 {
+      fill: #e30000;
+      &:hover {
+        fill: #135238;
+      }
+      // fill: #2eaee5;
+    }
+  }
 }
 
 #christmas canvas {
@@ -38,24 +48,27 @@ body,
 
 .inform_wrapper.christmas {
   display: flex;
-  height: 70vh;
+  height: inherit;
   justify-content: center;
   align-items: center;
   h1 {
     text-align: center;
-    font-size: 8vw;
+    font-size: 4rem;
     font-weight: 900;
-    color: rgb(199, 0, 0);
+    color: #e30000;
   }
   p:not(:last-child) {
-    text-align: center;
+    text-align: left;
     margin-top: 2.5rem;
-    font-size: 2.3vw;
+    font-size: 1rem;
+    line-height: 1.4rem;
+    padding: 0 2em;
   }
   p:last-child {
     text-align: left;
     margin-top: 1rem;
-    font-size: 2vw;
+    font-size: 1rem;
+    padding: 0 2em;
   }
 }
 
@@ -77,7 +90,8 @@ body,
       h1 {
         a {
           &:hover {
-            color: $basic_color;
+            // color: $basic_color;
+            color: #135238;
             font-weight: 500;
             font-size: 1.5rem;
           }
@@ -100,7 +114,9 @@ body,
           }
           a {
             &:hover {
-              color: $basic_color;
+              // color: $basic_color;
+              color: #135238;
+
               font-weight: 500;
               font-size: 1.5rem;
             }
@@ -133,8 +149,10 @@ body,
       border: 2px solid #000;
       border-radius: 50%;
       &:hover {
-        color: $basic_color;
-        border: 2px solid $basic_color;
+        // color: $basic_color;
+        color: #135238;
+        // border: 2px solid $basic_color;
+        border: 2px solid #135238;
       }
     }
     div {
@@ -229,16 +247,8 @@ a {
       rgba(255, 0, 0, 0.9),
       rgba(255, 0, 0, 0) 70.71%
     ),
-    linear-gradient(
-      127deg,
-      rgba(0, 255, 0, 0.9),
-      rgba(0, 255, 0, 0) 70.71%
-    ),
-    linear-gradient(
-      336deg,
-      rgba(0, 0, 255, 0.9),
-      rgba(0, 0, 255, 0) 70.71%
-    );
+    linear-gradient(127deg, rgba(0, 255, 0, 0.9), rgba(0, 255, 0, 0) 70.71%),
+    linear-gradient(336deg, rgba(0, 0, 255, 0.9), rgba(0, 0, 255, 0) 70.71%);
   @include animation(bgAnimation, 2s, 0, infinite, alternate);
   transition: top 0.8s ease;
   .menu {
@@ -258,7 +268,8 @@ a {
           font-size: $basic_font_size;
           &:hover {
             cursor: pointer;
-            color: $basic_color;
+            // color: $basic_color;
+            color: #135238;
           }
         }
         ul {
@@ -280,7 +291,8 @@ a {
       transform: translateY(-50%);
       font-size: 2rem;
       &:hover {
-        color: $basic_color;
+        // color: $basic_color;
+        color: #135238;
       }
     }
     input {
@@ -324,16 +336,8 @@ a {
       rgba(255, 0, 0, 0.95),
       rgba(255, 0, 0, 0) 70.71%
     ),
-    linear-gradient(
-      127deg,
-      rgba(0, 255, 0, 0.95),
-      rgba(0, 255, 0, 0) 70.71%
-    ),
-    linear-gradient(
-      336deg,
-      rgba(0, 0, 255, 0.95),
-      rgba(0, 0, 255, 0) 70.71%
-    );
+    linear-gradient(127deg, rgba(0, 255, 0, 0.95), rgba(0, 255, 0, 0) 70.71%),
+    linear-gradient(336deg, rgba(0, 0, 255, 0.95), rgba(0, 0, 255, 0) 70.71%);
   background-size: 400% 400%;
   top: 0;
   transition: top 0.8s ease;
@@ -388,7 +392,9 @@ a {
         font-size: $basic_font_size;
         &:hover {
           cursor: pointer;
-          color: $basic_color;
+          font-weight: 900;
+          // color: $basic_color;
+          color: #135238;
         }
       }
       ul {
@@ -419,14 +425,16 @@ a {
 }
 
 main {
-  padding: 66px 10px 133.56px;
-  margin: -66px auto -133.56px;
+  height: 80%;
+  padding: 66px 10px 20.56px;
+  margin: -66px auto -20.56px;
   .button_wrapper {
     .delete_btn {
       .material-icons-outlined {
         @include meterial_button_style();
         &:hover {
-          color: $basic_color;
+          // color: $basic_color;
+          color: #135238;
         }
       }
     }
@@ -438,7 +446,8 @@ main {
       .material-icons-outlined {
         @include meterial_button_style();
         &:hover {
-          color: $basic_color;
+          // color: $basic_color;
+          color: #135238;
         }
       }
     }
@@ -447,7 +456,8 @@ main {
       .material-icons-outlined {
         @include meterial_button_style();
         &:hover {
-          color: $basic_color;
+          // color: $basic_color;
+          color: #135238;
         }
       }
     }
@@ -455,7 +465,8 @@ main {
       .material-icons-outlined {
         @include meterial_button_style(2.5rem);
         &:hover {
-          color: $basic_color;
+          // color: $basic_color;
+          color: #135238;
         }
       }
     }
@@ -553,7 +564,8 @@ main {
             a {
               &:hover {
                 font-weight: bold;
-                color: $basic_color;
+                // color: $basic_color;
+                color: #135238;
               }
             }
           }
@@ -651,7 +663,7 @@ main {
       }
 
       button {
-        @include basic_button_style($basic_color);
+        @include basic_button_style(#135238);
       }
 
       textarea {
@@ -750,14 +762,16 @@ footer {
     background-color: unset;
     font-size: $basic_font_size;
     &:hover {
-      color: $basic_color;
+      // color: $basic_color;
+      color: #135238;
     }
   }
   div {
     a {
       text-decoration: underline;
       &:hover {
-        color: $basic_color;
+        // color: $basic_color;
+        color: #135238;
       }
     }
   }
@@ -1003,16 +1017,8 @@ footer {
       rgba(255, 0, 0, 0.95),
       rgba(255, 0, 0, 0) 70.71%
     ),
-    linear-gradient(
-      127deg,
-      rgba(0, 255, 0, 0.95),
-      rgba(0, 255, 0, 0) 70.71%
-    ),
-    linear-gradient(
-      336deg,
-      rgba(0, 0, 255, 0.95),
-      rgba(0, 0, 255, 0) 70.71%
-    );
+    linear-gradient(127deg, rgba(0, 255, 0, 0.95), rgba(0, 255, 0, 0) 70.71%),
+    linear-gradient(336deg, rgba(0, 0, 255, 0.95), rgba(0, 0, 255, 0) 70.71%);
   background-size: 400% 400%;
   @include animation(bgAnimation, 2s, 0, infinite, alternate);
   h1 {
