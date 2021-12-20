@@ -22,7 +22,7 @@ body,
   font-family: "Noto Sans KR", sans-serif;
   font-size: 16px;
   letter-spacing: -0.03rem;
-  font-weight: 100;
+  font-weight: 400;
   .toastui-editor-contents h1,
   h2 {
     border: 0;
@@ -784,11 +784,6 @@ footer {
 // desktop
 
 @include desktop {
-  html,
-  body {
-    font-size: 20px;
-  }
-
   main {
     box-sizing: border-box;
     word-wrap: break-word;
@@ -872,7 +867,7 @@ footer {
             align-items: center;
             margin-top: 10px;
             span {
-              font-size: 0.9rem;
+              font-size: $info_font_size;
               &:not(:first-child) {
                 margin-left: 5px;
                 padding-bottom: 8px;
@@ -974,9 +969,9 @@ footer {
     div {
       width: 50%;
       div {
-        font-size: 1rem;
+        font-size: $basic_font_size;
         a {
-          font-size: 1rem;
+          font-size: $basic_font_size;
           text-decoration: none;
         }
       }
