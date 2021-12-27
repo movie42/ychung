@@ -3,7 +3,7 @@ import Documents from "../model/Documents.model";
 const tagName = {
   rules: "회칙",
   manuals: "메뉴얼",
-  applications: "지원서"
+  applications: "지원서",
 };
 
 // landing page
@@ -21,20 +21,20 @@ export const getRulesList = async (req, res) => {
     const pageName = tagName[pathName];
     const data = (
       await Documents.find({ tag: "rules" }).sort({
-        updateAt: "desc"
+        updateAt: "desc",
       })
     ).reverse();
 
     return res.status(200).render("documents/rules/list", {
       pageTitle: "문서",
       data,
-      pageName
+      pageName,
     });
   } catch (error) {
     console.log(error);
     return res.status(400).render("root/404", {
       pageTitle: 404,
-      errorMessage: "페이지를 찾을 수 없습니다."
+      errorMessage: "페이지를 찾을 수 없습니다.",
     });
   }
 };
@@ -47,20 +47,20 @@ export const getManualsList = async (req, res) => {
     const pageName = tagName[pathName];
     const data = (
       await Documents.find({ tag: "manuals" }).sort({
-        updateAt: "desc"
+        updateAt: "desc",
       })
     ).reverse();
 
     return res.status(200).render("documents/manuals/list", {
       pageTitle: "문서",
       data,
-      pageName
+      pageName,
     });
   } catch (error) {
     console.log(error);
     return res.status(400).render("root/404", {
       pageTitle: 404,
-      errorMessage: "페이지를 찾을 수 없습니다."
+      errorMessage: "페이지를 찾을 수 없습니다.",
     });
   }
 };
@@ -73,20 +73,20 @@ export const getApplicationsList = async (req, res) => {
     const pageName = tagName[pathName];
     const data = (
       await Documents.find({ tag: "applications" }).sort({
-        updateAt: "desc"
+        updateAt: "desc",
       })
     ).reverse();
 
     return res.status(200).render("documents/applications/list", {
       pageTitle: "문서",
       data,
-      pageName
+      pageName,
     });
   } catch (error) {
     console.log(error);
     return res.status(400).render("root/404", {
       pageTitle: 404,
-      errorMessage: "페이지를 찾을 수 없습니다."
+      errorMessage: "페이지를 찾을 수 없습니다.",
     });
   }
 };
@@ -99,7 +99,7 @@ export const getCreateDocuments = (req, res) => {
   const pageName = tagName[pathName];
   return res.render("documents/create", {
     pageTitle: `${pageName} 쓰기`,
-    pageName
+    pageName,
   });
 };
 
@@ -107,12 +107,12 @@ export const postCreateDocuments = async (req, res) => {
   const {
     body: {
       formData: { title },
-      editorBody
+      editorBody,
     },
     path,
     session: {
-      user: { _id }
-    }
+      user: { _id },
+    },
   } = req;
 
   try {
@@ -122,7 +122,7 @@ export const postCreateDocuments = async (req, res) => {
       title,
       tag: pathName,
       paragraph: editorBody,
-      creator: _id
+      creator: _id,
     });
 
     return res.status(200).json({ data });
@@ -130,7 +130,7 @@ export const postCreateDocuments = async (req, res) => {
     console.log(e);
     return res.status(404).render("root/404", {
       pageTitle: "회칙을 만들 수 없습니다.",
-      errorMessage: "오류가 계속 발생하면 관리자에게 문의하십시오."
+      errorMessage: "오류가 계속 발생하면 관리자에게 문의하십시오.",
     });
   }
 };
@@ -139,13 +139,13 @@ export const postCreateDocuments = async (req, res) => {
 
 export const getUpdateDocuments = async (req, res) => {
   const {
-    params: { id }
+    params: { id },
   } = req;
   try {
     const data = await Documents.findById(id);
     return res.render("documents/update", {
       pageTitle: data.title,
-      data
+      data,
     });
   } catch (e) {
     console.log(e);
@@ -154,17 +154,20 @@ export const getUpdateDocuments = async (req, res) => {
 
 export const postUpdateDocuments = async (req, res) => {
   const {
-    body: { headTitle, editorBody },
-    params: { id }
+    body: {
+      formData: { title },
+      editorBody,
+    },
+    params: { id },
   } = req;
 
   try {
     const data = await Documents.findByIdAndUpdate(
       { _id: id },
       {
-        title: headTitle,
-        paragraph: editorBody
-      }
+        title,
+        paragraph: editorBody,
+      },
     );
 
     return res.status(200).json({ data });
@@ -173,7 +176,7 @@ export const postUpdateDocuments = async (req, res) => {
     return res.status(404).render("root/404", {
       pageTitle: "회칙을 수정할 수 없습니다.",
       errorMessage:
-        "회칙을 수정할 수 없습니다. 오류가 계속 발생하면 관리자에게 문의하십시오."
+        "회칙을 수정할 수 없습니다. 오류가 계속 발생하면 관리자에게 문의하십시오.",
     });
   }
 };
@@ -182,14 +185,18 @@ export const postUpdateDocuments = async (req, res) => {
 
 export const getDocuments = async (req, res) => {
   const {
-    params: { id }
+    url,
+    params: { id },
   } = req;
+
+  const path = req.originalUrl.split("/").slice(1, 3).join("/");
 
   try {
     const data = await Documents.findById(id);
     return res.render("documents/read", {
       pageTitle: data.title,
-      data
+      path,
+      data,
     });
   } catch (e) {
     console.log(e);

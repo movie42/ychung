@@ -6,6 +6,7 @@ export function getUrl() {
     .split("/")
     .filter((value) => value !== "");
   const len = windowLocation.length;
+
   const id = (function () {
     return windowLocation
       .filter((value) => {
@@ -18,14 +19,14 @@ export function getUrl() {
 
   const idIndex = windowLocation.indexOf(id);
 
-  if (idIndex !== -1) {
-    const pathName = windowLocation.splice(0, idIndex).join("/");
-    const method = windowLocation.splice(idIndex).join();
+  if (+idIndex !== -1) {
+    const pathName = windowLocation.slice(0, idIndex).join("/");
+    const method = windowLocation.slice(idIndex + 1).join("");
 
     return {
       pathName,
       id,
-      method
+      method,
     };
   } else {
     const method = windowLocation[len - 1];
@@ -34,7 +35,7 @@ export function getUrl() {
 
     return {
       pathName,
-      method
+      method,
     };
   }
 }
@@ -51,7 +52,7 @@ export function editorBodyData() {
 
   return {
     formData,
-    editorBody
+    editorBody,
   };
 }
 
@@ -62,10 +63,10 @@ export async function getEditorData(func) {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
-      "X-CSRF-Token": document.querySelector(
-        "meta[name='csrf-token']"
-      )["content"]
-    }
+      "X-CSRF-Token": document.querySelector("meta[name='csrf-token']")[
+        "content"
+      ],
+    },
   });
 
   const response = await request.json();

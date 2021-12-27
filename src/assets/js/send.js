@@ -3,7 +3,7 @@ import { getUrl, editorBodyData } from "./get";
 
 export function redirect(response, pathName) {
   const {
-    data: { _id }
+    data: { _id },
   } = response;
   window.location.pathname = `/${pathName}/${_id}`;
 }
@@ -15,11 +15,11 @@ export async function createEditorData(body) {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      "X-CSRF-Token": document.querySelector(
-        "meta[name='csrf-token']"
-      )["content"]
+      "X-CSRF-Token": document.querySelector("meta[name='csrf-token']")[
+        "content"
+      ],
     },
-    body: JSON.stringify({ ...body })
+    body: JSON.stringify({ ...body }),
   });
 
   const result = await request.json();
@@ -29,16 +29,15 @@ export async function createEditorData(body) {
 
 export async function editEditorData(body) {
   const { pathName, id } = getUrl();
-
   const request = await fetch(`/${pathName}/${id}/edit`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      "X-CSRF-Token": document.querySelector(
-        "meta[name='csrf-token']"
-      )["content"]
+      "X-CSRF-Token": document.querySelector("meta[name='csrf-token']")[
+        "content"
+      ],
     },
-    body: JSON.stringify({ ...body })
+    body: JSON.stringify({ ...body }),
   });
 
   const result = await request.json();
