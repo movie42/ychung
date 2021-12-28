@@ -11,7 +11,13 @@ import {
   formSelector,
   menuButtonHideMenu,
 } from "./selectors";
-import { handleOpenMenu, handleCloseMenu, handleLogo, throttle } from "./menu";
+import {
+  handleOpenMenu,
+  handleCloseMenu,
+  handleHiddenMenu,
+  sideMenuHandler,
+  debounce,
+} from "./menu";
 import { handleClick } from "./send";
 import { getEditorData } from "./get";
 import { editor } from "./editor";
@@ -89,4 +95,7 @@ worshipFormContainer !== null
 
 // header scroll Event
 
-window.addEventListener("scroll", handleLogo);
+window.addEventListener("wheel", handleHiddenMenu);
+
+window.addEventListener("load", sideMenuHandler);
+window.addEventListener("resize", debounce(sideMenuHandler, 100));

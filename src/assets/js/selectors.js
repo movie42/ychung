@@ -15,6 +15,8 @@ export const sendButton = getSelector(".send_btn");
 export const editor = getSelector("#editor");
 export const menuContainer = getSelector(".menu_block");
 export const hideMenuContainer = getSelector("#fixed_header");
+export const ComponentWrapper = getSelector(".component_wrapper");
+
 // editor
 export const editorContainer = getSelector("#editor");
 export const updateContainer = getSelector("#editor.update");
