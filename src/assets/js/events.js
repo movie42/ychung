@@ -8,9 +8,10 @@ import {
   viewContainer,
   formInputList,
   worshipFormContainer,
-  formSelector
+  formSelector,
+  menuButtonHideMenu,
 } from "./selectors";
-import { handleOpenMenu, handleCloseMenu } from "./menu";
+import { handleOpenMenu, handleCloseMenu, handleLogo, throttle } from "./menu";
 import { handleClick } from "./send";
 import { getEditorData } from "./get";
 import { editor } from "./editor";
@@ -22,21 +23,25 @@ import { viewer } from "./viewer";
 menuButton !== null
   ? menuButton.addEventListener("click", handleOpenMenu)
   : null;
+menuButtonHideMenu !== null
+  ? menuButtonHideMenu.addEventListener("click", handleOpenMenu)
+  : null;
 closeButton !== null
   ? closeButton.addEventListener("click", handleCloseMenu)
   : null;
 
 // editor send button event
 
-sendButton !== null
-  ? sendButton.addEventListener("click", handleClick)
-  : null;
+sendButton !== null ? sendButton.addEventListener("click", handleClick) : null;
 
 // keyborad event
 
 // menu button event
 menuButton !== null
   ? menuButton.addEventListener("keydown", handleOpenMenu)
+  : null;
+menuButtonHideMenu !== null
+  ? menuButtonHideMenu.addEventListener("keydown", handleOpenMenu)
   : null;
 closeButton !== null
   ? closeButton.addEventListener("keydown", handleCloseMenu)
@@ -48,7 +53,7 @@ closeButton !== null
 updateContainer !== null
   ? getEditorData(function () {
       const {
-        data: { title, paragraph, isWeekly }
+        data: { title, paragraph, isWeekly },
       } = arguments[0];
 
       editorTitle.value = title;
@@ -62,7 +67,7 @@ updateContainer !== null
 viewContainer !== null
   ? getEditorData(function () {
       const {
-        data: { paragraph }
+        data: { paragraph },
       } = arguments[0];
 
       viewer.setMarkdown(paragraph);
@@ -81,3 +86,7 @@ worshipFormContainer !== null
       });
     })
   : null;
+
+// header scroll Event
+
+window.addEventListener("scroll", throttle(handleLogo, 80));

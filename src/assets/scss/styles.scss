@@ -14,11 +14,7 @@
 }
 
 html,
-body,
-.container {
-  height: 100%;
-  overflow-x: hidden;
-  overflow-y: auto;
+body {
   font-family: "Noto Sans KR", sans-serif;
   font-size: 16px;
   letter-spacing: -0.03rem;
@@ -28,13 +24,54 @@ body,
     border: 0;
   }
 
+  .container_all {
+    max-width: 1024px;
+    margin: 0 auto;
+  }
+
   header {
-    .cls-1 {
-      fill: #2eaee5;
-      &:hover {
-        fill: #2b4eff;
+    .basic_header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 8px 10px;
+      .cls-1 {
+        fill: #2eaee5;
+        &:hover {
+          fill: #2b4eff;
+        }
+        // fill: #2eaee5;
       }
-      // fill: #2eaee5;
+    }
+    #fixed_header {
+      visibility: hidden;
+      padding: 8px 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1;
+      margin: 0 auto;
+      max-width: 1024px;
+      opacity: 0;
+      transition: all 0.3s ease-in-out;
+      &.active {
+        visibility: visible;
+        opacity: 1;
+        transition: all 0.3s ease-in-out;
+      }
+      #logo_breath {
+        .logo_2022 {
+          width: 2.4rem;
+        }
+      }
+
+      .close_button {
+        z-index: 1;
+      }
     }
   }
 }
@@ -76,142 +113,6 @@ body,
   }
 }
 
-.rules_wrapper {
-  position: absolute;
-  display: none;
-  background-color: #fff;
-  top: 66px;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  width: 100%;
-
-  .rules_navigation {
-    position: fixed;
-    margin-left: 30px;
-    padding: 10px;
-    div {
-      h1 {
-        a {
-          &:hover {
-            // color: $basic_color;
-            color: #2eaee5;
-            font-weight: 500;
-            font-size: 1.5rem;
-          }
-        }
-        &.on {
-          a {
-            color: $basic_color;
-            font-weight: 500;
-            font-size: 1.5rem;
-          }
-        }
-      }
-      ul {
-        font-weight: 100;
-        box-sizing: border-box;
-        line-height: 2rem;
-        li {
-          ul {
-            margin-left: 10px;
-          }
-          a {
-            &:hover {
-              // color: $basic_color;
-              color: #2eaee5;
-
-              font-weight: 500;
-              font-size: 1.5rem;
-            }
-          }
-          &.on {
-            a {
-              color: $basic_color;
-              font-weight: 500;
-              font-size: 1.5rem;
-            }
-          }
-        }
-      }
-    }
-  }
-
-  .rules_window {
-    overflow: scroll;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 20px 40px;
-    background-color: #fff;
-    .close_button {
-      position: fixed;
-      cursor: pointer;
-      top: 20px;
-      left: 50%;
-      transform: translateX(-50%);
-      font-size: 1.5rem;
-      border: 2px solid #000;
-      border-radius: 50%;
-      &:hover {
-        // color: $basic_color;
-        color: #2eaee5;
-        // border: 2px solid $basic_color;
-        border: 2px solid #2eaee5;
-      }
-    }
-    div {
-      h1 {
-        text-align: center;
-        font-size: 2rem;
-        font-weight: bold;
-        color: $basic_color;
-        margin-bottom: 1.3rem;
-      }
-      div {
-        text-align: center;
-        margin-bottom: 1.3rem;
-        p {
-          font-size: $info_font_size;
-          color: $line_color;
-          margin-bottom: 0.5rem;
-        }
-      }
-    }
-    section {
-      margin-bottom: 7rem;
-      h2 {
-        font-size: $middle_font_size_1_6rem;
-        font-weight: 400;
-        margin-bottom: 1.5rem;
-      }
-      p {
-        font-size: $basic_font_size;
-        line-height: 2rem;
-      }
-      h3 {
-        font-size: $font_size_1_4rem;
-        font-weight: 400;
-        margin-bottom: 1.2rem;
-      }
-      h4 {
-        font-size: $basic_font_size;
-        font-weight: 400;
-        margin-bottom: 1.2rem;
-      }
-      ul {
-        line-height: 2rem;
-        margin-bottom: 1.2rem;
-        li {
-          font-size: $basic_font_size;
-        }
-      }
-    }
-  }
-  &.on {
-    display: flex;
-  }
-}
-
 .material-icons-outlined {
   font-family: "Material Icons";
   font-size: $meterial_icon_size_mobile;
@@ -224,14 +125,6 @@ a {
 
 #waring {
   display: none;
-}
-
-#header {
-  display: flex;
-  position: relative;
-  justify-content: space-between;
-  align-items: center;
-  padding: 8px 10px;
 }
 
 .search_form {
@@ -362,9 +255,10 @@ a {
     visibility: visible;
     right: 0;
     width: 100vw;
-    z-index: 1;
+    z-index: 2;
     transition: all 0.5s ease;
     .close_button {
+      z-index: 1;
       visibility: visible;
     }
   }
@@ -408,10 +302,12 @@ a {
   }
 }
 
-#menu_button {
+#menu_button,
+#menu_button_hide_menu {
   cursor: pointer;
   width: 40px;
   height: 40px;
+  background-color: #fff;
   svg {
     width: 40px;
     height: 40px;
@@ -429,8 +325,9 @@ a {
 }
 
 main {
-  padding: 66px 10px 20.56px;
-  margin: -66px auto -20.56px;
+  min-height: 100vh;
+  padding: 72px 10px 112.3px;
+  margin: -72px auto -112.3px;
   .button_wrapper {
     .delete_btn {
       .material-icons-outlined {
@@ -711,7 +608,6 @@ main {
     ul {
       line-height: 3rem;
       height: 30vh;
-      overflow: scroll;
       .comment_item {
         display: flex;
         justify-content: space-between;
@@ -754,6 +650,7 @@ main {
 }
 
 footer {
+  background-color: #fff;
   font-size: $info_font_size;
   border-top: 1px solid $line-color;
   line-height: 1.6rem;
@@ -786,8 +683,6 @@ footer {
   main {
     box-sizing: border-box;
     word-wrap: break-word;
-    padding: 86px 10px 220px;
-    margin: -86px auto -220px;
     .head_title {
       font-size: $title_font_size_desktop_h1;
     }
@@ -921,7 +816,8 @@ footer {
     }
   }
 
-  #menu_button {
+  #menu_button,
+  #menu_button_hide_menu {
     display: none;
   }
   .search_form {
@@ -962,10 +858,7 @@ footer {
     }
   }
   footer {
-    display: flex;
-    height: 200px;
     div {
-      width: 50%;
       div {
         font-size: $basic_font_size;
         a {
