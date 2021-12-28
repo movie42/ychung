@@ -451,6 +451,35 @@ main {
   }
   .contents_wrapper {
     .component_wrapper {
+      .side_menu {
+        display: none;
+        position: fixed;
+        overflow: scroll;
+        height: 70vh;
+        top: 8rem;
+        right: 0;
+        padding-left: 2rem;
+        ul {
+          width: 13vw;
+          li {
+            padding: 0.4rem 0;
+            a {
+              overflow: hidden;
+              white-space: nowrap;
+              text-overflow: ellipsis;
+              width: 10px;
+              color: $line_color;
+              &:hover {
+                color: $basic_color;
+                font-weight: bold;
+              }
+            }
+          }
+        }
+        &.active {
+          display: block;
+        }
+      }
       div {
         font-size: $basic_font_size;
         margin-bottom: 13px;
