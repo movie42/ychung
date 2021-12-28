@@ -35,3 +35,25 @@ header#header
                 img(src="/favicon/breath_onlyLogo.png", alt="숨 2022 청년부 주제 BI").logo_2022
         div#menu_button_hide_menu(tabindex="0")
             span.material-icons-outlined menu
+        .menu_block
+            .close_button(tabindex="0") 
+                span.material-icons-outlined close
+            ul 
+                li
+                    a(href="/notice") 공지사항
+                li 
+                    a(href="/worship") 예배
+                li
+                    a(href="/blog") 블로그
+                li 
+                    a(href="/documents") 도큐멘트 
+                li.search 
+                    a 검색
+                if !loggedIn 
+                    li 
+                        a(href="/login") 로그인
+                else 
+                    li.userProfile_button 
+                        a(href=`/user/${user._id}`) 내 정보
+                    li 
+                        a(href="/logout") 로그아웃

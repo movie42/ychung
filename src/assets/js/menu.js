@@ -10,19 +10,6 @@ export const handleCloseMenu = (event) => {
     menuContainer.classList.remove("block");
 };
 
-export function throttle(func, limit = 100) {
-  let waiting = false;
-  return function () {
-    if (!waiting) {
-      func.apply(this, arguments);
-      waiting = true;
-      setTimeout(() => {
-        waiting = false;
-      }, limit);
-    }
-  };
-}
-
 export function handleLogo() {
   let scrollHeight = window.scrollY;
   if (scrollHeight < 80) {

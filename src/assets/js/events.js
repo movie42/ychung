@@ -89,4 +89,4 @@ worshipFormContainer !== null
 
 // header scroll Event
 
-window.addEventListener("scroll", throttle(handleLogo, 80));
+window.addEventListener("scroll", handleLogo);
