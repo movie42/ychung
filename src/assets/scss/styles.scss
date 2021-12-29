@@ -45,26 +45,25 @@ body {
       }
     }
     #fixed_header {
-      visibility: hidden;
       padding: 8px 10px;
-      display: flex;
-      display: -webkit-flex;
+      display: none;
       justify-content: space-between;
       align-items: center;
       position: fixed;
-      top: 0;
+      top: -76px;
       left: 0;
       right: 0;
       z-index: 1;
       margin: 0 auto;
       max-width: 1024px;
       background-color: #fff;
-      opacity: 0;
-      transition: all 0.3s ease-in-out;
       &.active {
-        visibility: visible;
-        opacity: 1;
-        transition: all 0.3s ease-in-out;
+        display: flex;
+      }
+      &.hidden {
+        visibility: hidden;
+        //   opacity: 1;
+        //   transition: all 0.3s ease-in-out;
       }
       #logo_breath {
         .logo_2022 {
@@ -455,19 +454,17 @@ main {
         display: none;
         position: fixed;
         overflow: scroll;
-        height: 70vh;
-        top: 8rem;
-        right: 0;
-        padding-left: 2rem;
+        max-height: 75vh;
+        top: 10rem;
+        right: 1.8rem;
+        padding-left: 1.2rem;
+        border-left: 1px solid $line-color;
+        width: 10vw;
         ul {
-          width: 13vw;
           li {
-            padding: 0.4rem 0;
+            padding: 0.2rem 0;
             a {
-              overflow: hidden;
-              white-space: nowrap;
-              text-overflow: ellipsis;
-              width: 10px;
+              font-size: 0.85rem;
               color: $line_color;
               &:hover {
                 color: $basic_color;

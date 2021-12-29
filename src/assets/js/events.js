@@ -10,6 +10,8 @@ import {
   worshipFormContainer,
   formSelector,
   menuButtonHideMenu,
+  joinSubmitButton,
+  joinForm,
 } from "./selectors";
 import {
   handleOpenMenu,
@@ -17,11 +19,13 @@ import {
   handleHiddenMenu,
   sideMenuHandler,
   debounce,
+  throttle,
 } from "./menu";
 import { handleClick } from "./send";
 import { getEditorData } from "./get";
 import { editor } from "./editor";
 import { viewer } from "./viewer";
+import { inputRef, handleSubmit } from "./join";
 
 // mouse event
 
@@ -95,7 +99,22 @@ worshipFormContainer !== null
 
 // header scroll Event
 
-window.addEventListener("wheel", handleHiddenMenu);
+window.addEventListener("scroll", handleHiddenMenu);
 
-window.addEventListener("load", sideMenuHandler);
+// window resize event
+
+// side menu
 window.addEventListener("resize", debounce(sideMenuHandler, 100));
+
+// content load event
+// side menu
+window.addEventListener("load", sideMenuHandler);
+
+// form event
+//join
+
+joinForm &&
+  !!(function () {
+    inputRef();
+    joinSubmitButton.addEventListener("click", handleSubmit);
+  })();

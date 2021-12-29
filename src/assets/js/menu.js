@@ -6,6 +6,9 @@ import {
   getSelectorAll,
 } from "./selectors";
 
+let prevHeight = 0;
+let top = hideMenuContainer.style.top;
+
 export const handleOpenMenu = (event) => {
   if (event.key === "Enter" || event.type === "click")
     menuContainer.classList.add("block");
@@ -16,18 +19,38 @@ export const handleCloseMenu = (event) => {
     menuContainer.classList.remove("block");
 };
 
-export function handleHiddenMenu(event) {
+export function handleHiddenMenu() {
   let scrollHeight = window.scrollY;
+  let remain = prevHeight - scrollHeight;
 
-  if (event.deltaY < -2) {
+  if (scrollHeight < 60) {
+    hideMenuContainer.classList.add("hidden");
+    hideMenuContainer.classList.remove("active");
+  }
+
+  // up
+  if (remain >= 0 && top < 0) {
+    top += remain;
+    if (top > 0) {
+      top = 0;
+    }
+    hideMenuContainer.classList.remove("hidden");
     hideMenuContainer.classList.add("active");
-  } else if (event.deltaY > 2) {
-    hideMenuContainer.classList.remove("active");
+    hideMenuContainer.style.top = `${top}px`;
   }
 
-  if (scrollHeight < 80) {
-    hideMenuContainer.classList.remove("active");
+  // down
+  if (remain <= 0 && top > -76 && scrollHeight > 80) {
+    top -= -remain;
+    if (top < -76) {
+      top = -76;
+    }
+    hideMenuContainer.classList.remove("hidden");
+    hideMenuContainer.style.top = `${top}px`;
+  } else if (top < -76) {
+    top = -76;
   }
+  prevHeight = scrollHeight;
 }
 
 export function debounce(func, limit = 100) {
@@ -40,29 +63,39 @@ export function debounce(func, limit = 100) {
   };
 }
 
+export function throttle(func, limit = 100) {
+  let wait = false;
+  return function () {
+    if (!wait) {
+      func.apply(this, arguments);
+      wait = true;
+      setTimeout(() => {
+        wait = false;
+      }, limit);
+    }
+  };
+}
+
+export function _filter(arr, func) {
+  let newArray = [];
+  for (let i = 0; i < arr.length; i++) {
+    if (func(arr[i])) {
+      newArray.push(arr[i]);
+    }
+  }
+  return newArray;
+}
+
 export function sideMenuHandler() {
+  const viewParagraphContainer = getSelector(".toastui-editor-contents");
   const width = window.innerWidth;
 
   function beMenu(className) {
     return getSelector(className) !== null;
   }
 
-  function _filter(arr, func) {
-    let newArray = [];
-    for (let i = 0; i < arr.length; i++) {
-      if (func(arr[i])) {
-        newArray.push(arr[i]);
-      }
-    }
-    return newArray;
-  }
-
   function createMenu(node) {
-    const viewContainer = getSelector(".toastui-editor-contents");
-    if (viewContainer === null) {
-      return;
-    }
-    const tagList = viewContainer.childNodes;
+    const tagList = viewParagraphContainer.childNodes;
     const titleList = _filter(
       tagList,
       (node) =>
@@ -79,8 +112,7 @@ export function sideMenuHandler() {
       const link = document.createElement("a");
       titleList[i].id = `title${i}`;
       const textValue = titleList[i].innerText;
-      link.innerText =
-        textValue.length < 10 ? textValue : `${textValue.slice(0, 10)}...`;
+      link.innerText = textValue.length < 10 ? textValue : `${textValue}`;
       link.setAttribute("href", `#${titleList[i].id}`);
 
       list.append(link);

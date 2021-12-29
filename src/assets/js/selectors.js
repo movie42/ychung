@@ -34,6 +34,13 @@ export const form = getSelector(".form_container form");
 export const worshipFormContainer = getSelector(".form_container.worship_form");
 export const formInputList = getSelectorAll(".form_container form input");
 export const formSelector = getSelector(".form_container form select");
+export const joinForm = document.querySelector(".form_container#join form");
+export const joinInput = document.querySelectorAll(
+  ".form_container#join form input",
+);
+export const joinSubmitButton = document.querySelector(
+  ".form_container#join form button",
+);
 
 // headers
 
