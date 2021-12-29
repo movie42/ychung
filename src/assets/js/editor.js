@@ -13,17 +13,17 @@ export const editor = (function () {
                 type: "openTag",
                 tagName: "iframe",
                 outerNewLine: true,
-                attributes: node.attrs,
+                attributes: node.attrs
               },
               { type: "html", content: node.childrenHTML },
               {
                 type: "closeTag",
                 tagName: "iframe",
-                outerNewLine: true,
-              },
+                outerNewLine: true
+              }
             ];
-          },
-        },
+          }
+        }
       },
       previewStyle: "vertical",
       height: "70vh",
@@ -33,7 +33,7 @@ export const editor = (function () {
         ["hr", "quote"],
         ["ul", "ol", "task"],
         ["table", "image", "link"],
-        ["code", "codeblock"],
+        ["code", "codeblock"]
       ],
       language: "ko",
       placeholder: "내용을 입력하세요.",
@@ -46,20 +46,22 @@ export const editor = (function () {
           const response = await fetch("/api/post-image", {
             method: "POST",
             headers: {
-              "X-CSRF-Token": document.querySelector("meta[name='csrf-token']")[
-                "content"
-              ],
+              "X-CSRF-Token": document.querySelector(
+                "meta[name='csrf-token']"
+              )["content"]
             },
-            body: formData,
+            body: formData
           });
 
           const { data } = await response.json();
           callback(data, "alt text");
-        },
+        }
       },
-      exts: ["youtube"],
+      exts: ["youtube"]
     });
   }
 
-  return editorContainer !== null ? paintEditor(editorContainer) : null;
+  return editorContainer !== null
+    ? paintEditor(editorContainer)
+    : null;
 })();

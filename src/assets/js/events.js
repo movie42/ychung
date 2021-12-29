@@ -11,15 +11,14 @@ import {
   formSelector,
   menuButtonHideMenu,
   joinSubmitButton,
-  joinForm,
+  joinForm
 } from "./selectors";
 import {
   handleOpenMenu,
   handleCloseMenu,
   handleHiddenMenu,
   sideMenuHandler,
-  debounce,
-  throttle,
+  debounce
 } from "./menu";
 import { handleClick } from "./send";
 import { getEditorData } from "./get";
@@ -42,7 +41,9 @@ closeButton !== null
 
 // editor send button event
 
-sendButton !== null ? sendButton.addEventListener("click", handleClick) : null;
+sendButton !== null
+  ? sendButton.addEventListener("click", handleClick)
+  : null;
 
 // keyborad event
 
@@ -63,7 +64,7 @@ closeButton !== null
 updateContainer !== null
   ? getEditorData(function () {
       const {
-        data: { title, paragraph, isWeekly },
+        data: { title, paragraph, isWeekly }
       } = arguments[0];
 
       editorTitle.value = title;
@@ -77,7 +78,7 @@ updateContainer !== null
 viewContainer !== null
   ? getEditorData(function () {
       const {
-        data: { paragraph },
+        data: { paragraph }
       } = arguments[0];
 
       viewer.setMarkdown(paragraph);

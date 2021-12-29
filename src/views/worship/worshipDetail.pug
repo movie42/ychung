@@ -3,64 +3,55 @@ extends ../layout/layout.pug
 block content 
     .contents_wrapper
         .contents_header_wrapper 
-            .inform_wrapper
-                h1.head_title=data.title
-            .inform_wrapper
-                .inform_box
-                    .views 
-                        span 조회수 
-                            if data.views === 0
-                                | 0
-                            else
-                                | #{data.views}
-                    .date
-                        span #{data.year} 
-                        span #{data.month} 
-                        span #{data.date} 
-                        span #{data.day} 
-                        span #{data.time}
-                .button_wrapper
-                    if loggedIn && (user.authority === "master"|| loggedIn && user.authority === "administrator")
+            section.scroll_animation_wrapper
+                .inform_wrapper
+                    h1.head_title=data.title
+                .inform_wrapper
+                    .inform_box
+                        .views 
+                            span 조회수 
+                                if data.views === 0
+                                    | 0
+                                else
+                                    | #{data.views}
+                        .date
+                            span #{data.year} 
+                            span #{data.month} 
+                            span #{data.date} 
+                            span #{data.day} 
+                            span #{data.time}
+                    .button_wrapper
+                        if loggedIn && (user.authority === "master"|| loggedIn && user.authority === "administrator")
+                            span
+                                a(href=`/worship/${id}/edit`).edit_button 
+                                    span.material-icons-outlined edit
+                .worship_inform_message
+                    .bible 본문 
                         span
-                            a(href=`/worship/${id}/edit`).edit_button 
-                                span.material-icons-outlined edit
-            section.component_wrapper
-                h2.head_title 예배
-                .bible 
-                    span 본문 
-                        a(href=`https://www.bskorea.or.kr/bible/korbibReadpage.php?version=SAENEW&book=${data.word}&chap=${data.chapter}&sec=${data.verse}`, target="_blank") #{word} #{data.chapter}장 #{data.verse} ~ #{data.verse_end}절
-                .pastor 
-                    span 강론 
-                    | #{data.pastor}
-                .worship 
-                    span 경배와 찬양 
-                    | #{data.worshipTeam}
-                .prayer 
-                    span 대표 기도 
-                    | #{data.prayer}
-                .adver
-                    span 광고 
-                    |#{data.advertisement}
-                .reader
-                    span 성경 봉독 
-                    |#{data.reader}
-                .offering
-                    span 헌금
-                    |#{data.offering}
-                .last_prayer
-                    span 봉헌기도 및 축도 
-                    |#{data.benediction}
-                if new Date().getDay() === 0 && new Date().getHours() >= 13 &&  new Date().getHours() <= 16
-                    .live_button 라이브 바로가기
-                        span.youtube_btn 
-                            a(href="https://www.youtube.com/channel/UCchlEyi8F0ASeGZZZQY8uTA", target="_blank") 
-                                i.fab.fa-youtube
-                        span.zoom_btn
-                            a(href="https://us02web.zoom.us/j/4836076553?pwd=SDZQSzZDTVFybWFtWWdMSEhCcHVTQT09", target="_blank")
-                                i.fas.fa-video
-            section.component_wrapper
-                div.notice_wraaper
-                    h2.head_title 광고
+                            a(href=`https://www.bskorea.or.kr/bible/korbibReadpage.php?version=SAENEW&book=${data.word}&chap=${data.chapter}&sec=${data.verse}`, target="_blank") #{word} #{data.chapter}장 #{data.verse} ~ #{data.verse_end}절
+                    .pastor 강론 
+                        span #{data.pastor}
+                    .worship 경배와 찬양 
+                        span  #{data.worshipTeam}
+                    .prayer  대표 기도 
+                        span  #{data.prayer}
+                    .adver 광고 
+                        span #{data.advertisement}
+                    .reader 성경 봉독 
+                        span #{data.reader}
+                    .last_prayer 봉헌기도 및 축도 
+                        span #{data.benediction}
+                    if new Date().getDay() === 0 && new Date().getHours() >= 13 &&  new Date().getHours() <= 16
+                        .live_button 라이브 바로가기
+                            span.youtube_btn 
+                                a(href="https://www.youtube.com/channel/UCchlEyi8F0ASeGZZZQY8uTA", target="_blank") 
+                                    i.fab.fa-youtube
+                            span.zoom_btn
+                                a(href="https://us02web.zoom.us/j/4836076553?pwd=SDZQSzZDTVFybWFtWWdMSEhCcHVTQT09", target="_blank")
+                                    i.fas.fa-video
+            section.scroll_animation_wrapper
+                .inform_wrapper
+                    h1.head_title 광고
                     p 자세한 사항을 보려면 광고를 클릭하세요.
                 .notice 
                     ul

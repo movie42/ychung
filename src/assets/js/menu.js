@@ -3,7 +3,7 @@ import {
   hideMenuContainer,
   ComponentWrapper,
   getSelector,
-  getSelectorAll,
+  getSelectorAll
 } from "./selectors";
 
 let prevHeight = 0;
@@ -87,7 +87,9 @@ export function _filter(arr, func) {
 }
 
 export function sideMenuHandler() {
-  const viewParagraphContainer = getSelector(".toastui-editor-contents");
+  const viewParagraphContainer = getSelector(
+    ".toastui-editor-contents"
+  );
   const width = window.innerWidth;
 
   function beMenu(className) {
@@ -101,7 +103,7 @@ export function sideMenuHandler() {
       (node) =>
         node.nodeName !== "#text" &&
         node.nodeName !== "P" &&
-        node.nodeName !== "UL",
+        node.nodeName !== "UL"
     );
 
     const listContainer = document.createElement("ul");
@@ -112,7 +114,8 @@ export function sideMenuHandler() {
       const link = document.createElement("a");
       titleList[i].id = `title${i}`;
       const textValue = titleList[i].innerText;
-      link.innerText = textValue.length < 10 ? textValue : `${textValue}`;
+      link.innerText =
+        textValue.length < 10 ? textValue : `${textValue}`;
       link.setAttribute("href", `#${titleList[i].id}`);
 
       list.append(link);

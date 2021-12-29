@@ -7,7 +7,9 @@ export function getSelectorAll(attr) {
 
 // button
 export const menuButton = getSelector("#menu_button");
-export const menuButtonHideMenu = getSelector("#menu_button_hide_menu");
+export const menuButtonHideMenu = getSelector(
+  "#menu_button_hide_menu"
+);
 export const closeButton = getSelector(".close_button");
 export const sendButton = getSelector(".send_btn");
 
@@ -23,23 +25,31 @@ export const updateContainer = getSelector("#editor.update");
 export const viewContainer = getSelector("#viewer");
 
 export const editorTitle = getSelector(
-  ".form_container.editor_container form input[name='title']",
+  ".form_container.editor_container form input[name='title']"
 );
 export const editorCheckbox = getSelector(
-  ".form_container.editor_container form div input[name='isWeekly']",
+  ".form_container.editor_container form div input[name='isWeekly']"
 );
 
 // form
 export const form = getSelector(".form_container form");
-export const worshipFormContainer = getSelector(".form_container.worship_form");
-export const formInputList = getSelectorAll(".form_container form input");
-export const formSelector = getSelector(".form_container form select");
-export const joinForm = document.querySelector(".form_container#join form");
+export const worshipFormContainer = getSelector(
+  ".form_container.worship_form"
+);
+export const formInputList = getSelectorAll(
+  ".form_container form input"
+);
+export const formSelector = getSelector(
+  ".form_container form select"
+);
+export const joinForm = document.querySelector(
+  ".form_container#join form"
+);
 export const joinInput = document.querySelectorAll(
-  ".form_container#join form input",
+  ".form_container#join form input"
 );
 export const joinSubmitButton = document.querySelector(
-  ".form_container#join form button",
+  ".form_container#join form button"
 );
 
 // headers
