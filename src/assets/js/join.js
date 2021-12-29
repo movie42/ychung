@@ -1,6 +1,4 @@
-const form = document.querySelector(".form_container#join form");
-const inputs = document.querySelectorAll(".form_container#join form input");
-const button = document.querySelector(".form_container#join form button");
+import { joinForm, joinInput, joinSubmitButton } from "./selectors";
 
 const message = {
   email: "이메일을 입력하세요.",
@@ -51,7 +49,7 @@ function paintMessage(bool, node, name = null) {
 function isTrue(name, value) {
   if (value) {
     if (name === "password2") {
-      const node = findNode(inputs, "name", "password");
+      const node = findNode(joinInput, "name", "password");
       return node.value === value;
     }
     const obj = {
@@ -100,29 +98,29 @@ function handleChecker(node) {
   return paintMessage(checked, node);
 }
 
-function inputRef() {
-  for (let i = 0; i < inputs.length; i++) {
-    inputs[i].addEventListener("focusout", function (e) {
+export function inputRef() {
+  for (let i = 0; i < joinInput.length; i++) {
+    joinInput[i].addEventListener("focusout", function (e) {
       return handleChecker(e.target);
     });
   }
 }
 
-async function handleSubmit(e) {
+export async function handleSubmit(e) {
   e.preventDefault();
 
-  for (let i = 0; i < inputs.length; i++) {
-    handleChecker(inputs[i]);
+  for (let i = 0; i < joinInput.length; i++) {
+    handleChecker(joinInput[i]);
   }
 
-  for (let i = 0; i < inputs.length; i++) {
-    const isTure = inputs[i].getAttribute("data-istrue");
+  for (let i = 0; i < joinInput.length; i++) {
+    const isTure = joinInput[i].getAttribute("data-istrue");
     if (isTure === "false") {
       return;
     }
   }
 
-  const formData = new FormData(form);
+  const formData = new FormData(joinForm);
 
   const body = {};
 
@@ -144,9 +142,4 @@ async function handleSubmit(e) {
   if (response.status === 201) {
     window.location.pathname = "/login";
   }
-}
-
-if (form) {
-  inputRef();
-  button.addEventListener("click", handleSubmit);
 }
