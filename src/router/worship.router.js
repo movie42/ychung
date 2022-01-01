@@ -1,10 +1,5 @@
 import express from "express";
-import {
-  onlyMaster,
-  preUrl,
-  view,
-  onlyAdministrator
-} from "../middleWare";
+import { isAuth, authorityHandler, preUrl, view } from "../middleWare";
 import {
   list,
   getWorshipUpload,
@@ -23,27 +18,24 @@ worshipRouter.route("/").get(list);
 // create
 worshipRouter
   .route("/upload")
-  .all(preUrl, onlyAdministrator)
+  .all(preUrl, (req, res, next) => isAuth(req, res, next, authorityHandler, "master", "leader"))
   .get(getWorshipUpload)
   .post(postWorshipUpload);
 
 // read
-worshipRouter
-  .route("/:id([0-9a-f]{24})")
-  .all(preUrl, view)
-  .get(getWorshipDetail);
+worshipRouter.route("/:id([0-9a-f]{24})").all(preUrl, view).get(getWorshipDetail);
 
 // update
 worshipRouter
   .route("/:id([0-9a-f]{24})/edit")
-  .all(onlyAdministrator)
+  .all((req, res, next) => isAuth(req, res, next, authorityHandler, "master", "leader"))
   .get(getWorshipEdit)
   .post(postWorshipEdit);
 
 // delete
 worshipRouter
   .route("/:id([0-9a-f]{24})/delete")
-  .all(onlyMaster)
+  .all((req, res, next) => isAuth(req, res, next, authorityHandler, "master", "leader"))
   .get(worshipDelete);
 
 export default worshipRouter;

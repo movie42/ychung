@@ -54,6 +54,7 @@ export const editor = (function () {
           });
 
           const { data } = await response.json();
+
           callback(data, "alt text");
         }
       },

@@ -23,7 +23,7 @@ const s3ImageUploader = multerS3({
     {
       id: "resized",
       key: function (req, file, cb) {
-        let extension = "profile-image";
+        let extension = "image";
         cb(null, extension + Date.now().toString());
       },
       transform: async function (req, file, cb) {
@@ -36,18 +36,12 @@ const s3ImageUploader = multerS3({
 
 const multerProfile = multer({
   dest: "uploads/profile",
-  storage:
-    process.env.NODE_ENV === "production"
-      ? s3ImageUploader
-      : undefined
+  storage: process.env.NODE_ENV === "production" ? s3ImageUploader : undefined
 });
 
 const multerEditorImage = multer({
   dest: "uploads/editorImage",
-  storage:
-    process.env.NODE_ENV === "production"
-      ? s3ImageUploader
-      : undefined
+  storage: process.env.NODE_ENV === "production" ? s3ImageUploader : undefined
 });
 
 export const editorImage = multerEditorImage.any();
@@ -67,33 +61,18 @@ export const preUrl = (req, res, next) => {
   next();
 };
 
-export const onlyMaster = (req, res, next) => {
-  if (req.session.loggedIn) {
-    const user = req.session.user;
-    if (user.authority === "master") {
-      next();
-    } else {
-      return res.redirect("/");
-    }
-  } else {
-    return res.redirect("/login");
-  }
-};
+export function isAuth(req, res, next, func, ...string) {
+  return req.session.loggedIn ? func(req, res, next, string) : res.redirect("/login");
+}
 
-export const onlyAdministrator = (req, res, next) => {
-  if (req.session.loggedIn) {
-    const user = req.session.user;
-    if (user.authority === "master") {
-      next();
-    } else if (user.authority === "administrator") {
-      next();
-    } else {
-      return res.redirect("/");
-    }
-  } else {
-    return res.redirect("/login");
+export function authorityHandler(req, res, next) {
+  const auth = arguments[3];
+  const user = req.session.user;
+  for (let i = 0; i < auth.length; i++) {
+    if (auth[i] === user.authority) return next();
   }
-};
+  return res.render("root/404", { pageTitle: "404", errorMessage: "접근 권한이 없습니다." });
+}
 
 export const onlyPublic = (req, res, next) => {
   if (req.session.loggedIn) {
@@ -158,10 +137,7 @@ export const view = async (req, res, next) => {
   }
 
   setTimeout(() => {
-    req.session.viewObj[id].splice(
-      req.session.viewObj[id].indexOf(checkUserName),
-      1
-    );
+    req.session.viewObj[id].splice(req.session.viewObj[id].indexOf(checkUserName), 1);
     for (let item in req.session.viewObj) {
       if (item.length < 1) {
         delete req.session.viewObj.item;

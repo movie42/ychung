@@ -8,7 +8,7 @@ import Comment from "../model/Comments.model";
 
 export const getDB = async (req, res) => {
   const {
-    params: { name, value },
+    params: { name, value }
   } = req;
   let exist;
   try {
@@ -28,7 +28,7 @@ export const getParagraph = async (req, res) => {
   const {
     session: { preUrl },
     path,
-    params: { id },
+    params: { id }
   } = req;
 
   try {
@@ -38,7 +38,7 @@ export const getParagraph = async (req, res) => {
       blog: Blog,
       notice: Notice,
       documents: Documents,
-      worship: Worship,
+      worship: Worship
     };
 
     const data = await DATA[rootPathName].findById(id);
@@ -54,9 +54,7 @@ export const postEditorImage = async (req, res) => {
 
   try {
     const data =
-      process.env.NODE_ENV === "production"
-        ? files[0].transforms[0].location
-        : `/${files[0].path}`;
+      process.env.NODE_ENV === "production" ? files[0].transforms[0].location : `/${files[0].path}`;
     return res.status(201).json({ data });
   } catch (e) {
     console.log(e);
@@ -67,7 +65,7 @@ export const registerComments = async (req, res) => {
   const {
     body: { text, pathName },
     session: { user },
-    params: { id },
+    params: { id }
   } = req;
 
   if (user === undefined) {
@@ -75,7 +73,7 @@ export const registerComments = async (req, res) => {
   }
   const modelName = {
     blog: Blog,
-    notice: Notice,
+    notice: Notice
   };
 
   try {
@@ -85,7 +83,7 @@ export const registerComments = async (req, res) => {
     }
     const comment = await Comment.create({
       text,
-      creator: user._id,
+      creator: user._id
     });
     comment[pathName] = modelData.id;
     comment.save();
@@ -94,9 +92,7 @@ export const registerComments = async (req, res) => {
     await modelData.save();
     userModel.comments.push(comment.id);
     await userModel.save();
-    return res
-      .status(201)
-      .json({ newComment: comment._id, userName: userModel.name });
+    return res.status(201).json({ newComment: comment._id, userName: userModel.name });
   } catch (e) {
     return res.sendStatus(404);
   }
@@ -104,7 +100,7 @@ export const registerComments = async (req, res) => {
 
 export const deleteComment = async (req, res) => {
   const {
-    params: { id },
+    params: { id }
   } = req;
 
   await Comment.findByIdAndDelete(id);

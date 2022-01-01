@@ -4,7 +4,7 @@ include ../../mixins/documentsList.pug
 block content
     .inform_wrapper
         h1.head_title #{pageName}
-        if loggedIn && (user.authority === 'master')
+        if loggedIn && (user.authority === "master" || user.authority === "leader")
             .button_wrapper
                 a(href="/documents/rules/upload").write_button
                     span.material-icons-outlined add_circle

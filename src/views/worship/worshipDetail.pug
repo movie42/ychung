@@ -20,7 +20,7 @@ block content
                         span #{data.day} 
                         span #{data.time}
                 .button_wrapper
-                    if loggedIn && (user.authority === "master"|| loggedIn && user.authority === "administrator")
+                    if loggedIn && (user.authority === "master"|| user.authority === "leader")
                         span
                             a(href=`/worship/${id}/edit`).edit_button 
                                 span.material-icons-outlined edit

@@ -6,9 +6,9 @@ import {
   blogDetail,
   getBlogUpdate,
   postBlogUpdate,
-  blogDelete,
+  blogDelete
 } from "../controller/blog.controller";
-import { onlyPrivate, preUrl, view } from "../middleWare";
+import { onlyPrivate, preUrl, view, authorityHandler, isAuth } from "../middleWare";
 
 const blogRouter = express.Router();
 
@@ -18,7 +18,9 @@ blogRouter.route("/").get(blogList);
 // Create
 blogRouter
   .route("/upload")
-  .all(preUrl, onlyPrivate)
+  .all(preUrl, (req, res, next) =>
+    isAuth(req, res, next, authorityHandler, "master", "blogger", "leader")
+  )
   .get(getBlogWrite)
   .post(postBlogWrite);
 
@@ -28,11 +30,14 @@ blogRouter.route("/:id([0-9a-f]{24})").all(preUrl, view).get(blogDetail);
 // Update
 blogRouter
   .route("/:id([0-9a-f]{24})/edit")
-  .all(onlyPrivate)
+  .all(onlyPrivate, preUrl, (req, res, next) => isAuth(req, res, next, authorityHandler, "master"))
   .get(getBlogUpdate)
   .post(postBlogUpdate);
 
 // Delete
-blogRouter.route("/:id([0-9a-f]{24})/delete").all(onlyPrivate).get(blogDelete);
+blogRouter
+  .route("/:id([0-9a-f]{24})/delete")
+  .all(onlyPrivate, preUrl, (req, res, next) => isAuth(req, res, next, authorityHandler, "master"))
+  .get(blogDelete);
 
 export default blogRouter;

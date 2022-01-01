@@ -5,7 +5,7 @@ block content
         .contents_header_wrapper 
             .inform_wrapper
                 h1.head_title=data.title
-                if loggedIn && (user.authority === "master")
+                if loggedIn && (user.authority === "master" || user.authority === "leader")
                     div.button_wrapper
                         a(href=`/${path}/${data.id}/edit`).edit_button
                             span.material-icons-outlined edit

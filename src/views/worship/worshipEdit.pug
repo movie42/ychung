@@ -5,7 +5,7 @@ block content
         .contents_header_wrapper 
             .inform_wrapper
                 h1.head_title 주보 수정
-                if loggedIn && user.authority === "master"
+                if loggedIn && (user.authority === "master" || user.authority === "leader")
                     div.button_wrapper
                         a(href=`/worship/${id}/delete`).delete_btn
                             span.material-icons-outlined delete

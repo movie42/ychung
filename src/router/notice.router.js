@@ -6,9 +6,9 @@ import {
   getNoticeDetail,
   getNoticeEdit,
   postNoticeEdit,
-  noticeDelete,
+  noticeDelete
 } from "../controller/notice.controller";
-import { onlyAdministrator, onlyMaster, view, preUrl } from "../middleWare";
+import { isAuth, authorityHandler, view, preUrl } from "../middleWare";
 
 const noticeRouter = express.Router();
 
@@ -18,7 +18,7 @@ noticeRouter.route("/").get(getNoticeData);
 // Create
 noticeRouter
   .route("/upload")
-  .all(preUrl, onlyAdministrator)
+  .all(preUrl, (req, res, next) => isAuth(req, res, next, authorityHandler, "master", "leader"))
   .get(getNoticeCreate)
   .post(postNoticeCreate);
 
@@ -28,14 +28,14 @@ noticeRouter.route("/:id([0-9a-f]{24})").all(preUrl, view).get(getNoticeDetail);
 // update
 noticeRouter
   .route("/:id([0-9a-f]{24})/edit")
-  .all(onlyAdministrator)
+  .all((req, res, next) => isAuth(req, res, next, authorityHandler, "master", "leader"))
   .get(getNoticeEdit)
   .post(postNoticeEdit);
 
 // delete
 noticeRouter
   .route("/:id([0-9a-f]{24})/delete")
-  .all(onlyAdministrator)
+  .all((req, res, next) => isAuth(req, res, next, authorityHandler, "master", "leader"))
   .get(noticeDelete);
 
 export default noticeRouter;

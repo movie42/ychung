@@ -12,7 +12,7 @@ import {
   deleteDocuments
 } from "../controller/documents.controller";
 
-import { onlyMaster } from "../middleWare";
+import { isAuth, authorityHandler } from "../middleWare";
 
 const documentsRouter = express.Router();
 
@@ -29,7 +29,7 @@ documentsRouter.route("/rules").get(getRulesList);
 // create
 documentsRouter
   .route("/rules/upload")
-  .all(onlyMaster)
+  .all((req, res, next) => isAuth(req, res, next, authorityHandler, "master", "leader"))
   .get(getCreateDocuments)
   .post(postCreateDocuments);
 
@@ -39,14 +39,14 @@ documentsRouter.route("/rules/:id([0-9a-f]{24})").get(getDocuments);
 // update
 documentsRouter
   .route("/rules/:id([0-9a-f]{24})/edit")
-  .all(onlyMaster)
+  .all((req, res, next) => isAuth(req, res, next, authorityHandler, "master", "leader"))
   .get(getUpdateDocuments)
   .post(postUpdateDocuments);
 
 // delete
 documentsRouter
   .route("/rules/:id([0-9a-f]{24})/delete")
-  .all(onlyMaster)
+  .all((req, res, next) => isAuth(req, res, next, authorityHandler, "master", "leader"))
   .get(deleteDocuments);
 
 // documents manual
@@ -56,7 +56,7 @@ documentsRouter.route("/manuals").get(getManualsList);
 // create
 documentsRouter
   .route("/manuals/upload")
-  .all(onlyMaster)
+  .all((req, res, next) => isAuth(req, res, next, authorityHandler, "master", "leader"))
   .get(getCreateDocuments)
   .post(postCreateDocuments);
 
@@ -66,14 +66,14 @@ documentsRouter.route("/manuals/:id([0-9a-f]{24})").get(getDocuments);
 // update
 documentsRouter
   .route("/manuals/:id([0-9a-f]{24})/edit")
-  .all(onlyMaster)
+  .all((req, res, next) => isAuth(req, res, next, authorityHandler, "master", "leader"))
   .get(getUpdateDocuments)
   .post(postUpdateDocuments);
 
 // delete
 documentsRouter
   .route("/manuals/:id([0-9a-f]{24})/delete")
-  .all(onlyMaster)
+  .all((req, res, next) => isAuth(req, res, next, authorityHandler, "master", "leader"))
   .get(deleteDocuments);
 
 // documents application
@@ -83,26 +83,24 @@ documentsRouter.route("/applications").get(getApplicationsList);
 // create
 documentsRouter
   .route("/applications/upload")
-  .all(onlyMaster)
+  .all((req, res, next) => isAuth(req, res, next, authorityHandler, "master", "leader"))
   .get(getCreateDocuments)
   .post(postCreateDocuments);
 
 // read
-documentsRouter
-  .route("/applications/:id([0-9a-f]{24})")
-  .get(getDocuments);
+documentsRouter.route("/applications/:id([0-9a-f]{24})").get(getDocuments);
 
 // update
 documentsRouter
   .route("/applications/:id([0-9a-f]{24})/edit")
-  .all(onlyMaster)
+  .all((req, res, next) => isAuth(req, res, next, authorityHandler, "master", "leader"))
   .get(getUpdateDocuments)
   .post(postUpdateDocuments);
 
 // delete
 documentsRouter
   .route("/applications/:id([0-9a-f]{24})/delete")
-  .all(onlyMaster)
+  .all((req, res, next) => isAuth(req, res, next, authorityHandler, "master", "leader"))
   .get(deleteDocuments);
 
 export default documentsRouter;

@@ -4,22 +4,16 @@ import {
   deleteComment,
   getDB,
   getParagraph,
-  postEditorImage,
+  postEditorImage
 } from "../controller/api.controller";
 import { onlyPrivate, preUrl, editorImage } from "../middleWare";
 
 const api = express.Router();
 
 // comments
-api
-  .route("/:id([0-9a-f]{24})/comments")
-  .all(preUrl, onlyPrivate)
-  .post(registerComments);
+api.route("/:id([0-9a-f]{24})/comments").all(preUrl, onlyPrivate).post(registerComments);
 
-api
-  .route("/:id([0-9a-f]{24})/comments/delete")
-  .all(preUrl, onlyPrivate)
-  .get(deleteComment);
+api.route("/:id([0-9a-f]{24})/comments/delete").all(preUrl, onlyPrivate).get(deleteComment);
 
 // get notice data
 api.route("/notice/:id([0-9a-f]{24})").get(getParagraph);
@@ -43,7 +37,7 @@ api.route("/documents/manuals/:id([0-9a-f]{24})").get(getParagraph);
 api.route("/documents/applications/:id([0-9a-f]{24})").get(getParagraph);
 
 // post image data
-api.route("/post-image").post(editorImage, postEditorImage);
+api.route("/post-image").all(onlyPrivate).post(editorImage, postEditorImage);
 
 // checked email, userName
 api.route("/checked-db/:name=:value").get(getDB);
