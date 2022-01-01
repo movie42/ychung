@@ -1,6 +1,10 @@
 # 양청 홈페이지
 
 - [양청 홈페이지](#양청-홈페이지)
+  - [업데이트 2022. 01. 01](#업데이트-2022-01-01)
+  - [업데이트 2021. 12. 29](#업데이트-2021-12-29)
+  - [업데이트 2021. 12. 18](#업데이트-2021-12-18)
+  - [업데이트 2021. 12. 17](#업데이트-2021-12-17)
   - [업데이트 2021. 12. 15](#업데이트-2021-12-15)
   - [업데이트 2021. 12.13](#업데이트-2021-1213)
   - [업데이트 2021. 12. 9](#업데이트-2021-12-9)
@@ -25,6 +29,33 @@
     - [2021년 10월 9일](#2021년-10월-9일)
         - [웹 컴포넌트](#웹-컴포넌트)
   - [1.3. 참조](#13-참조)
+
+## 업데이트 2022. 01. 01
+
+토스트 에디터 color-syntax 추가
+
+## 업데이트 2021. 12. 29
+
+상단 메뉴 애니메이션 추가
+
+- 컨텐트 높이가 높아졌을 때, 스크롤을 위로 올리면 상단에 숨겨져있던 헤더가 나타나도록 애니메이션 추가
+
+게시글을 읽을 때, 사이드 메뉴 추가
+
+- 게시글에서 h1, h2, h3, h4,h5 태그를 파싱해서 사이드에 그려주도록 자바스크립트 함수 추가
+
+## 업데이트 2021. 12. 18
+
+크리스마스 이벤트 (snow)
+
+- 캔버스 이벤트 추가
+
+## 업데이트 2021. 12. 17
+
+도큐멘트 게시판을 추가하면서 생긴 문제 수정
+
+- documents model, view, controller 추가
+- getUrl() 에러 (path를 제대로 가져오지 못함) 수정
 
 ## 업데이트 2021. 12. 15
 
@@ -310,10 +341,7 @@ function checkJoinData(obj) {
           successMessage("name");
         }
       case "password":
-        if (
-          isPassword(obj["password"]) &&
-          obj["password"] === obj["password2"]
-        ) {
+        if (isPassword(obj["password"]) && obj["password"] === obj["password2"]) {
           successMessage("password");
           successMessage("password2");
         } else {
@@ -362,10 +390,9 @@ function isUserName(userName) {
 }
 
 function isPassword(password) {
-  const checkPassword =
-    /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$/.exec(
-      password
-    );
+  const checkPassword = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$/.exec(
+    password
+  );
   if (checkPassword) {
     return checkPassword;
   }
