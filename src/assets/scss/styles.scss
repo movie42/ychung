@@ -3,6 +3,8 @@
 @import "./reset";
 @import "@toast-ui/editor/dist/toastui-editor-viewer.css";
 @import "@toast-ui/editor/dist/toastui-editor.css";
+@import "tui-color-picker/dist/tui-color-picker.css";
+@import "@toast-ui/editor-plugin-color-syntax/dist/toastui-editor-plugin-color-syntax.css";
 @import url("https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap");
 
 @font-face {
@@ -141,11 +143,7 @@ a {
   right: 0;
   width: 100vw;
   height: 100vh;
-  background: linear-gradient(
-      217deg,
-      rgba(255, 0, 0, 0.9),
-      rgba(255, 0, 0, 0) 70.71%
-    ),
+  background: linear-gradient(217deg, rgba(255, 0, 0, 0.9), rgba(255, 0, 0, 0) 70.71%),
     linear-gradient(127deg, rgba(0, 255, 0, 0.9), rgba(0, 255, 0, 0) 70.71%),
     linear-gradient(336deg, rgba(0, 0, 255, 0.9), rgba(0, 0, 255, 0) 70.71%);
   @include animation(bgAnimation, 2s, 0, infinite, alternate);
@@ -230,11 +228,7 @@ a {
     }
   }
   position: fixed;
-  background: linear-gradient(
-      217deg,
-      rgba(255, 0, 0, 0.95),
-      rgba(255, 0, 0, 0) 70.71%
-    ),
+  background: linear-gradient(217deg, rgba(255, 0, 0, 0.95), rgba(255, 0, 0, 0) 70.71%),
     linear-gradient(127deg, rgba(0, 255, 0, 0.95), rgba(0, 255, 0, 0) 70.71%),
     linear-gradient(336deg, rgba(0, 0, 255, 0.95), rgba(0, 0, 255, 0) 70.71%);
   background-size: 400% 400%;
@@ -931,11 +925,7 @@ footer {
   bottom: 0;
   background-color: white;
   padding: 10px;
-  background: linear-gradient(
-      217deg,
-      rgba(255, 0, 0, 0.95),
-      rgba(255, 0, 0, 0) 70.71%
-    ),
+  background: linear-gradient(217deg, rgba(255, 0, 0, 0.95), rgba(255, 0, 0, 0) 70.71%),
     linear-gradient(127deg, rgba(0, 255, 0, 0.95), rgba(0, 255, 0, 0) 70.71%),
     linear-gradient(336deg, rgba(0, 0, 255, 0.95), rgba(0, 0, 255, 0) 70.71%);
   background-size: 400% 400%;

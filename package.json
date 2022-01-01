@@ -25,6 +25,7 @@
   "homepage": "https://github.com/movie42/ychung#readme",
   "dependencies": {
     "@toast-ui/editor": "^3.1.1",
+    "@toast-ui/editor-plugin-color-syntax": "^3.0.2",
     "aws-sdk": "^2.979.0",
     "bcrypt": "^5.0.1",
     "connect-mongo": "^4.4.1",
