@@ -10,6 +10,12 @@ export const menuButton = getSelector("#menu_button");
 export const menuButtonHideMenu = getSelector("#menu_button_hide_menu");
 export const closeButton = getSelector(".close_button");
 export const sendButton = getSelector(".send_btn");
+export const toggleButton = getSelector(
+  ".list_wrapper .list_item li a .isWeeklyButton label .box",
+);
+export const toggleButtons = getSelectorAll(
+  ".list_wrapper .list_item li a .isWeeklyButton label .box",
+);
 
 // container
 export const editor = getSelector("#editor");
@@ -47,3 +53,6 @@ export const joinSubmitButton = document.querySelector(
 export const logo22 = getSelector(".logo_2022");
 export const logoBasic = getSelector(".logo_basic");
 export const header = getSelector("header");
+
+// list
+export const list = getSelector(".list_wrapper .list_item li");

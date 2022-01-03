@@ -143,7 +143,11 @@ a {
   right: 0;
   width: 100vw;
   height: 100vh;
-  background: linear-gradient(217deg, rgba(255, 0, 0, 0.9), rgba(255, 0, 0, 0) 70.71%),
+  background: linear-gradient(
+      217deg,
+      rgba(255, 0, 0, 0.9),
+      rgba(255, 0, 0, 0) 70.71%
+    ),
     linear-gradient(127deg, rgba(0, 255, 0, 0.9), rgba(0, 255, 0, 0) 70.71%),
     linear-gradient(336deg, rgba(0, 0, 255, 0.9), rgba(0, 0, 255, 0) 70.71%);
   @include animation(bgAnimation, 2s, 0, infinite, alternate);
@@ -228,7 +232,11 @@ a {
     }
   }
   position: fixed;
-  background: linear-gradient(217deg, rgba(255, 0, 0, 0.95), rgba(255, 0, 0, 0) 70.71%),
+  background: linear-gradient(
+      217deg,
+      rgba(255, 0, 0, 0.95),
+      rgba(255, 0, 0, 0) 70.71%
+    ),
     linear-gradient(127deg, rgba(0, 255, 0, 0.95), rgba(0, 255, 0, 0) 70.71%),
     linear-gradient(336deg, rgba(0, 0, 255, 0.95), rgba(0, 0, 255, 0) 70.71%);
   background-size: 400% 400%;
@@ -416,6 +424,43 @@ main {
           justify-content: space-between;
           align-items: center;
           @include animation(fontAnimation, 0.5s, 0, unset, normal);
+          .isWeeklyButton {
+            input[type="checkbox"] {
+              display: none;
+            }
+            label {
+              .box {
+                position: relative;
+                width: 40px;
+                height: 24px;
+                background-color: #fff;
+                border: 2px solid $line-color;
+                border-radius: 23px;
+                padding: 2px 8px;
+                cursor: pointer;
+                &.active {
+                  background-color: $basic_color;
+                  border: 2px solid $basic_color;
+                }
+                .ball {
+                  position: absolute;
+                  top: 0;
+                  left: 0;
+                  width: 20px;
+                  height: 20px;
+                  border-radius: 50%;
+                  background-color: $basic_color;
+                  border: 2px solid $basic_color;
+                  &.active {
+                    background-color: #fff;
+                    border: 2px solid #fff;
+                    right: 0;
+                    left: unset;
+                  }
+                }
+              }
+            }
+          }
           div {
             box-sizing: border-box;
             h4 {
@@ -925,7 +970,11 @@ footer {
   bottom: 0;
   background-color: white;
   padding: 10px;
-  background: linear-gradient(217deg, rgba(255, 0, 0, 0.95), rgba(255, 0, 0, 0) 70.71%),
+  background: linear-gradient(
+      217deg,
+      rgba(255, 0, 0, 0.95),
+      rgba(255, 0, 0, 0) 70.71%
+    ),
     linear-gradient(127deg, rgba(0, 255, 0, 0.95), rgba(0, 255, 0, 0) 70.71%),
     linear-gradient(336deg, rgba(0, 0, 255, 0.95), rgba(0, 0, 255, 0) 70.71%);
   background-size: 400% 400%;

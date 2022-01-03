@@ -1,5 +1,5 @@
 mixin blogBlock(blog={})
-    li 
+    li(data-id=blog.id)
         a(href=`/blog/${blog.id}`)
             div
                 h4=blog.title 
