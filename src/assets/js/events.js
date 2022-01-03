@@ -12,16 +12,17 @@ import {
   menuButtonHideMenu,
   joinSubmitButton,
   joinForm,
+  toggleButtons,
+  toggleButtonBall,
 } from "./selectors";
 import {
   handleOpenMenu,
   handleCloseMenu,
   handleHiddenMenu,
   sideMenuHandler,
-  debounce,
-  throttle,
 } from "./menu";
-import { handleClick } from "./send";
+import { _debounce, _throttle } from "./helperFunction";
+import { handleChecker, handleClick } from "./send";
 import { getEditorData } from "./get";
 import { editor } from "./editor";
 import { viewer } from "./viewer";
@@ -104,7 +105,7 @@ window.addEventListener("scroll", handleHiddenMenu);
 // window resize event
 
 // side menu
-window.addEventListener("resize", debounce(sideMenuHandler, 100));
+window.addEventListener("resize", _debounce(sideMenuHandler, 100));
 
 // content load event
 // side menu
@@ -118,3 +119,9 @@ joinForm &&
     inputRef();
     joinSubmitButton.addEventListener("click", handleSubmit);
   })();
+
+if (toggleButtons !== null) {
+  for (let i = 0; i < toggleButtons.length; i++) {
+    toggleButtons[i].addEventListener("click", handleChecker);
+  }
+}

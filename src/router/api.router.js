@@ -4,16 +4,29 @@ import {
   deleteComment,
   getDB,
   getParagraph,
-  postEditorImage
+  postEditorImage,
+  postNoticeToWeekly,
 } from "../controller/api.controller";
-import { onlyPrivate, preUrl, editorImage } from "../middleWare";
+import {
+  onlyPrivate,
+  preUrl,
+  editorImage,
+  isAuth,
+  authorityHandler,
+} from "../middleWare";
 
 const api = express.Router();
 
 // comments
-api.route("/:id([0-9a-f]{24})/comments").all(preUrl, onlyPrivate).post(registerComments);
+api
+  .route("/:id([0-9a-f]{24})/comments")
+  .all(preUrl, onlyPrivate)
+  .post(registerComments);
 
-api.route("/:id([0-9a-f]{24})/comments/delete").all(preUrl, onlyPrivate).get(deleteComment);
+api
+  .route("/:id([0-9a-f]{24})/comments/delete")
+  .all(preUrl, onlyPrivate)
+  .get(deleteComment);
 
 // get notice data
 api.route("/notice/:id([0-9a-f]{24})").get(getParagraph);
@@ -42,4 +55,11 @@ api.route("/post-image").all(onlyPrivate).post(editorImage, postEditorImage);
 // checked email, userName
 api.route("/checked-db/:name=:value").get(getDB);
 
+// check notice
+api
+  .route("/notice/isWeekly")
+  .all((req, res, next) =>
+    isAuth(req, res, next, authorityHandler, "master", "blogger", "leader"),
+  )
+  .post(postNoticeToWeekly);
 export default api;

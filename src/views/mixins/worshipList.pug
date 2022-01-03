@@ -1,5 +1,5 @@
 mixin worshipBlock(worship={})
-    li
+    li(data-id=worship.id)
         a(href=`worship/${worship.id}`)
             div
                 h4=worship.title

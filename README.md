@@ -1,6 +1,7 @@
 # 양청 홈페이지
 
 - [양청 홈페이지](#양청-홈페이지)
+  - [업데이트 2022. 01. 03](#업데이트-2022-01-03)
   - [업데이트 2022. 01. 01](#업데이트-2022-01-01)
   - [업데이트 2021. 12. 29](#업데이트-2021-12-29)
   - [업데이트 2021. 12. 18](#업데이트-2021-12-18)
@@ -29,6 +30,11 @@
     - [2021년 10월 9일](#2021년-10월-9일)
         - [웹 컴포넌트](#웹-컴포넌트)
   - [1.3. 참조](#13-참조)
+
+## 업데이트 2022. 01. 03
+
+공지사항 isWeekly checkbox를 authority가 master나 administrator일 때 보이도록
+[Light/Dark Mode Toggle Button Using 1 variable 2021 || CSS JS](https://dev.to/joyshaheb/light-dark-mode-toggle-button-using-1-variable-2021-css-js-13l)
 
 ## 업데이트 2022. 01. 01
 
@@ -210,7 +216,7 @@ if (form) {
 async function handleSessionStorage(e) {
   e.preventDefault();
   const request = await fetch("/join", {
-    method: "POST"
+    method: "POST",
   });
 
   if (request.status === 400) {
@@ -341,7 +347,10 @@ function checkJoinData(obj) {
           successMessage("name");
         }
       case "password":
-        if (isPassword(obj["password"]) && obj["password"] === obj["password2"]) {
+        if (
+          isPassword(obj["password"]) &&
+          obj["password"] === obj["password2"]
+        ) {
           successMessage("password");
           successMessage("password2");
         } else {
@@ -374,7 +383,7 @@ function successMessage(str) {
 
 function isEmail(email) {
   return /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.exec(
-    email
+    email,
   );
 }
 
@@ -390,9 +399,10 @@ function isUserName(userName) {
 }
 
 function isPassword(password) {
-  const checkPassword = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$/.exec(
-    password
-  );
+  const checkPassword =
+    /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$/.exec(
+      password,
+    );
   if (checkPassword) {
     return checkPassword;
   }
@@ -418,9 +428,9 @@ async function postDataToServer(data) {
   const response = await fetch("/join", {
     method: "POST",
     headers: {
-      "Content-Type": "multipart/form-data"
+      "Content-Type": "multipart/form-data",
     },
-    body: JSON.stringify(data)
+    body: JSON.stringify(data),
   });
 
   console.log(response);
@@ -467,7 +477,7 @@ async function postDataToServer(data) {
 
   const response = await fetch("/join", {
     method: "POST",
-    body: file
+    body: file,
   });
 
   console.log(response);

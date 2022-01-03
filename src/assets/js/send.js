@@ -1,5 +1,13 @@
 // requestHTTP
+import {
+  getSelector,
+  list,
+  toggleButton,
+  toggleButtonBall,
+  toggleButtons,
+} from "./selectors";
 import { getUrl, editorBodyData } from "./get";
+import { _filter } from "./helperFunction";
 
 export function redirect(response, pathName) {
   const {
@@ -53,5 +61,34 @@ export function handleClick(event) {
     createEditorData(body);
   } else {
     editEditorData(body);
+  }
+}
+
+export async function handleChecker(event) {
+  const currentTarget = event.currentTarget;
+  const dataId = currentTarget.parentNode.dataset.id;
+
+  const toggleButton = currentTarget;
+  const toggleButtonBall = _filter(currentTarget.children, (node) => node)[0];
+
+  const request = await fetch(`/api/notice/isWeekly`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "X-CSRF-Token": document.querySelector("meta[name='csrf-token']")[
+        "content"
+      ],
+    },
+    body: JSON.stringify({ dataId }),
+  });
+
+  const { data } = await request.json();
+
+  if (data) {
+    toggleButton.classList.add("active");
+    toggleButtonBall.classList.add("active");
+  } else {
+    toggleButton.classList.remove("active");
+    toggleButtonBall.classList.remove("active");
   }
 }

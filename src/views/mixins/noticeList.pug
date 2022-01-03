@@ -1,8 +1,18 @@
 mixin noticeBlock(notice={})
-    li
+    li(data-id=notice.id)
         a(href=`notice/${notice.id}`)
             div
                 h4=notice.title
+            if loggedIn && (user.authority === "master"|| user.authority === "administrator")
+                div.isWeeklyButton 
+                    input(type="checkbox" name="isWeekly" id="isWeekly")
+                    label(for="isWeekly" data-id=notice.id)
+                        if notice.isWeekly
+                            .box.active
+                                .ball.active
+                        else
+                            .box 
+                                .ball 
             div
                 span=notice.year
                 span=notice.month 
