@@ -13,7 +13,7 @@ mixin noticeBlock(notice={})
                         else
                             .box 
                                 .ball 
-            div
+            div.date_box
                 span=notice.year
-                span=notice.month 
-                span=notice.date
+                span #{notice.month.length < 3? `0${notice.month}`: notice.month }
+                span #{notice.date.length < 3? `0${notice.date}`: notice.date }

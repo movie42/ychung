@@ -59,7 +59,7 @@ api.route("/checked-db/:name=:value").get(getDB);
 api
   .route("/notice/isWeekly")
   .all((req, res, next) =>
-    isAuth(req, res, next, authorityHandler, "master", "blogger", "leader"),
+    isAuth(req, res, next, authorityHandler, "master", "administrator"),
   )
   .post(postNoticeToWeekly);
 export default api;

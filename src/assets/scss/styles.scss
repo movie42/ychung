@@ -15,15 +15,20 @@
     format("woff2");
 }
 
-html,
-body {
+html {
   font-family: "Noto Sans KR", sans-serif;
-  font-size: 16px;
-  letter-spacing: -0.03rem;
+  text-align: left;
+  line-height: initial;
+  word-break: keep-all;
+  font-size: 10px;
+  letter-spacing: -0.05rem;
   font-weight: 400;
-  .toastui-editor-contents h1,
-  h2 {
-    border: 0;
+}
+body {
+  font-size: $basic_font_size;
+  a {
+    color: #000;
+    text-decoration: none;
   }
 
   .container_all {
@@ -69,7 +74,7 @@ body {
       }
       #logo_breath {
         .logo_2022 {
-          width: 2.4rem;
+          width: 4rem;
         }
       }
 
@@ -80,55 +85,9 @@ body {
   }
 }
 
-#christmas canvas {
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: -1;
-}
-
-.inform_wrapper.christmas {
-  display: flex;
-  height: inherit;
-  justify-content: center;
-  align-items: center;
-  h1 {
-    text-align: center;
-    font-size: 4rem;
-    font-weight: 900;
-    color: #2eaee5;
-  }
-  p:not(:last-child) {
-    text-align: left;
-    margin-top: 2.5rem;
-    font-size: 1rem;
-    line-height: 1.4rem;
-    padding: 0 2em;
-    color: #2eaee5;
-    font-weight: 400;
-  }
-  p:last-child {
-    text-align: left;
-    margin-top: 1rem;
-    font-size: 1rem;
-    padding: 0 2em;
-    color: #2eaee5;
-    font-weight: 400;
-  }
-}
-
 .material-icons-outlined {
   font-family: "Material Icons";
   font-size: $meterial_icon_size_mobile;
-}
-
-a {
-  color: #000;
-  text-decoration: none;
-}
-
-#waring {
-  display: none;
 }
 
 .search_form {
@@ -162,7 +121,7 @@ a {
       flex-direction: column;
       justify-content: left;
       font-size: $basic_font_size;
-      line-height: 2.5rem;
+      line-height: 5.2rem;
       li {
         a {
           display: block;
@@ -287,7 +246,7 @@ a {
     flex-direction: column;
     justify-content: left;
     font-size: $basic_font_size;
-    line-height: 2.5rem;
+    line-height: 5.2rem;
     li {
       a {
         display: block;
@@ -319,7 +278,7 @@ a {
 }
 
 #logo {
-  font-size: 2em;
+  font-size: 5rem;
   a {
     display: block;
     width: 50px;
@@ -336,10 +295,6 @@ main {
     .delete_btn {
       .material-icons-outlined {
         @include meterial_button_style();
-        &:hover {
-          // color: $basic_color;
-          color: #2eaee5;
-        }
       }
     }
     .send_btn {
@@ -349,29 +304,17 @@ main {
       cursor: pointer;
       .material-icons-outlined {
         @include meterial_button_style();
-        &:hover {
-          // color: $basic_color;
-          color: #2eaee5;
-        }
       }
     }
     .edit_button {
       cursor: pointer;
       .material-icons-outlined {
         @include meterial_button_style();
-        &:hover {
-          // color: $basic_color;
-          color: #2eaee5;
-        }
       }
     }
     .write_button {
       .material-icons-outlined {
-        @include meterial_button_style(2.5rem);
-        &:hover {
-          // color: $basic_color;
-          color: #2eaee5;
-        }
+        @include meterial_button_style();
       }
     }
     .login_button {
@@ -400,6 +343,7 @@ main {
   h1 {
     &.head_title {
       font-size: $title_font_size;
+      font-weight: 700;
       @include animation(fontAnimation, 0.5s, 0, unset, normal);
     }
   }
@@ -476,10 +420,20 @@ main {
               overflow: hidden;
               width: 70%;
             }
-            &:nth-child(2) {
-              font-size: $info_font_size;
-              span:not(:first-child) {
-                margin-left: 3px;
+          }
+          .isWeeklyButton {
+            margin-right: 0.6rem;
+          }
+          .date_box {
+            min-width: 13rem;
+            margin: 0;
+            padding: 0;
+            span {
+              font-size: $info_font_size_desktop;
+              color: $line-color;
+              margin: 0;
+              &:not(:first-child) {
+                margin-left: 0.5rem;
               }
             }
           }
@@ -489,6 +443,34 @@ main {
   }
   .contents_wrapper {
     .component_wrapper {
+      .toastui-editor-contents h1,
+      .toastui-editor-contents h2 {
+        border-bottom: 0;
+      }
+      h1 {
+        margin: 2.5rem 0 1.5rem 0;
+        font-size: $title_font_size_mobile_h1;
+      }
+      h2 {
+        margin: 2.5rem 0 1.5rem 0;
+        font-size: $title_font_size_mobile_h2;
+      }
+      h3 {
+        margin: 2.5rem 0 2.8rem 0;
+        font-size: $title_font_size_mobile_h3;
+      }
+      h4 {
+        margin: 2.5rem 0 1.5rem 0;
+        font-size: $title_font_size_mobile_h4;
+      }
+      h5 {
+        margin: 2rem 0 1.5rem 0;
+        font-size: $title_font_size_mobile_h5;
+      }
+      h6 {
+        margin: 2rem 0 1.5rem 0;
+        font-size: $title_font_size_mobile_h6;
+      }
       .side_menu {
         display: none;
         position: fixed;
@@ -501,9 +483,8 @@ main {
         width: 10vw;
         ul {
           li {
-            padding: 0.2rem 0;
             a {
-              font-size: 0.85rem;
+              font-size: $info_font_size;
               color: $line_color;
               &:hover {
                 color: $basic_color;
@@ -520,15 +501,17 @@ main {
         font-size: $basic_font_size;
         margin-bottom: 13px;
       }
-      .notice_wraaper {
+      .notice_wrapper,
+      .blog_wrapper {
         p {
           font-size: $info_font_size;
         }
       }
-      .notice {
+      .notice,
+      .blog {
         ul {
           li {
-            margin-bottom: 1rem;
+            margin-bottom: 1.3rem;
             a {
               &:hover {
                 font-weight: bold;
@@ -721,7 +704,7 @@ footer {
   background-color: #fff;
   font-size: $info_font_size;
   border-top: 1px solid $line-color;
-  line-height: 1.6rem;
+  line-height: 3rem;
   padding: 10px;
   button {
     cursor: pointer;
@@ -761,14 +744,14 @@ footer {
           a {
             div {
               align-items: center;
+              span {
+                font-size: $info_font_size;
+              }
               h4 {
                 font-size: $basic_font_size;
               }
               &:first-child {
                 display: flex;
-              }
-              &:nth-child(2) {
-                font-size: $info_font_size_desktop;
               }
             }
           }
@@ -779,13 +762,8 @@ footer {
 
   .contents_wrapper {
     .component_wrapper {
-      h1,
-      h2,
-      h3,
-      h4,
-      h5 {
-        margin-bottom: 1.2rem;
-      }
+      line-height: 2.4rem;
+
       h1 {
         font-size: $title_font_size_desktop_h1;
       }
@@ -800,6 +778,9 @@ footer {
       }
       h5 {
         font-size: $title_font_size_desktop_h5;
+      }
+      h6 {
+        font-size: $title_font_size_desktop_h6;
       }
     }
   }

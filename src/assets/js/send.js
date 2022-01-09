@@ -1,11 +1,5 @@
 // requestHTTP
-import {
-  getSelector,
-  list,
-  toggleButton,
-  toggleButtonBall,
-  toggleButtons,
-} from "./selectors";
+
 import { getUrl, editorBodyData } from "./get";
 import { _filter } from "./helperFunction";
 

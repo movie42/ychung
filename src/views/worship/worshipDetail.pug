@@ -59,7 +59,7 @@ block content
                             a(href="https://us02web.zoom.us/j/4836076553?pwd=SDZQSzZDTVFybWFtWWdMSEhCcHVTQT09", target="_blank")
                                 i.fas.fa-video
             section.component_wrapper
-                div.notice_wraaper
+                div.notice_wrapper
                     h2.head_title 광고
                     p 자세한 사항을 보려면 광고를 클릭하세요.
                 .notice 
@@ -67,4 +67,12 @@ block content
                         each item in noticeData
                             li
                                 a(href=`/notice/${item._id}`)=item.title
+            section.component_wrapper
+                div.blog_wrapper
+                    h2.head_title 블로그
+                .blog 
+                    ul
+                        each item in blogData
+                            li
+                                a(href=`/blog/${item._id}`)=item.title
                                 

@@ -40,9 +40,12 @@
     background-color: red;
   }
 }
-@mixin meterial_button_style($size: 2rem, $color: $line_color) {
+@mixin meterial_button_style($size: 4rem, $color: $line_color) {
   font-size: $size;
   color: $color;
+  &:hover {
+    color: $basic_color;
+  }
 }
 
 @mixin animation(
