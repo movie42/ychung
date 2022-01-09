@@ -2,7 +2,6 @@ extends ../layout/layout.pug
 
 block content 
     .contents_wrapper
-
         .contents_header_wrapper 
             .inform_wrapper
                 h1.head_title=data.title
@@ -19,7 +18,7 @@ block content
                             | #{data.views}
                 .date
                     span #{data.year} 
-                    span #{data.month} 
+                    span #{data.month >= 10 ? data.month : `0${data.month}`} 
                     span #{data.date} 
                     span #{data.day} 
                     span #{data.time}
