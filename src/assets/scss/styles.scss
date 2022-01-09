@@ -344,6 +344,7 @@ main {
     &.head_title {
       font-size: $title_font_size;
       font-weight: 700;
+      line-height: 4rem;
       @include animation(fontAnimation, 0.5s, 0, unset, normal);
     }
   }
@@ -351,6 +352,7 @@ main {
     &.head_title {
       font-size: $title_font_size_h2;
       margin-bottom: 1rem;
+      line-height: 4rem;
     }
   }
 

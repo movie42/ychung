@@ -3,7 +3,7 @@ mixin blogBlock(blog={})
         a(href=`/blog/${blog.id}`)
             div
                 h4=blog.title 
-            div
+            div.date_box
                 span=blog.year
-                span=blog.month 
-                span=blog.date
+                span #{blog.month.length < 3? `0${blog.month}`: blog.month }
+                span #{blog.date.length < 3? `0${blog.date}`: blog.date }

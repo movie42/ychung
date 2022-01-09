@@ -3,7 +3,7 @@ mixin documentsBlock(rules={})
         a(href=`/documents/rules/${rules.id}`)
             div
                 h4=rules.title
-            div
+            div.date_box
                 span=rules.year
-                span=rules.month 
-                span=rules.date
+                span #{rules.month.length < 3? `0${rules.month}`: rules.month }
+                span #{rules.date.length < 3? `0${rules.date}`: rules.date }

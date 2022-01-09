@@ -3,7 +3,7 @@ mixin worshipBlock(worship={})
         a(href=`worship/${worship.id}`)
             div
                 h4=worship.title
-            div
+            div.date_box
                 span=worship.year
-                span=worship.month 
-                span=worship.date
+                span #{worship.month.length < 3? `0${worship.month}`: worship.month }
+                span #{worship.date.length < 3? `0${worship.date}`: worship.date }
