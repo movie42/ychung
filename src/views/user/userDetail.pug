@@ -5,53 +5,53 @@ block content
         .profile_inform_wrapper
             .profile_inform_box
                 .image_wrapper 
-                    if data.profilePhotoUrl == null
-                        span=data.name.slice(1,3)
+                    if user.profilePhotoUrl == null
+                        span=user.name.slice(1,3)
                     else    
-                        img(src=`${isHeroku ? data.profilePhotoUrl : "/" + data.profilePhotoUrl}`, alt="프로필 사진")
+                        img(src=`${isHeroku ? user.profilePhotoUrl : "/" + user.profilePhotoUrl}`, alt="프로필 사진")
                 if errorMessage
                     h1=errorMessage
                 .profile_inform
-                    p.name=data.name
+                    p.name=user.name
                     div.email
                         span.material-icons-outlined.icon email
-                        span=data.email 
-                    // p=data.userName
+                        span=user.email 
+                    // p=user.userName
                         
-                    if loggedIn && String(user._id) === String(data.id)
+                    if loggedIn && String(user._id) === String(user.id)
                         .profile_edit 
-                            a(href=`/user/${data.id}/edit-profile`).profile_edit_button 프로필 수정
+                            a(href=`/user/${user.id}/edit-profile`).profile_edit_button 프로필 수정
         .user_log_inform_wrapper
             div
                 .title_wrapper
                     h1.head_title 내가 쓴 글
                     
-                    if data.qt.length > 0
+                    if user.blog.length > 0
                         section.user_log_item_wrapper
                             .item_inform_wrapper
                                 h2.head_title 묵상 에세이   
                             .item_list_wrapper
                                 ul 
-                                    each item in data.qt
+                                    each item in user.qt
                                         li
                                             a(href=`/qt/${item.id}`)
                                                 div
                                                     h3=item.title 
                                                     p=item.paragraph
-                    if data.weekly.length > 0 && data.authority === "master" || data.weekly.length >0 && data.authority === "multimedia"
+                    if user.worship.length > 0 && user.authority === "master" || user.worship.length >0 && user.authority === "multimedia"
                         section.user_log_item_wrapper
                             .item_inform_wrapper
                                 h2.head_title 주보   
                                 // button 펼침 
                             .item_list_wrapper
                                 ul 
-                                    each item in data.weekly
+                                    each item in user.weekly
                                         li
                                             a(href=`/weekly/${item.id}`)
                                                 div
                                                     h3=item.title 
                                                     p=item.paragraph
-                    if data.notice.length > 0 && data.authority === "master" || data.notice.length > 0 && data.authority === "administrator"
+                    if user.notice.length > 0 && user.authority === "master" || user.notice.length > 0 && user.authority === "administrator"
                         section.user_log_item_wrapper
                             .item_inform_wrapper
                                 h2.head_title 광고  
@@ -64,7 +64,7 @@ block content
                                                 div
                                                     h3=item.title 
                                                     p=item.paragraph
-                    if data.qt.length < 1 && data.notice.length < 1 && data.weekly.length < 1
+                    if user.blog.length < 1 && user.notice.length < 1 && user.worship.length < 1
                         section.user_log_item_wrapper
                             .item_inform_wrapper
                                 .paragraph_wrapper

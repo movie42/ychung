@@ -9,49 +9,49 @@ const userSchema = mongoose.Schema({
     required: true,
     unique: true,
     trim: true,
-    maxLength: 10
+    maxLength: 10,
   },
   name: { type: String, required: true, trim: true, maxLength: 5 },
   password: { type: String },
   authority: {
     type: String,
-    default: null
+    default: null,
   },
   worship: [
     {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Worsip"
-    }
+      ref: "Worship",
+    },
   ],
   blog: [
     {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Blog"
-    }
+      ref: "Blog",
+    },
   ],
   notice: [
     {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Notice"
-    }
+      ref: "Notice",
+    },
   ],
   documents: [
     {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Documents"
-    }
+      ref: "Documents",
+    },
   ],
   comments: [
     {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Comments"
-    }
+      ref: "Comments",
+    },
   ],
   createdAt: {
     type: Date,
-    default: Date.now
+    default: Date.now,
   },
-  updateAt: { type: Date }
+  updateAt: { type: Date },
 });
 
 userSchema.pre("save", async function () {
