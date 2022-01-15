@@ -3,7 +3,7 @@ extends ../layout/layout.pug
 block content 
     .inform_wrapper
         h1.head_title 공지사항 수정
-        if loggedIn && (user.authority === 'master' || user.authority === 'leader')
+        if loggedIn && (user.authority === 'master' || user.authority === 'administrator')
             div.button_wrapper
                 button(type="button").send_btn
                     span.material-icons-outlined send
