@@ -1,8 +1,15 @@
 import express from "express";
-import { accountingData } from "../controller/administration.controller";
+import {
+  accountingMainView,
+  postAccountingValue,
+} from "../controller/administration.controller";
 
 const administrationRouter = express.Router();
 
-administrationRouter.route("/accounting").get(accountingData);
+// 테스트 끝나면 auth validation function 반드시 추가하기
+administrationRouter
+  .route("/accounting")
+  .get(accountingMainView)
+  .post(postAccountingValue);
 
 export default administrationRouter;

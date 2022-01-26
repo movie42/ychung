@@ -1,16 +1,32 @@
 extends ../layout/layout.pug
 
 block content
+    .inform_wrapper
+        h1 양청 전자 장부
     form.accounting_form
+        label(for="item") 항목
+            input(type="text" id="item" name="item")
+        label(for="itemDetail") 세부항목
+            input(type="text" id="itemDetail" name="itemDetail")
         label(for="title") 제목
             input(type="text" id="title" name="title")
-        label(for="detail") 세부항목
+        label(for="detail") 산출 내역
             input(type="text" id="detail" name="detail")
-        label(for="value") 값
+        label(for="value") 금액
             input(type="text" id="value" name="value")
     #grid_wrapper 
         .grid_table 
             table.grid_value
-            
+                tr
+                    th 아이디
+                    th 날짜
+                    th 항목
+                    th 세부항목
+                    th 제목
+                    th 산출내역
+                    th 금액
+                    th 잔액
+                    th 비고
+                
 
 
