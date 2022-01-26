@@ -62,4 +62,5 @@ api
     isAuth(req, res, next, authorityHandler, "master", "administrator"),
   )
   .post(postNoticeToWeekly);
+
 export default api;
