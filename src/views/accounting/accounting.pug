@@ -1,0 +1,16 @@
+extends ../layout/layout.pug
+
+block content
+    form.accounting_form
+        label(for="title") 제목
+            input(type="text" id="title" name="title")
+        label(for="detail") 세부항목
+            input(type="text" id="detail" name="detail")
+        label(for="value") 값
+            input(type="text" id="value" name="value")
+    #grid_wrapper 
+        .grid_table 
+            table.grid_value
+            
+
+

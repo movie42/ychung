@@ -3,6 +3,7 @@ import morgan from "morgan";
 import rootRouter from "./router/root.router";
 import worshipRouter from "./router/worship.router";
 import noticeRouter from "./router/notice.router";
+import administrationRouter from "./router/administration.router";
 import api from "./router/api.router";
 import userRouter from "./router/user.router";
 import session from "express-session";
@@ -99,6 +100,7 @@ app.use("/documents", documentsRouter);
 app.use("/blog", blogRouter);
 
 app.use("/user", userRouter);
+app.use("/administration", administrationRouter);
 
 app.use("/api", api);
 

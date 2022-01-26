@@ -48,6 +48,10 @@ export const joinSubmitButton = document.querySelector(
   ".form_container#join form button",
 );
 
+//accounting
+export const accountingForm = getSelector(".accounting_form");
+export const gridWrapper = getSelector("#grid_wrapper");
+
 // headers
 
 export const logo22 = getSelector(".logo_2022");
