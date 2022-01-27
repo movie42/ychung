@@ -1,9 +1,10 @@
 mixin accountingBlock(account={})
     tr(data-id=account.id)
-        td=account.id
-        td #{account.year}년 #{account.month + 1}월 #{account.date}일
+        td #{account.month + 1}월 #{account.date}일
         td=account.item
         td=account.itemDetail
         td=account.title
         td=account.detail
         td=account.value
+        td
+        td=account.id

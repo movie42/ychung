@@ -108,23 +108,9 @@ body {
       rgba(255, 0, 0, 0.9),
       rgba(255, 0, 0, 0) 70.71%
     ),
-    linear-gradient(
-      127deg,
-      rgba(0, 255, 0, 0.9),
-      rgba(0, 255, 0, 0) 70.71%
-    ),
-    linear-gradient(
-      336deg,
-      rgba(0, 0, 255, 0.9),
-      rgba(0, 0, 255, 0) 70.71%
-    );
-  @include animation(
-    bgAnimation,
-    2s,
-    0,
-    infinite,
-    alternate
-  );
+    linear-gradient(127deg, rgba(0, 255, 0, 0.9), rgba(0, 255, 0, 0) 70.71%),
+    linear-gradient(336deg, rgba(0, 0, 255, 0.9), rgba(0, 0, 255, 0) 70.71%);
+  @include animation(bgAnimation, 2s, 0, infinite, alternate);
   transition: top 0.8s ease;
   .menu {
     position: absolute;
@@ -211,16 +197,8 @@ body {
       rgba(255, 0, 0, 0.95),
       rgba(255, 0, 0, 0) 70.71%
     ),
-    linear-gradient(
-      127deg,
-      rgba(0, 255, 0, 0.95),
-      rgba(0, 255, 0, 0) 70.71%
-    ),
-    linear-gradient(
-      336deg,
-      rgba(0, 0, 255, 0.95),
-      rgba(0, 0, 255, 0) 70.71%
-    );
+    linear-gradient(127deg, rgba(0, 255, 0, 0.95), rgba(0, 255, 0, 0) 70.71%),
+    linear-gradient(336deg, rgba(0, 0, 255, 0.95), rgba(0, 0, 255, 0) 70.71%);
   background-size: 400% 400%;
   top: 0;
   transition: top 0.8s ease;
@@ -314,6 +292,7 @@ main {
   min-height: 100vh;
   padding: 72px 10px 112.3px;
   margin: -72px auto -112.3px;
+
   .button_wrapper {
     .delete_btn {
       .material-icons-outlined {
@@ -368,13 +347,7 @@ main {
       font-size: $title_font_size;
       font-weight: 700;
       line-height: 4rem;
-      @include animation(
-        fontAnimation,
-        0.5s,
-        0,
-        unset,
-        normal
-      );
+      @include animation(fontAnimation, 0.5s, 0, unset, normal);
     }
   }
   h2 {
@@ -398,13 +371,7 @@ main {
           display: flex;
           justify-content: space-between;
           align-items: center;
-          @include animation(
-            fontAnimation,
-            0.5s,
-            0,
-            unset,
-            normal
-          );
+          @include animation(fontAnimation, 0.5s, 0, unset, normal);
           .isWeeklyButton {
             input[type="checkbox"] {
               display: none;
@@ -730,6 +697,63 @@ main {
       line-height: 2.4rem;
     }
   }
+  .accounting_all_wrapper {
+    .accounting_form_wrapper {
+      .accounting_form {
+        display: flex;
+        flex-direction: column;
+        .form_item_container {
+          display: flex;
+          width: 100%;
+          margin: 0;
+          padding: 0;
+          //background-color: $basic_color;
+          label {
+            width: 100%;
+            color: $basic_color;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            border-bottom: 1px solid $line-color;
+            select,
+            input {
+              font-size: $basic_font_size;
+              width: 95vw;
+              appearance: unset;
+              border: unset;
+              background-color: unset;
+              padding: 0;
+              margin: 0;
+            }
+          }
+        }
+      }
+    }
+    #grid_wrapper {
+      width: 100vw;
+      height: 70vh;
+      // overflow-x: auto;
+      .grid_table {
+        .grid_header_wrapper,
+        .grid_body_wrapper {
+          table {
+            max-width: 100vw;
+            border: 1px solid $line-color;
+            thead,
+            tbody {
+              tr {
+                border: 1px solid $line-color;
+                width: 100%;
+                td,
+                th {
+                  border: 1px solid $line-color;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
 }
 
 .button_youtube_live,
@@ -789,6 +813,35 @@ footer {
               }
               &:first-child {
                 display: flex;
+              }
+            }
+          }
+        }
+      }
+    }
+
+    .accounting_all_wrapper {
+      .accounting_form_wrapper {
+        .accounting_form {
+          .form_item_container {
+            label {
+              select,
+              input {
+              }
+            }
+          }
+        }
+      }
+      #grid_wrapper {
+        .grid_table {
+          .grid_header_wrapper,
+          .grid_body_wrapper {
+            table {
+              width: 100vw;
+              thead,
+              tbody {
+                tr {
+                }
               }
             }
           }
@@ -993,24 +1046,10 @@ footer {
       rgba(255, 0, 0, 0.95),
       rgba(255, 0, 0, 0) 70.71%
     ),
-    linear-gradient(
-      127deg,
-      rgba(0, 255, 0, 0.95),
-      rgba(0, 255, 0, 0) 70.71%
-    ),
-    linear-gradient(
-      336deg,
-      rgba(0, 0, 255, 0.95),
-      rgba(0, 0, 255, 0) 70.71%
-    );
+    linear-gradient(127deg, rgba(0, 255, 0, 0.95), rgba(0, 255, 0, 0) 70.71%),
+    linear-gradient(336deg, rgba(0, 0, 255, 0.95), rgba(0, 0, 255, 0) 70.71%);
   background-size: 400% 400%;
-  @include animation(
-    bgAnimation,
-    2s,
-    0,
-    infinite,
-    alternate
-  );
+  @include animation(bgAnimation, 2s, 0, infinite, alternate);
   h1 {
     text-align: center;
     font-size: 2.7rem;

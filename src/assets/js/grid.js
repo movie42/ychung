@@ -5,7 +5,7 @@ async function handleKeyDown(event) {
 
   const valueList = gridWrapper
     .querySelector(".grid_table")
-    .querySelector(".grid_value");
+    .querySelector(".grid_body_wrapper");
 
   const inputs = accountingForm.querySelectorAll("input");
   const selects = accountingForm.querySelectorAll("select");
@@ -15,7 +15,7 @@ async function handleKeyDown(event) {
     data["date"] = {
       year: date.getFullYear(),
       month: date.getMonth(),
-      date: date.getDate()
+      date: date.getDate(),
     };
 
     for (let i = 0; i < inputs.length; i++) {
@@ -25,33 +25,41 @@ async function handleKeyDown(event) {
       data[selects[i].id] = selects[i].value;
     }
 
-    const request = await fetch(
-      "/administration/accounting",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "X-CSRF-Token": document.querySelector(
-            "meta[name='csrf-token']"
-          )["content"]
-        },
-        body: JSON.stringify({ ...data })
-      }
-    );
+    const request = await fetch("/administration/accounting", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "X-CSRF-Token": document.querySelector("meta[name='csrf-token']")[
+          "content"
+        ],
+      },
+      body: JSON.stringify({ ...data }),
+    });
 
     if (request.status === 200) {
       const { accountingData } = await request.json();
 
-      const value = document.createElement("li");
+      const value = document.createElement("tr");
+      const itemName = {
+        income: "수입",
+        expenses: "지출",
+        carriedForward: "이월",
+        administration: "행정",
+        education: "교육",
+        event: "행사",
+        society: "교제",
+        mission: "선교",
+      };
       value.innerHTML = `
-    <span>${accountingData._id}</span>
-    <span>${accountingData.date.year}년 ${
-        accountingData.date.month + 1
-      }월 ${accountingData.date.date}일</span>
-    <span>${accountingData.item}</span>
-    <span>${accountingData.itemDetail}</span>
-    <span>${accountingData.title}</span>
-    <span>${accountingData.value}</span>
+        <td>${accountingData.date.month + 1}월 ${
+        accountingData.date.date
+      }일</td>
+        <td>${itemName[accountingData.item]}</td>
+        <td>${itemName[accountingData.itemDetail]}</td>
+        <td>${accountingData.title}</td>
+        <td>${accountingData.value}</td>
+        <td><td>
+        <td>${accountingData._id.slice(0, 5)}...</td>
     `;
 
       valueList.appendChild(value);
