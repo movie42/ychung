@@ -1,7 +1,16 @@
 import Admin from "../model/Accounting.model";
 
-export const accountingMainView = (req, res) => {
-  res.render("accounting/accounting", { pageTitle: "청년부 회계 장부" });
+export const accountingMainView = async (req, res) => {
+  try {
+    const data = await Admin.find();
+
+    res.render("accounting/accounting", {
+      pageTitle: "청년부 회계 장부",
+      data
+    });
+  } catch (e) {
+    console.log(e);
+  }
 };
 
 export const postAccountingValue = async (req, res) => {
@@ -12,11 +21,11 @@ export const postAccountingValue = async (req, res) => {
       itemDetail,
       title,
       detail,
-      value,
+      value
     },
     session: {
-      user: { _id },
-    },
+      user: { _id }
+    }
   } = req;
 
   try {
@@ -27,7 +36,7 @@ export const postAccountingValue = async (req, res) => {
       title,
       detail,
       value,
-      creator: _id,
+      creator: _id
     });
 
     return res.status(200).json({ accountingData });

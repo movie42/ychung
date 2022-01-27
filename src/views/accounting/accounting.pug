@@ -1,32 +1,77 @@
 extends ../layout/layout.pug
+include ../mixins/accountingList.pug
 
 block content
     .inform_wrapper
-        h1 양청 전자 장부
-    form.accounting_form
-        label(for="item") 항목
-            input(type="text" id="item" name="item")
-        label(for="itemDetail") 세부항목
-            input(type="text" id="itemDetail" name="itemDetail")
-        label(for="title") 제목
-            input(type="text" id="title" name="title")
-        label(for="detail") 산출 내역
-            input(type="text" id="detail" name="detail")
-        label(for="value") 금액
-            input(type="text" id="value" name="value")
+        h1 양청 회계
+    div.accounting_form_wrapper 
+        form.accounting_form
+            label(for="item") 항목
+                select(type="text" id="item" name="item")
+                    option(value="income") 수입
+                    option(value="expenses") 지출
+                    option(value="carriedForward") 이월
+            label(for="itemDetail") 보조 항목
+                select(type="text" id="itemDetail" name="itemDetail")
+                    option(value="administration") 행정
+                    option(value="event") 행사
+                    option(value="education") 교육
+                    option(value="society") 교제
+                    option(value="mission") 선교
+                    option(value="carriedForward") 이월
+            label(for="title") 제목
+                input(type="text" id="title" name="title")
+            label(for="detail") 산출 내역
+                input(type="text" id="detail" name="detail")
+            label(for="value") 금액
+                input(type="number" id="value" name="value")
     #grid_wrapper 
         .grid_table 
-            table.grid_value
-                tr
-                    th 아이디
-                    th 날짜
-                    th 항목
-                    th 세부항목
-                    th 제목
-                    th 산출내역
-                    th 금액
-                    th 잔액
-                    th 비고
-                
+            .grid_header_wrapper
+                table
+                    colgroup   
+                        col(style="width:10vw")
+                        col(style="width:10vw")
+                        col(style="width:5vw")
+                        col(style="width:5vw")
+                        col(style="width:15vw")
+                        col(style="width:25vw")
+                        col(style="width:15vw")
+                        col(style="width:15vw")
+                    thead
+                        tr
+                            th 아이디
+                            th 날짜
+                            th 항목
+                            th 세부항목
+                            th 제목
+                            th 산출내역
+                            th 금액
+                            th 잔액
+            .grid_body_wrapper
+                table
+                    colgroup   
+                        col(style="width:10vw")
+                        col(style="width:10vw")
+                        col(style="width:5vw")
+                        col(style="width:5vw")
+                        col(style="width:15vw")
+                        col(style="width:25vw")
+                        col(style="width:15vw")
+                        col(style="width:15vw")
+                    tbody.grid_value
+                        each accountData in data 
+                            +accountingBlock({
+                                id:accountData.id,
+                                year:accountData.date.year,
+                                month:accountData.date.month, 
+                                date:accountData.date.date,
+                                item:accountData.item,
+                                itemDetail:accountData.itemDetail,
+                                title:accountData.title,
+                                detail:accountData.detail,
+                                value:accountData.value,
+                            })
+                        
 
 

@@ -108,9 +108,23 @@ body {
       rgba(255, 0, 0, 0.9),
       rgba(255, 0, 0, 0) 70.71%
     ),
-    linear-gradient(127deg, rgba(0, 255, 0, 0.9), rgba(0, 255, 0, 0) 70.71%),
-    linear-gradient(336deg, rgba(0, 0, 255, 0.9), rgba(0, 0, 255, 0) 70.71%);
-  @include animation(bgAnimation, 2s, 0, infinite, alternate);
+    linear-gradient(
+      127deg,
+      rgba(0, 255, 0, 0.9),
+      rgba(0, 255, 0, 0) 70.71%
+    ),
+    linear-gradient(
+      336deg,
+      rgba(0, 0, 255, 0.9),
+      rgba(0, 0, 255, 0) 70.71%
+    );
+  @include animation(
+    bgAnimation,
+    2s,
+    0,
+    infinite,
+    alternate
+  );
   transition: top 0.8s ease;
   .menu {
     position: absolute;
@@ -197,8 +211,16 @@ body {
       rgba(255, 0, 0, 0.95),
       rgba(255, 0, 0, 0) 70.71%
     ),
-    linear-gradient(127deg, rgba(0, 255, 0, 0.95), rgba(0, 255, 0, 0) 70.71%),
-    linear-gradient(336deg, rgba(0, 0, 255, 0.95), rgba(0, 0, 255, 0) 70.71%);
+    linear-gradient(
+      127deg,
+      rgba(0, 255, 0, 0.95),
+      rgba(0, 255, 0, 0) 70.71%
+    ),
+    linear-gradient(
+      336deg,
+      rgba(0, 0, 255, 0.95),
+      rgba(0, 0, 255, 0) 70.71%
+    );
   background-size: 400% 400%;
   top: 0;
   transition: top 0.8s ease;
@@ -346,7 +368,13 @@ main {
       font-size: $title_font_size;
       font-weight: 700;
       line-height: 4rem;
-      @include animation(fontAnimation, 0.5s, 0, unset, normal);
+      @include animation(
+        fontAnimation,
+        0.5s,
+        0,
+        unset,
+        normal
+      );
     }
   }
   h2 {
@@ -370,7 +398,13 @@ main {
           display: flex;
           justify-content: space-between;
           align-items: center;
-          @include animation(fontAnimation, 0.5s, 0, unset, normal);
+          @include animation(
+            fontAnimation,
+            0.5s,
+            0,
+            unset,
+            normal
+          );
           .isWeeklyButton {
             input[type="checkbox"] {
               display: none;
@@ -959,10 +993,24 @@ footer {
       rgba(255, 0, 0, 0.95),
       rgba(255, 0, 0, 0) 70.71%
     ),
-    linear-gradient(127deg, rgba(0, 255, 0, 0.95), rgba(0, 255, 0, 0) 70.71%),
-    linear-gradient(336deg, rgba(0, 0, 255, 0.95), rgba(0, 0, 255, 0) 70.71%);
+    linear-gradient(
+      127deg,
+      rgba(0, 255, 0, 0.95),
+      rgba(0, 255, 0, 0) 70.71%
+    ),
+    linear-gradient(
+      336deg,
+      rgba(0, 0, 255, 0.95),
+      rgba(0, 0, 255, 0) 70.71%
+    );
   background-size: 400% 400%;
-  @include animation(bgAnimation, 2s, 0, infinite, alternate);
+  @include animation(
+    bgAnimation,
+    2s,
+    0,
+    infinite,
+    alternate
+  );
   h1 {
     text-align: center;
     font-size: 2.7rem;
