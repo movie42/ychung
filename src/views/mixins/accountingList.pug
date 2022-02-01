@@ -1,10 +1,10 @@
 mixin accountingBlock(account={})
-    tr(data-id=account.id)
+    tr(data-id=account.id data-item=account.item)
         td #{account.month + 1}월 #{account.date}일
-        td=account.item
+        td.item=account.item
         td=account.itemDetail
         td=account.title
         td=account.detail
-        td=account.value
-        td
+        td.value=account.value
+        td.balance
         td=account.id
