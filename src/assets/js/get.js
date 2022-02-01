@@ -6,7 +6,6 @@ export function getUrl() {
     .split("/")
     .filter((value) => value !== "");
   const len = windowLocation.length;
-
   const id = (function () {
     return windowLocation
       .filter((value) => {
@@ -16,27 +15,17 @@ export function getUrl() {
       })
       .join("");
   })();
-
   const idIndex = windowLocation.indexOf(id);
 
   if (+idIndex !== -1) {
     const pathName = windowLocation.slice(0, idIndex).join("/");
     const method = windowLocation.slice(idIndex + 1).join("");
-
-    return {
-      pathName,
-      id,
-      method,
-    };
+    return { pathName, id, method };
   } else {
     const method = windowLocation[len - 1];
     const methodIndex = windowLocation.indexOf(method);
     const pathName = windowLocation.splice(0, methodIndex).join("/");
-
-    return {
-      pathName,
-      method,
-    };
+    return { pathName, method };
   }
 }
 
