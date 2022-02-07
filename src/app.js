@@ -37,15 +37,15 @@ app.use(
       "script-src": ["'unsafe-eval'", process.env.URL], //development mode should allow 'unsafe-eval' because eval function
       "img-src": ["'self'", "data:", "https:"],
       "frame-src": "https://www.youtube.com/",
-      "font-src": ["data:", "https:"],
-    },
-  }),
+      "font-src": ["data:", "https:"]
+    }
+  })
 );
 app.use(
   helmet.hsts({
     maxAge: 31536000,
-    preload: true,
-  }),
+    preload: true
+  })
 );
 app.use(helmet.xssFilter());
 app.use(
@@ -54,15 +54,16 @@ app.use(
       fullscreen: ["self", '"https://www.youtube.com"'],
       displayCapture: ["self"],
       autoplay: [],
-      camera: [],
-    },
-  }),
+      camera: []
+    }
+  })
 );
 
 app.use(morgan("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
+app.use(csrfProtection);
 app.use(
   session({
     secret: process.env.SESSION_SECRET,
@@ -72,11 +73,10 @@ app.use(
     httpOnly: true,
     secure: true,
     store: MongoStore.create({
-      mongoUrl: process.env.MONGO_URL,
-    }),
-  }),
+      mongoUrl: process.env.MONGO_URL
+    })
+  })
 );
-app.use(csrfProtection);
 
 app.set("views", process.cwd() + "/src/views");
 app.set("view engine", "pug");
@@ -97,9 +97,7 @@ app.use("/notice", noticeRouter);
 app.use("/worship", worshipRouter);
 app.use("/documents", documentsRouter);
 app.use("/blog", blogRouter);
-
 app.use("/user", userRouter);
-
 app.use("/api", api);
 
 export default app;

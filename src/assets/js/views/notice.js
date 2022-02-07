@@ -5,6 +5,7 @@ import {
   getEditorAndFormData,
   getDataBase,
   updateEditorData,
+  deleteEditorData
 } from "../editor/editor";
 import { eventTrigger, windowEventTrigger } from "../events/event";
 import { $, redirectItemDetail } from "../utils/utils";
@@ -35,11 +36,12 @@ function Notice() {
   this.init = () => {
     eventTrigger(".send-noticedata-button", "click", createNotice);
     eventTrigger(".update-noticedata-button", "click", updateNotice);
+    eventTrigger(".delete-notice-button", "click", deleteNoticeItem);
     windowEventTrigger("#viewer", "load", readNotice);
     windowEventTrigger(
       ".update-noticedata-button",
       "load",
-      getNoticeDataAndPaintInEditor,
+      getNoticeDataAndPaintInEditor
     );
   };
 
@@ -70,6 +72,10 @@ function Notice() {
     redirectItemDetail(`/notice/${response._id}`);
   };
 
+  const deleteNoticeItem = () => {
+    deleteEditorData("notice");
+  };
+
   const handleChecker = async (event) => {
     const currentTarget = event.currentTarget;
     const dataId = currentTarget.parentNode.dataset.id;
@@ -83,9 +89,9 @@ function Notice() {
         "Content-Type": "application/json",
         "X-CSRF-Token": document.querySelector("meta[name='csrf-token']")[
           "content"
-        ],
+        ]
       },
-      body: JSON.stringify({ dataId }),
+      body: JSON.stringify({ dataId })
     });
 
     const { data } = await request.json();

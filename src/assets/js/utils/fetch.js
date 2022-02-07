@@ -24,34 +24,36 @@ export const HTTP_METHOD = {
   },
   PUT(data) {
     return {
-      method: "PUT",
-      hedaers: {
+      method: "POST",
+      headers: {
         "Content-Type": "application/json",
         "X-CSRF-Token": document.querySelector("meta[name='csrf-token']")[
           "content"
         ]
       },
-      body: JSON.stringify({ ...data })
+      body: data ? JSON.stringify({ ...data }) : null
     };
   },
   PATCH(data) {
     return {
       method: "PATCH",
-      hedaers: {
+      headers: {
         "Content-Type": "application/json",
         "X-CSRF-Token": document.querySelector("meta[name='csrf-token']")[
           "content"
         ]
       },
-      body: JSON.stringify({ ...data })
+      body: data ? JSON.stringify({ ...data }) : null
     };
   },
   DELETE() {
     return {
       method: "DELETE",
-      "X-CSRF-Token": document.querySelector("meta[name='csrf-token']")[
-        "content"
-      ]
+      headers: {
+        "X-CSRF-Token": document.querySelector("meta[name='csrf-token']")[
+          "content"
+        ]
+      }
     };
   }
 };
@@ -59,19 +61,17 @@ export const HTTP_METHOD = {
 export const request = async (url, method) => {
   const response = await fetch(url, method);
   if (!response.ok) {
-    console.error();
-    throw new Error();
+    console.log("에러가 발생했습니다.");
+    return;
   }
   return response.json();
 };
 
 export const requestWithoutJson = async (url, method) => {
   const response = await fetch(url, method);
-  console.log(response);
   if (!response.ok) {
-    console.error(e);
-    throw new Error();
+    console.error("에러가 발생했습니다.");
+    return;
   }
-
   return response;
 };

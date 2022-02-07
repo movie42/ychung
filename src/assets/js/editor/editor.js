@@ -2,11 +2,11 @@ import Editor from "@toast-ui/editor";
 import View from "@toast-ui/editor/dist/toastui-editor-viewer";
 import colorSyntax from "@toast-ui/editor-plugin-color-syntax";
 import "@toast-ui/editor/dist/i18n/ko-kr";
-import { $, getCurrentUrlId, redirectItemDetail } from "../utils/utils";
-import { request, HTTP_METHOD } from "../utils/fetch";
+import { $, getCurrentUrlId } from "../utils/utils";
+import { request, HTTP_METHOD, requestWithoutJson } from "../utils/fetch";
 
 export const getEditor = () => {
-  return new Editor({
+  const editor = new Editor({
     el: $("#editor"),
     customHTMLRenderer: {
       htmlBlock: {
@@ -58,10 +58,11 @@ export const getEditor = () => {
     exts: ["youtube"],
     plugins: [colorSyntax]
   });
+  return editor;
 };
 
-export const getViewer = (node) => {
-  return new View({
+export const getViewer = () => {
+  const view = new View({
     el: $("#viewer"),
     customHTMLRenderer: {
       htmlBlock: {
@@ -84,15 +85,17 @@ export const getViewer = (node) => {
       }
     }
   });
+  return view;
 };
 
 export const getEditorAndFormData = ({ form, editorBody }) => {
-  const formData = {};
-  for (let [key, value] of new FormData(form)) {
-    formData[key] = value;
+  const formData = new FormData(form);
+  const newFormData = {};
+  for (let [key, value] of formData) {
+    newFormData[key] = value;
   }
   return {
-    ...formData,
+    ...newFormData,
     editorBody
   };
 };
@@ -105,7 +108,7 @@ export const createEditorData = async (data) => {
 
 export const getDataBase = async (url) => {
   const id = getCurrentUrlId();
-  const response = await request(`${url}/${id}`);
+  const response = await request(`${url}/${id}`, HTTP_METHOD.GET());
   return response;
 };
 
@@ -115,4 +118,9 @@ export const updateEditorData = async (data) => {
   return response;
 };
 
-const deleteEditorData = (data) => {};
+export const deleteEditorData = async (location) => {
+  const id = getCurrentUrlId();
+  const url = `/${location}/delete/${id}`;
+  await requestWithoutJson(url, HTTP_METHOD.DELETE());
+  window.location.pathname = "/notice";
+};
