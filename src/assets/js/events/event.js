@@ -1,4 +1,4 @@
-import { $ } from "../utils/utils";
+import { $, $All } from "../utils/utils";
 
 export function eventTrigger(selector, type, func) {
   const node = $(selector);
@@ -6,6 +6,17 @@ export function eventTrigger(selector, type, func) {
     return;
   }
   return node.addEventListener(type, func);
+}
+
+export function nodeListEventTrigger(selector, type, func) {
+  const nodeList = $All(selector);
+  if (!nodeList) {
+    return;
+  }
+
+  return Array.prototype.map.call(nodeList, (value) => {
+    value.addEventListener(type, func);
+  });
 }
 
 export function windowEventTrigger(selector, type, func) {

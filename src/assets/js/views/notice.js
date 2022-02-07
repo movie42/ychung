@@ -7,28 +7,14 @@ import {
   updateEditorData,
   deleteEditorData
 } from "../editor/editor";
-import { eventTrigger, windowEventTrigger } from "../events/event";
+import {
+  eventTrigger,
+  nodeListEventTrigger,
+  windowEventTrigger
+} from "../events/event";
 import { $, redirectItemDetail } from "../utils/utils";
-/*
-create
-- [X] 사용자 화면에 toast ui editor를 띄운다. 
-- [X] 컴퓨터에 있는 이미지를 불러와 주소값으로 에디터에 던져준다.
-- [X] 작성한 데이터를 db에 저장한다.
+import { HTTP_METHOD, request } from "../utils/fetch";
 
-read
-
--[X] viewer를 실행한다.
-
-update
-- [] 사용자 화면에 toast ui editor를 띄운다. 
-- [] 수정할 데이터를 불러와 eidtor에 함께 그려준다.
-- [] 수정한 데이터를 db에 저장한다.
-- [] db에 저장 후 수정한 게시물로 redirect한다.
-
-delete
-- [] 데이터를 삭제한다.
-
-*/
 function Notice() {
   this.editor = $("#editor") ? getEditor() : undefined;
   this.viewer = $("#viewer") ? getViewer() : undefined;
@@ -43,6 +29,7 @@ function Notice() {
       "load",
       getNoticeDataAndPaintInEditor
     );
+    nodeListEventTrigger(".box", "click", handleIsWeeklyToggleButton);
   };
 
   const createNotice = async () => {
@@ -76,32 +63,19 @@ function Notice() {
     deleteEditorData("notice");
   };
 
-  const handleChecker = async (event) => {
+  const handleIsWeeklyToggleButton = async (event) => {
     const currentTarget = event.currentTarget;
-    const dataId = currentTarget.parentNode.dataset.id;
+    const dataId = event.currentTarget.closest("label").dataset.id;
 
-    const toggleButton = currentTarget;
-    const toggleButtonBall = _filter(currentTarget.children, (node) => node)[0];
+    const { data: response } = await request(
+      "/api/notice/is-weekly",
+      HTTP_METHOD.PATCH({ dataId })
+    );
 
-    const request = await fetch(`/api/notice/isWeekly`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "X-CSRF-Token": document.querySelector("meta[name='csrf-token']")[
-          "content"
-        ]
-      },
-      body: JSON.stringify({ dataId })
-    });
-
-    const { data } = await request.json();
-
-    if (data) {
-      toggleButton.classList.add("active");
-      toggleButtonBall.classList.add("active");
+    if (response) {
+      currentTarget.classList.add("active");
     } else {
-      toggleButton.classList.remove("active");
-      toggleButtonBall.classList.remove("active");
+      currentTarget.classList.remove("active");
     }
   };
 }

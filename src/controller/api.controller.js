@@ -115,25 +115,16 @@ export const getVoteData = async (req, res) => {
   res.status(200).json({ data });
 };
 
-export const postNoticeToWeekly = async (req, res) => {
+export const patchNoticeToWeekly = async (req, res) => {
   const {
     body: { dataId }
   } = req;
 
   try {
     const notice = await Notice.findById(dataId);
-
-    let data;
-
-    if (notice.isWeekly) {
-      notice.isWeekly = false;
-    } else {
-      notice.isWeekly = true;
-    }
-
+    notice.isWeekly = !notice.isWeekly;
     await notice.save();
-    data = notice.isWeekly;
-
+    let data = notice.isWeekly;
     res.status(200).json({ data });
   } catch (error) {
     console.log(error);

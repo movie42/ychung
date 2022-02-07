@@ -5,14 +5,14 @@ import {
   getDB,
   getParagraph,
   postEditorImage,
-  postNoticeToWeekly,
+  patchNoticeToWeekly
 } from "../controller/api.controller";
 import {
   onlyPrivate,
   preUrl,
   editorImage,
   isAuth,
-  authorityHandler,
+  authorityHandler
 } from "../middleWare";
 
 const api = express.Router();
@@ -31,9 +31,9 @@ api.route("/notice/:id([0-9a-f]{24})").get(getParagraph);
 api
   .route("/notice/is-weekly")
   .all((req, res, next) =>
-    isAuth(req, res, next, authorityHandler, "master", "administrator"),
+    isAuth(req, res, next, authorityHandler, "master", "administrator")
   )
-  .post(postNoticeToWeekly);
+  .patch(patchNoticeToWeekly);
 
 // get blog data
 api.route("/blog/:id([0-9a-f]{24})").get(getParagraph);
