@@ -1,12 +1,10 @@
-import { joinForm, joinInput } from "../../utils/selectors";
-
 const message = {
   email: "이메일을 입력하세요.",
   userName: "사용자 이름은 영문과 숫자 조합으로만 작성할 수 있습니다.",
   name: "이름은 한글로만 작성할 수 있으며 2-6 글자만 입력할 수 있습니다.",
   password: "비밀번호는 특수문자, 영문, 숫자, 8글자 이상으로 작성되어야합니다.",
   password2: "비밀번호가 앞에 입력한 비밀번호와 다릅니다.",
-  exist: "이미 다른 사람이 사용하는 중이에요!",
+  exist: "이미 다른 사람이 사용하는 중이에요!"
 };
 
 function checkedMessageNode(name) {
@@ -58,7 +56,7 @@ function isTrue(name, value) {
       name: /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]{2,6}$/,
       userName: /^[a-zA-Z0-9]{5,10}$/,
       password:
-        /^(?=.*[a-zA-z])(?=.*[0-9])(?=.*[$`~!@$!%*#^?&\\(\\)\-_=+]).{8,}$/,
+        /^(?=.*[a-zA-z])(?=.*[0-9])(?=.*[$`~!@$!%*#^?&\\(\\)\-_=+]).{8,}$/
     };
     return obj[name].exec(value) ? true : false;
   }
@@ -77,7 +75,7 @@ async function checkedDataBase(bool, node) {
 
   if (name === "email" || name === "userName") {
     const response = await fetch(`/api/checked-db/${name}=${value}`, {
-      method: "GET",
+      method: "GET"
     });
 
     const { exist } = await response.json();
@@ -134,9 +132,9 @@ export async function handleSubmit(e) {
       "Content-Type": "application/json",
       "X-CSRF-Token": document.querySelector("meta[name='csrf-token']")[
         "content"
-      ],
+      ]
     },
-    body: JSON.stringify({ body }),
+    body: JSON.stringify({ body })
   });
 
   if (response.status === 201) {

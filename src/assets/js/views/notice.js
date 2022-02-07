@@ -20,7 +20,7 @@ function Notice() {
   this.viewer = $("#viewer") ? getViewer() : undefined;
 
   this.init = () => {
-    eventTrigger(".send-noticedata-button", "click", createNotice);
+    eventTrigger(".send-notice-data-button", "click", createNotice);
     eventTrigger(".update-noticedata-button", "click", updateNotice);
     eventTrigger(".delete-notice-button", "click", deleteNoticeItem);
     windowEventTrigger("#viewer", "load", readNotice);

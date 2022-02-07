@@ -4,9 +4,9 @@
 
 ## 📜 목차
 
-- [개요](#-📍-개요)
-- [만들면서 경험한 주요 이슈](#-🗂-만들면서-경험한-주요-이슈)
-- [업데이트](#-🛠-업데이트)
+- [개요](#-개요)
+- [만들면서 경험한 주요 이슈](#-만들면서-경험한-주요-이슈)
+- [업데이트](#-업데이트)
 
 ## 📍 개요
 
@@ -117,7 +117,7 @@ async function checkedDataBase(bool, node) {
 
   if (name === "email" || name === "userName") {
     const response = await fetch(`/api/checked-db/${name}=${value}`, {
-      method: "GET",
+      method: "GET"
     });
 
     const { exist } = await response.json();
@@ -154,7 +154,7 @@ export function authorityHandler(req, res, next) {
   }
   return res.render("root/404", {
     pageTitle: "404",
-    errorMessage: "접근 권한이 없습니다.",
+    errorMessage: "접근 권한이 없습니다."
   });
 }
 ```
