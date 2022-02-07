@@ -21,21 +21,22 @@ const api = express.Router();
 api
   .route("/:id([0-9a-f]{24})/comments")
   .all(preUrl, onlyPrivate)
-  .post(registerComments);
-
-api
-  .route("/:id([0-9a-f]{24})/comments/delete")
-  .all(preUrl, onlyPrivate)
-  .get(deleteComment);
+  .post(registerComments)
+  .delete(deleteComment);
 
 // get notice data
 api.route("/notice/:id([0-9a-f]{24})").get(getParagraph);
 
+// check notice
+api
+  .route("/notice/is-weekly")
+  .all((req, res, next) =>
+    isAuth(req, res, next, authorityHandler, "master", "administrator"),
+  )
+  .post(postNoticeToWeekly);
+
 // get blog data
 api.route("/blog/:id([0-9a-f]{24})").get(getParagraph);
-
-// get rules data
-api.route("/rules/:id([0-9a-f]{24})").get(getParagraph);
 
 // get blog data
 api.route("/worship/:id([0-9a-f]{24})").get(getParagraph);
@@ -54,13 +55,5 @@ api.route("/post-image").all(onlyPrivate).post(editorImage, postEditorImage);
 
 // checked email, userName
 api.route("/checked-db/:name=:value").get(getDB);
-
-// check notice
-api
-  .route("/notice/isWeekly")
-  .all((req, res, next) =>
-    isAuth(req, res, next, authorityHandler, "master", "administrator"),
-  )
-  .post(postNoticeToWeekly);
 
 export default api;

@@ -204,6 +204,8 @@ export function authorityHandler(req, res, next) {
 
 #### [toast ui editor](./documents/etc/21_11_08Toast%20UI%20Editor를%20붙이면서%20배운%20것들.md)
 
+#### [refacotring diary](./documents/refatoring)
+
 ## 🛠 업데이트
 
 [업데이트 일지](./documents/update.md)

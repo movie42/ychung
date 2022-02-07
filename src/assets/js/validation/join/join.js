@@ -1,4 +1,4 @@
-import { joinForm, joinInput } from "./selectors";
+import { joinForm, joinInput } from "../../utils/selectors";
 
 const message = {
   email: "이메일을 입력하세요.",

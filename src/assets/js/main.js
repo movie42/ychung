@@ -1,5 +1,6 @@
 import "../scss/styles.scss";
-// menu
 
-import "./events.js";
-// import "./canvas";
+// import "./events.js";
+// // import "./canvas";
+
+import "./views/notice";
