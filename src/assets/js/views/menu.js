@@ -1,9 +1,9 @@
 import {
+  $,
+  $All,
   menuContainer,
   hideMenuContainer,
   ComponentWrapper,
-  getSelector,
-  getSelectorAll,
 } from "./selectors";
 
 import { _filter } from "./helperFunction";
@@ -56,11 +56,11 @@ export function handleHiddenMenu() {
 }
 
 export function sideMenuHandler() {
-  const viewParagraphContainer = getSelector(".toastui-editor-contents");
+  const viewParagraphContainer = $(".toastui-editor-contents");
   const width = window.innerWidth;
 
   function beMenu(className) {
-    return getSelector(className) !== null;
+    return $(className) !== null;
   }
 
   function createMenu(node) {

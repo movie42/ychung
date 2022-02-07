@@ -18,24 +18,20 @@ export const getNoticeData = async (req, res) => {
 };
 
 // Create
-export const getNoticeCreate = (req, res) => {
+export const getCreateNoticeEditor = (req, res) => {
   return res.render("notice/noticeCreate", {
     pageTitle: "광고 쓰기",
   });
 };
 
-export const postNoticeCreate = async (req, res) => {
+export const postNewNoticeData = async (req, res) => {
   const {
-    body: {
-      formData: { title, isWeekly },
-      editorBody,
-    },
+    body: { title, isWeekly, editorBody },
     session: {
       user: { _id },
     },
   } = req;
 
-  console.log(req.body);
   try {
     const data = await Notice.create({
       title,
@@ -84,7 +80,7 @@ export const getNoticeDetail = async (req, res) => {
 };
 
 // Update
-export const getNoticeEdit = async (req, res) => {
+export const getNoticeUpdateEditor = async (req, res) => {
   const {
     params: { id },
   } = req;
@@ -94,6 +90,7 @@ export const getNoticeEdit = async (req, res) => {
 
     return res.render("notice/noticeEdit", {
       pageTitle: `${data.title} 수정`,
+      data,
     });
   } catch (e) {
     console.log(e);
@@ -105,12 +102,9 @@ export const getNoticeEdit = async (req, res) => {
   }
 };
 
-export const postNoticeEdit = async (req, res) => {
+export const patchNoticeData = async (req, res) => {
   const {
-    body: {
-      formData: { title, isWeekly },
-      editorBody,
-    },
+    body: { title, isWeekly, editorBody },
     params: { id },
   } = req;
 
@@ -136,7 +130,7 @@ export const postNoticeEdit = async (req, res) => {
 };
 
 // Delete
-export const noticeDelete = async (req, res) => {
+export const deleteNotice = async (req, res) => {
   const {
     params: { id },
   } = req;

@@ -5,14 +5,16 @@ block content
         h1.head_title 공지사항 수정
         if loggedIn && (user.authority === 'master' || user.authority === 'administrator')
             div.button_wrapper
-                button(type="button").send_btn
+                button(type="button").update-button.update-noticedata-button
                     span.material-icons-outlined send
-    .form_container.editor_container
+                a(href=`/notice/delete/${data.id}`).delete-button.delete-notice-button
+                            span.material-icons-outlined delete
+    .form_container.notice-editor-update-container
         form
-            input(type="text" name="title" class="title" placeholder="제목을 입력하세요.")
+            input(type="text" name="title" class="title" placeholder="제목을 입력하세요." value=data.title)
             div
                 input(type='checkbox' id="isWeekly" name="isWeekly")
                 label(for='isWeekly') 주보에 광고 넣기
-    div#editor.update
+    div#editor
     
         

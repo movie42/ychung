@@ -22,7 +22,7 @@ block content
                 .button_wrapper
                     if loggedIn && (user.authority === "master"|| user.authority === "leader")
                         span
-                            a(href=`/worship/${id}/edit`).edit_button 
+                            a(href=`/worship/${id}/`).edit_button 
                                 span.material-icons-outlined edit
             section.component_wrapper
                 h2.head_title 예배

@@ -26,11 +26,11 @@ export const getDB = async (req, res) => {
 
 export const getParagraph = async (req, res) => {
   const {
-    session: { preUrl },
     path,
     params: { id },
   } = req;
 
+  console.log(path);
   try {
     const rootPathName = path.split("/")[1];
 
