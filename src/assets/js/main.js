@@ -1,3 +1,5 @@
 import "../scss/styles.scss";
 
-import "./views/notice";
+import { Notice } from "./views/notice.js";
+
+new Notice();

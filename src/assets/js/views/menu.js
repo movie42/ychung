@@ -1,12 +1,4 @@
-import {
-  $,
-  $All,
-  menuContainer,
-  hideMenuContainer,
-  ComponentWrapper,
-} from "./selectors";
-
-import { _filter } from "./helperFunction";
+import { $ } from "../utils/utils";
 
 let prevHeight = 0;
 let top = hideMenuContainer.style.top;
