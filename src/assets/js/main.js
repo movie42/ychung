@@ -1,5 +1,8 @@
 import "../scss/styles.scss";
-
-import { Notice } from "./views/notice.js";
+import Menu from "./views/menu";
+import { Notice } from "./views/notice";
+import { Worship } from "./views/worship";
 
 new Notice();
+new Menu();
+new Worship();

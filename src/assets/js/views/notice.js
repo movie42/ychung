@@ -1,4 +1,4 @@
-import EditorLoader from "../editor/editor";
+import Editor from "../editor/editor";
 import {
   eventTrigger,
   nodeListEventTrigger,
@@ -7,10 +7,10 @@ import {
 import { $, redirectItemDetail } from "../utils/utils";
 import { HTTP_METHOD, request } from "../utils/fetch";
 
-export class Notice extends EditorLoader {
+export class Notice extends Editor {
   constructor() {
     super();
-    this.editor = super.getEditor("#editor");
+    this.editor = super.getEditor("#notice-editor");
     this.init();
   }
 
@@ -24,7 +24,7 @@ export class Notice extends EditorLoader {
       this.#getNoticeDataAndPaintInEditor,
       "load"
     );
-    nodeListEventTrigger(".box", "click", this.#handleIsWeeklyToggleButton);
+    nodeListEventTrigger(".box", this.#handleIsWeeklyToggleButton, "click");
   }
 
   #createNotice = async () => {
