@@ -2,7 +2,7 @@ import EditorLoader from "../editor/editor";
 import {
   eventTrigger,
   nodeListEventTrigger,
-  windowEventTrigger,
+  windowEventTrigger
 } from "../events/event";
 import { $, redirectItemDetail } from "../utils/utils";
 import { HTTP_METHOD, request } from "../utils/fetch";
@@ -15,14 +15,14 @@ export class Notice extends EditorLoader {
   }
 
   init() {
-    eventTrigger(".send-notice-data-button", "click", this.#createNotice);
-    eventTrigger(".update-noticedata-button", "click", this.#updateNotice);
-    eventTrigger(".delete-notice-button", "click", this.#deleteNoticeItem);
-    windowEventTrigger("#viewer", "load", this.#readNotice);
+    eventTrigger(".send-notice-data-button", this.#createNotice, "click");
+    eventTrigger(".update-noticedata-button", this.#updateNotice, "click");
+    eventTrigger(".delete-notice-button", this.#deleteNoticeItem, "click");
+    windowEventTrigger("#notice_viewer", this.#readNotice, "load");
     windowEventTrigger(
       ".update-noticedata-button",
-      "load",
       this.#getNoticeDataAndPaintInEditor,
+      "load"
     );
     nodeListEventTrigger(".box", "click", this.#handleIsWeeklyToggleButton);
   }
@@ -37,7 +37,7 @@ export class Notice extends EditorLoader {
 
   async #readNotice() {
     const { data: response } = await super.getDataBase("/api/notice");
-    super.getViewer("#viewer").setMarkdown(response.paragraph);
+    super.getViewer("#notice_viewer").setMarkdown(response.paragraph);
   }
 
   #getNoticeDataAndPaintInEditor = async () => {
@@ -63,7 +63,7 @@ export class Notice extends EditorLoader {
     const dataId = event.currentTarget.closest("label").dataset.id;
     const { data: response } = await request(
       "/api/notice/is-weekly",
-      HTTP_METHOD.PATCH({ dataId }),
+      HTTP_METHOD.PATCH({ dataId })
     );
     if (response) {
       currentTarget.classList.add("active");
