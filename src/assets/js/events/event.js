@@ -1,27 +1,26 @@
 import { $, $All } from "../utils/utils";
 
-export function eventTrigger(selector, type, func) {
+export function eventTrigger(selector, func, ...eventTypes) {
   const node = $(selector);
   if (!node) {
     return;
   }
-  return node.addEventListener(type, func);
+  return eventTypes.map((eventType) => node.addEventListener(eventType, func));
 }
 
-export function nodeListEventTrigger(selector, type, func) {
+export function nodeListEventTrigger(selector, func, ...eventTypes) {
   const nodeList = $All(selector);
   if (!nodeList) {
     return;
   }
-
-  return Array.prototype.map.call(nodeList, (value) => {
-    value.addEventListener(type, func);
+  return Array.prototype.map.call(nodeList, (node) => {
+    eventTypes.map((eventType) => node.addEventListener(eventType, func));
   });
 }
 
-export function windowEventTrigger(selector, type, func) {
+export function windowEventTrigger(selector, func, ...eventTypes) {
   if (!$(selector)) {
     return;
   }
-  return window.addEventListener(type, func);
+  eventTypes.map((eventType) => window.addEventListener(eventType, func));
 }
