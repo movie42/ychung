@@ -1,41 +1,50 @@
 import express from "express";
 import { isAuth, authorityHandler, preUrl, view } from "../middleWare";
 import {
-  list,
-  getWorshipUpload,
-  postWorshipUpload,
-  getWorshipDetail,
-  getWorshipEdit,
-  postWorshipEdit,
-  worshipDelete
+  worshipWeeklylist,
+  getCreateWorshipEditor,
+  createWorshipWeekly,
+  getWorshipWeeklyDetail,
+  getUpdateWorshipEditor,
+  updateWorshipWeekly,
+  deleteWorshipWeekly
 } from "../controller/worship.controller";
 
 const worshipRouter = express.Router();
 
 // list
-worshipRouter.route("/").get(list);
+worshipRouter.route("/").get(worshipWeeklylist);
 
 // create
 worshipRouter
-  .route("/upload")
-  .all(preUrl, (req, res, next) => isAuth(req, res, next, authorityHandler, "master", "leader"))
-  .get(getWorshipUpload)
-  .post(postWorshipUpload);
+  .route("/create-worship")
+  .all(preUrl, (req, res, next) =>
+    isAuth(req, res, next, authorityHandler, "master", "leader")
+  )
+  .get(getCreateWorshipEditor)
+  .post(createWorshipWeekly);
 
 // read
-worshipRouter.route("/:id([0-9a-f]{24})").all(preUrl, view).get(getWorshipDetail);
+worshipRouter
+  .route("/:id([0-9a-f]{24})")
+  .all(preUrl, view)
+  .get(getWorshipWeeklyDetail);
 
 // update
 worshipRouter
-  .route("/:id([0-9a-f]{24})/edit")
-  .all((req, res, next) => isAuth(req, res, next, authorityHandler, "master", "leader"))
-  .get(getWorshipEdit)
-  .post(postWorshipEdit);
+  .route("/update/:id([0-9a-f]{24})")
+  .all((req, res, next) =>
+    isAuth(req, res, next, authorityHandler, "master", "leader")
+  )
+  .get(getUpdateWorshipEditor)
+  .patch(updateWorshipWeekly);
 
 // delete
 worshipRouter
-  .route("/:id([0-9a-f]{24})/delete")
-  .all((req, res, next) => isAuth(req, res, next, authorityHandler, "master", "leader"))
-  .get(worshipDelete);
+  .route("/delete/:id([0-9a-f]{24})")
+  .all((req, res, next) =>
+    isAuth(req, res, next, authorityHandler, "master", "leader")
+  )
+  .delete(deleteWorshipWeekly);
 
 export default worshipRouter;

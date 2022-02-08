@@ -1,17 +1,17 @@
-import Editor from "@toast-ui/editor";
+import EditorLoader from "@toast-ui/editor";
 import View from "@toast-ui/editor/dist/toastui-editor-viewer";
 import colorSyntax from "@toast-ui/editor-plugin-color-syntax";
 import "@toast-ui/editor/dist/i18n/ko-kr";
 import { $, getCurrentUrlId } from "../utils/utils";
 import { request, HTTP_METHOD, requestWithoutJson } from "../utils/fetch";
 
-class EditorLoader {
+class Editor {
   getEditor(selector) {
     const node = $(selector);
     if (!node) {
       return;
     }
-    const editor = new Editor({
+    const editor = new EditorLoader({
       el: node,
       customHTMLRenderer: {
         htmlBlock: {
@@ -21,17 +21,17 @@ class EditorLoader {
                 type: "openTag",
                 tagName: "iframe",
                 outerNewLine: true,
-                attributes: node.attrs,
+                attributes: node.attrs
               },
               { type: "html", content: node.childrenHTML },
               {
                 type: "closeTag",
                 tagName: "iframe",
-                outerNewLine: true,
-              },
+                outerNewLine: true
+              }
             ];
-          },
-        },
+          }
+        }
       },
       previewStyle: "vertical",
       height: "70vh",
@@ -41,7 +41,7 @@ class EditorLoader {
         ["hr", "quote"],
         ["ul", "ol", "task"],
         ["table", "image", "link"],
-        ["code", "codeblock"],
+        ["code", "codeblock"]
       ],
       language: "ko-KR",
       placeholder: "내용을 입력하세요.",
@@ -52,16 +52,16 @@ class EditorLoader {
           const response = await fetch("/api/post-image", {
             method: "POST",
             headers: {
-              "X-CSRF-Token": $("meta[name='csrf-token']")["content"],
+              "X-CSRF-Token": $("meta[name='csrf-token']")["content"]
             },
-            body: formData,
+            body: formData
           });
           const { data } = await response.json();
           callback(data, "alt text");
-        },
+        }
       },
       exts: ["youtube"],
-      plugins: [colorSyntax],
+      plugins: [colorSyntax]
     });
 
     return editor;
@@ -83,32 +83,32 @@ class EditorLoader {
                 type: "openTag",
                 tagName: "iframe",
                 outerNewLine: true,
-                attributes: node.attrs,
+                attributes: node.attrs
               },
               { type: "html", content: node.childrenHTML },
               {
                 type: "closeTag",
                 tagName: "iframe",
-                outerNewLine: true,
-              },
+                outerNewLine: true
+              }
             ];
-          },
-        },
-      },
+          }
+        }
+      }
     });
 
     return viewer;
   }
 
-  getEditorAndFormData({ form, editorBody }) {
-    const formData = new FormData(form);
+  getEditorAndFormData({ form = {}, editorBody = "" }) {
+    const formData = new FormData(form) || {};
     const newFormData = {};
     for (let [key, value] of formData) {
       newFormData[key] = value;
     }
     return {
       ...newFormData,
-      editorBody,
+      editorBody
     };
   }
 
@@ -134,8 +134,14 @@ class EditorLoader {
     const id = getCurrentUrlId();
     const url = `/${location}/delete/${id}`;
     await requestWithoutJson(url, HTTP_METHOD.DELETE());
-    window.location.pathname = "/notice";
+    window.location.pathname = `/${location}`;
+  }
+
+  setHtmlSelectTagValue(selector) {
+    const select = $(selector);
+    const selectOption = select.dataset.setWord;
+    select.value = selectOption;
   }
 }
 
-export default EditorLoader;
+export default Editor;

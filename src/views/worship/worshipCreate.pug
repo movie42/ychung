@@ -4,9 +4,9 @@ block content
     .inform_wrapper
         h1.head_title 주보 만들기
         div.button_wrapper
-            button(type="button").create-button
+            button(type="button").create-button.send-worship-data-button
                 span.material-icons-outlined send
-    .form_container.worship_form
+    .form_container.worship-editor-container
         form(method="POST", enctype="multipart/form-data").form
             label(for="title") 제목
             input(type="text", name="title", required, id="title", placeholder="제목")
@@ -86,17 +86,15 @@ block content
                 label(for="verse_end") 끝 절
                 input(type="number", id="verse_end", name="verse_end", placeholder="끝 절을 입력하세요.", required) 
             label(for="pastor") 강론
-            input(type="text", name="pastor", id="pastor", placeholder="강론", value="김상돈")
+            input(type="text", name="pastor", id="pastor", placeholder="강론", value="김상돈 목사")
             label(for="worshipTeam") 경배와 찬양
             input(type="text", name="worshipTeam", id="worshipTeam", placeholder="경배와 찬양", value="둘로스")
             label(for="prayer") 대표기도
             input(type="text", name="prayer", required, id="prayer", placeholder="대표기도")
             label(for="advertisement") 광고
-            input(type="text", name="advertisement", id="advertisement", placeholder="광고", value="최소연")
+            input(type="text", name="advertisement", id="advertisement", placeholder="광고", value="박도현")
             label(for="reader") 성경봉독
             input(type="text", name="reader", id="reader", placeholder="성경봉독", value="다같이")
-            label(for="offering") 헌금
-            input(type="text", name="offering", id="offering", placeholder="헌금")
             label(for="benediction") 축도
-            input(type="text", name="benediction", id="benediction", placeholder="축도", value="김상돈")
+            input(type="text", name="benediction", id="benediction", placeholder="축도", value="김상돈 목사")
         
