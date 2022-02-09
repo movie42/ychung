@@ -7,7 +7,7 @@ block content
                 h1.head_title=data.title
                 if loggedIn && (user.authority === "master" || user.authority === "leader")
                     div.button_wrapper
-                        a(href=`/${path}/${data.id}/edit`).edit_button
+                        a(href=`/${path}/update/${data.id}`).edit_button
                             span.material-icons-outlined edit
             .inform_wrapper
                 .views 
@@ -23,5 +23,5 @@ block content
                     span #{data.day} 
                     span #{data.time}
             .component_wrapper
-                #viewer
+                #documents-viewer
                     
