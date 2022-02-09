@@ -1,3 +1,8 @@
+## 업데이트 2022.02.09
+
+- 클린 코드...
+- 유저 인터페이스 변경된 사항 없음.
+
 ## 업데이트 2022.01.10
 
 multer 이미지 업로드 용량 15mb로 제한
@@ -202,7 +207,7 @@ if (form) {
 async function handleSessionStorage(e) {
   e.preventDefault();
   const request = await fetch("/join", {
-    method: "POST",
+    method: "POST"
   });
 
   if (request.status === 400) {
@@ -369,7 +374,7 @@ function successMessage(str) {
 
 function isEmail(email) {
   return /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.exec(
-    email,
+    email
   );
 }
 
@@ -387,7 +392,7 @@ function isUserName(userName) {
 function isPassword(password) {
   const checkPassword =
     /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$/.exec(
-      password,
+      password
     );
   if (checkPassword) {
     return checkPassword;
@@ -414,9 +419,9 @@ async function postDataToServer(data) {
   const response = await fetch("/join", {
     method: "POST",
     headers: {
-      "Content-Type": "multipart/form-data",
+      "Content-Type": "multipart/form-data"
     },
-    body: JSON.stringify(data),
+    body: JSON.stringify(data)
   });
 
   console.log(response);
@@ -463,7 +468,7 @@ async function postDataToServer(data) {
 
   const response = await fetch("/join", {
     method: "POST",
-    body: file,
+    body: file
   });
 
   console.log(response);
