@@ -5,6 +5,7 @@ import { Notice } from "./views/notice";
 import { Worship } from "./views/worship";
 import { Documents } from "./views/documents";
 import { Join } from "./views/join";
+import "./components/modal";
 
 new Notice();
 new Menu();
