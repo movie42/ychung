@@ -30,6 +30,20 @@ style(type="text/css").
 ```
 
 ```js
+class ConfirmLink extends HTMLAnchorElement {
+  connectedCallback() {
+    this.addEventListener("click", (event) => {
+      if (!confirm("Do You really want to leave?")) {
+        event.preventDefault();
+      }
+    });
+  }
+}
+
+customElements.define("yc-style-confirm-link", ConfirmLink, { extends: "a" });
+```
+
+```js
 class Modal extends HTMLElement {
   constructor() {
     super();
@@ -39,7 +53,7 @@ class Modal extends HTMLElement {
     this.attachShadow({ mode: "open" });
     this.shadowRoot.innerHTML = `
         <style>
-            div { 
+            div {
                 font-weight: normal;
                 background-color: black;
                 color: white;
@@ -134,3 +148,166 @@ class Modal extends HTMLElement {
 
 customElements.define("yc-style-modal", Modal);
 ```
+
+```js
+class Modal extends HTMLElement {
+  constructor() {
+    super();
+    this.isOpen = false;
+    this.attachShadow({ mode: "open" });
+    this.shadowRoot.innerHTML = `
+        <style>
+            #backdrop {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100vh;
+                background: rgba(0, 0, 0, 0.75);
+                z-index: 10;
+                opacity: 0;
+                pointer-events: none;
+            }
+
+            :host([opened]) #backdrop, 
+            :host([opened]) #modal{
+                opacity:1;
+                pointer-events:all;
+            }
+
+            :host([opened]) #modal{
+                top:50%;
+            }
+            
+            #modal {
+                position: fixed;
+                top:40%;
+                left:50%;
+                transform : translate(-50%, -50%);
+                width:50%;
+                z-index: 100;
+                background: white;
+                border-radius: 3px;
+                box-shadow: 1rem 1rem 1rem rgba(0, 0, 0, 0.1);
+                display:flex;
+                flex-direction: column;
+                justify-content: space-between;
+                opacity: 0;
+                pointer-events: none;
+                transition:all 0.3s ease-out;
+            }
+
+            header {
+                padding:1.5rem;
+                border-bottom: 1px solid #ccc;
+            }
+
+            slot[name=title]{
+                font-size:3rem;
+                margin: 0;
+            }
+
+            #main{
+                padding: 1rem;
+                font-size:1.4rem;
+            }
+
+            #actions{
+                border-top : 1px solid lightgray;
+                padding:1.5rem;
+                display:flex;
+                justify-content:flex-end;
+            }
+
+            #actions button{
+                margin: 0 0.25rem;
+            }
+
+        </style>
+        <div id="backdrop"></div>
+        <div id="modal">
+            <header>
+                <slot name="title">모달 창 제목</slot>
+            </header>
+            <section id="main">
+                <slot name="paragraph">모달 내용입니다.</slot>
+            </section>
+            <section id="actions">
+                <button id="cancel">아니요</button>
+                <button id="confirm">네</button>
+            </section>
+        </div>
+    `;
+
+    const slots = this.shadowRoot.querySelectorAll("slot");
+    slots[1].addEventListener("slotchange", (event) => {
+      console.dir(slots[1].assignedNodes());
+    });
+    const backdrop = this.shadowRoot.querySelector("#backdrop");
+    const cancelButton = this.shadowRoot.querySelector("#cancel");
+    const confirmButton = this.shadowRoot.querySelector("#confirm");
+    backdrop.addEventListener("click", this._cancel.bind(this));
+    cancelButton.addEventListener("click", this._cancel.bind(this));
+    confirmButton.addEventListener("click", this._confirm.bind(this));
+  }
+
+  attributeChangeCallback(name, oldValue, newValue) {
+    if (this.hasAttribute("opened")) {
+      this.isOpen = true;
+    } else {
+      this.isOpen = false;
+    }
+  }
+
+  open() {
+    this.setAttribute("opened", "");
+  }
+
+  hide() {
+    if (this.hasAttribute("opened")) {
+      this.removeAttribute("opened");
+    }
+    this.isOpen = false;
+  }
+
+  _cancel(event) {
+    this.hide();
+    const cancelEvent = new Event("cancel", { bubbles: true, composed: true });
+    event.target.dispatchEvent(cancelEvent);
+  }
+
+  _confirm(event) {
+    this.hide();
+    const confirm = new Event("confirm", { bubbles: true, composed: true });
+    event.target.dispatchEvent(confirm);
+  }
+}
+
+customElements.define("yc-style-modal", Modal);
+
+const confirmButton = document.querySelector("button");
+const modal = document.querySelector("yc-style-modal");
+
+modal.addEventListener("cancel", () => {
+  console.log("cancel");
+});
+
+modal.addEventListener("confirm", () => {
+  console.log("confirm");
+});
+
+confirmButton.addEventListener("click", () => {
+  if (!modal.isOpen) {
+    modal.open();
+  }
+});
+```
+
+https://developer.mozilla.org/en-US/docs/Web/Web_Components
+https://developers.google.com/web/fundamentals/web-components
+https://developers.google.com/web/fundamentals/web-components/shadowdom
+https://developer.mozilla.org/en-US/docs/Web/Web_Components/Using_templates_and_slots
+
+::slotted(title)
+
+slot[name=title]

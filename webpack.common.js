@@ -3,17 +3,17 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 module.exports = {
   entry: {
-    main: "./src/assets/js/main.js",
+    main: "./src/assets/js/main.js"
   },
   plugins: [
     new MiniCssExtractPlugin({
-      filename: "css/styles.css",
-    }),
+      filename: "css/styles.css"
+    })
   ],
   output: {
     filename: "js/[name].js",
     path: path.resolve(__dirname, "client"),
-    clean: true,
+    clean: true
   },
   module: {
     rules: [
@@ -27,19 +27,34 @@ module.exports = {
                 "@babel/preset-env",
                 {
                   targets: {
-                    browsers: ["last 2 chrome versions"],
+                    browsers: ["last 2 chrome versions"]
                   },
-                  debug: true,
-                },
-              ],
-            ],
-          },
-        },
+                  debug: true
+                }
+              ]
+            ]
+          }
+        }
+      },
+      {
+        test: /\.component.scss$/,
+        use: [
+          "sass-to-string",
+          {
+            loader: "sass-loader",
+            options: {
+              sassOptions: {
+                outputStyle: "compressed"
+              }
+            }
+          }
+        ]
       },
       {
         test: /\.scss$/,
-        use: [MiniCssExtractPlugin.loader, "css-loader", "sass-loader"],
-      },
-    ],
-  },
+        exclude: /\.component.scss$/,
+        use: [MiniCssExtractPlugin.loader, "css-loader", "sass-loader"]
+      }
+    ]
+  }
 };
