@@ -26,10 +26,7 @@ export const getBlogWrite = (req, res) => {
 
 export const postBlogWrite = async (req, res) => {
   const {
-    body: {
-      formData: { title },
-      editorBody,
-    },
+    body: { title, editorBody },
     session: {
       user: { _id },
     },
@@ -163,7 +160,7 @@ export const blogDelete = async (req, res) => {
     }
 
     await Blog.findByIdAndDelete(id);
-    return res.redirect("/blog");
+    return res.sendStatus(200);
   } catch (e) {
     console.log(e);
     return res.status(404).render("404", { pageTitle: "접근할 수 없습니다." });
