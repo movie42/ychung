@@ -27,3 +27,14 @@ export function getCurrentUrlId() {
 
   return id;
 }
+
+export function getFormData(form) {
+  const formData = new FormData(form) || {};
+  const newFormData = {};
+  for (let [key, value] of formData) {
+    newFormData[key] = value;
+  }
+  return {
+    ...newFormData,
+  };
+}
