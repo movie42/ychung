@@ -23,7 +23,7 @@ blogRouter.route("/").get(blogList);
 
 // Create
 blogRouter
-  .route("/upload")
+  .route("/create")
   .all(preUrl, (req, res, next) =>
     isAuth(
       req,
@@ -44,7 +44,7 @@ blogRouter.route("/:id([0-9a-f]{24})").all(preUrl, view).get(blogDetail);
 
 // Update
 blogRouter
-  .route("/:id([0-9a-f]{24})/edit")
+  .route("/update/:id([0-9a-f]{24})")
   .all(onlyPrivate, preUrl, (req, res, next) =>
     isAuth(
       req,
@@ -58,11 +58,11 @@ blogRouter
     ),
   )
   .get(getBlogUpdate)
-  .post(postBlogUpdate);
+  .patch(postBlogUpdate);
 
 // Delete
 blogRouter
-  .route("/:id([0-9a-f]{24})/delete")
+  .route("/delete/:id([0-9a-f]{24})")
   .all(onlyPrivate, preUrl, (req, res, next) =>
     isAuth(
       req,
@@ -75,6 +75,6 @@ blogRouter
       "administrator",
     ),
   )
-  .get(blogDelete);
+  .delete(blogDelete);
 
 export default blogRouter;

@@ -6,7 +6,7 @@ block content
         h1.head_title 공지사항
         if loggedIn && (user.authority === 'master' || user.authority === 'administrator')
             .button_wrapper
-                a(href="/notice/upload").write_button
+                a(href="/notice/create").create-button.create-notice-button
                     span.material-icons-outlined add_circle
     .list_wrapper
         ul.list_item

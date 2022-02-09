@@ -6,7 +6,7 @@ block content
         h1.head_title #{pageName}
         if loggedIn && (user.authority === "master" || user.authority === "leader")
             .button_wrapper
-                a(href="/documents/applications/upload").write_button
+                a(href="/documents/applications/create").write_button.create-applications-button
                     span.material-icons-outlined add_circle
     .list_wrapper
         ul.list_item

@@ -66,9 +66,7 @@ export const getJoin = (req, res) => {
 
 export const postJoin = async (req, res) => {
   const {
-    body: {
-      body: { email, name, userName, password, password2 },
-    },
+    body: { email, name, userName, password, password2 },
   } = req;
 
   try {
@@ -95,12 +93,10 @@ export const postJoin = async (req, res) => {
       password,
     });
 
-    return res.status(201).json({
-      type: "success",
-    });
+    return res.sendStatus(200);
   } catch (error) {
-    console.log(error);
-    return res.status(400).json({ type: "isError" });
+    console.error(error);
+    return res.sendStatus(400).render("root/404");
   }
 };
 
@@ -149,14 +145,14 @@ export const postVote = async (req, res) => {
   const {
     body: { voteName },
     session: {
-      user: { _id }
-    }
+      user: { _id },
+    },
   } = req;
 
   try {
     const data = await Vote.create({
       voteName,
-      creator: _id
+      creator: _id,
     });
 
     return res.status(200).json({ data });

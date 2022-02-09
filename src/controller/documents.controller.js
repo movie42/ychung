@@ -1,6 +1,6 @@
 import Documents from "../model/Documents.model";
 
-const tagName = {
+const TAG_NAME = {
   rules: "회칙",
   manuals: "메뉴얼",
   applications: "지원서",
@@ -18,7 +18,7 @@ export const getRulesList = async (req, res) => {
   const pathName = req.path.split("/")[1];
 
   try {
-    const pageName = tagName[pathName];
+    const pageName = TAG_NAME[pathName];
     const data = (
       await Documents.find({ tag: "rules" }).sort({
         updateAt: "desc",
@@ -26,7 +26,7 @@ export const getRulesList = async (req, res) => {
     ).reverse();
 
     return res.status(200).render("documents/rules/list", {
-      pageTitle: "문서",
+      pageTitle: pageName,
       data,
       pageName,
     });
@@ -44,7 +44,7 @@ export const getManualsList = async (req, res) => {
   const pathName = req.path.split("/")[1];
 
   try {
-    const pageName = tagName[pathName];
+    const pageName = TAG_NAME[pathName];
     const data = (
       await Documents.find({ tag: "manuals" }).sort({
         updateAt: "desc",
@@ -52,7 +52,7 @@ export const getManualsList = async (req, res) => {
     ).reverse();
 
     return res.status(200).render("documents/manuals/list", {
-      pageTitle: "문서",
+      pageTitle: pageName,
       data,
       pageName,
     });
@@ -70,7 +70,7 @@ export const getApplicationsList = async (req, res) => {
   const pathName = req.path.split("/")[1];
 
   try {
-    const pageName = tagName[pathName];
+    const pageName = TAG_NAME[pathName];
     const data = (
       await Documents.find({ tag: "applications" }).sort({
         updateAt: "desc",
@@ -78,7 +78,7 @@ export const getApplicationsList = async (req, res) => {
     ).reverse();
 
     return res.status(200).render("documents/applications/list", {
-      pageTitle: "문서",
+      pageTitle: pageName,
       data,
       pageName,
     });
@@ -96,19 +96,17 @@ export const getApplicationsList = async (req, res) => {
 export const getCreateDocuments = (req, res) => {
   const pathName = req.path.split("/")[1];
 
-  const pageName = tagName[pathName];
+  const pageName = TAG_NAME[pathName];
   return res.render("documents/create", {
     pageTitle: `${pageName} 쓰기`,
+    pathName,
     pageName,
   });
 };
 
 export const postCreateDocuments = async (req, res) => {
   const {
-    body: {
-      formData: { title },
-      editorBody,
-    },
+    body: { title, editorBody },
     path,
     session: {
       user: { _id },
@@ -154,10 +152,7 @@ export const getUpdateDocuments = async (req, res) => {
 
 export const postUpdateDocuments = async (req, res) => {
   const {
-    body: {
-      formData: { title },
-      editorBody,
-    },
+    body: { title, editorBody },
     params: { id },
   } = req;
 
@@ -205,4 +200,15 @@ export const getDocuments = async (req, res) => {
 
 // delete
 
-export const deleteDocuments = (req, res) => {};
+export const deleteDocuments = async (req, res) => {
+  const {
+    params: { id },
+  } = req;
+
+  try {
+    await Documents.findByIdAndDelete(id);
+    res.sendStatus(200);
+  } catch (e) {
+    console.error(e);
+  }
+};

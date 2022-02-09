@@ -117,7 +117,7 @@ async function checkedDataBase(bool, node) {
 
   if (name === "email" || name === "userName") {
     const response = await fetch(`/api/checked-db/${name}=${value}`, {
-      method: "GET",
+      method: "GET"
     });
 
     const { exist } = await response.json();
@@ -154,7 +154,7 @@ export function authorityHandler(req, res, next) {
   }
   return res.render("root/404", {
     pageTitle: "404",
-    errorMessage: "접근 권한이 없습니다.",
+    errorMessage: "접근 권한이 없습니다."
   });
 }
 ```
@@ -203,6 +203,8 @@ export function authorityHandler(req, res, next) {
 #### [multer와 shape](https://velog.io/@gogo78/%EC%A2%8C%EC%B6%A9%EC%9A%B0%EB%8F%8C-%ED%9A%8C%EC%9B%90-%EA%B0%80%EC%9E%85-validation-%EB%A7%8C%EB%93%A4%EA%B8%B03)
 
 #### [toast ui editor](./documents/etc/21_11_08Toast%20UI%20Editor를%20붙이면서%20배운%20것들.md)
+
+#### [refacotring diary](./documents/refatoring)
 
 ## 🛠 업데이트
 

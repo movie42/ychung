@@ -5,7 +5,7 @@ import {
   getDB,
   getParagraph,
   postEditorImage,
-  postNoticeToWeekly,
+  patchNoticeToWeekly,
 } from "../controller/api.controller";
 import {
   onlyPrivate,
@@ -17,50 +17,33 @@ import {
 
 const api = express.Router();
 
-// comments
 api
   .route("/:id([0-9a-f]{24})/comments")
   .all(preUrl, onlyPrivate)
-  .post(registerComments);
+  .post(registerComments)
+  .delete(deleteComment);
 
-api
-  .route("/:id([0-9a-f]{24})/comments/delete")
-  .all(preUrl, onlyPrivate)
-  .get(deleteComment);
-
-// get notice data
 api.route("/notice/:id([0-9a-f]{24})").get(getParagraph);
 
-// get blog data
-api.route("/blog/:id([0-9a-f]{24})").get(getParagraph);
-
-// get rules data
-api.route("/rules/:id([0-9a-f]{24})").get(getParagraph);
-
-// get blog data
-api.route("/worship/:id([0-9a-f]{24})").get(getParagraph);
-
-// get documents rules data
-api.route("/documents/rules/:id([0-9a-f]{24})").get(getParagraph);
-
-// get documents manuals data
-api.route("/documents/manuals/:id([0-9a-f]{24})").get(getParagraph);
-
-// get documents applications data
-api.route("/documents/applications/:id([0-9a-f]{24})").get(getParagraph);
-
-// post image data
-api.route("/post-image").all(onlyPrivate).post(editorImage, postEditorImage);
-
-// checked email, userName
-api.route("/checked-db/:name=:value").get(getDB);
-
-// check notice
 api
-  .route("/notice/isWeekly")
+  .route("/notice/is-weekly")
   .all((req, res, next) =>
     isAuth(req, res, next, authorityHandler, "master", "administrator"),
   )
-  .post(postNoticeToWeekly);
+  .patch(patchNoticeToWeekly);
+
+api.route("/blog/:id([0-9a-f]{24})").get(getParagraph);
+
+api.route("/worship/:id([0-9a-f]{24})").get(getParagraph);
+
+api.route("/documents/rules/:id([0-9a-f]{24})").get(getParagraph);
+
+api.route("/documents/manuals/:id([0-9a-f]{24})").get(getParagraph);
+
+api.route("/documents/applications/:id([0-9a-f]{24})").get(getParagraph);
+
+api.route("/post-image").all(onlyPrivate).post(editorImage, postEditorImage);
+
+api.route("/checked-db/:name=:value").get(getDB);
 
 export default api;

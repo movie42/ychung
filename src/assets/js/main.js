@@ -1,5 +1,14 @@
 import "../scss/styles.scss";
-// menu
+import Menu from "./views/menu";
+import { Blog } from "./views/blog";
+import { Notice } from "./views/notice";
+import { Worship } from "./views/worship";
+import { Documents } from "./views/documents";
+import { Join } from "./views/join";
 
-import "./events.js";
-// import "./canvas";
+new Notice();
+new Menu();
+new Worship();
+new Blog();
+new Documents();
+new Join();

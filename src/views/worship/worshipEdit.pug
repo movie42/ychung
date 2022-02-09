@@ -7,15 +7,15 @@ block content
                 h1.head_title 주보 수정
                 if loggedIn && (user.authority === "master" || user.authority === "leader")
                     div.button_wrapper
-                        a(href=`/worship/${id}/delete`).delete_btn
-                            span.material-icons-outlined delete
-                        button(type="button").send_btn
+                        button(type="button").update_button.update-worship-button
                             span.material-icons-outlined send
-    .form_container.worship_form
+                        button(type="button").delete_button.delete-worship-button
+                            span.material-icons-outlined delete
+    .form_container.worship-editor-update-container
         form(method="POST").form
             label(for="title") 제목
-            input(type="text", name="title", required, id="title", placeholder="제목")
-            select(type="text", name="word", required, id="word")       
+            input(type="text", name="title", required, id="title", placeholder="제목" value=data.title)
+            select(type="text", name="word", required, id="word" data-set-word=data.word)       
                 option(value="gen") 창세기
                 option(value="exo") 출애굽기
                 option(value="lev") 레위기
@@ -84,22 +84,20 @@ block content
                 option(value="rev") 요한계시록
             div.input_side_by_side
                 label(for="chapter") 장
-                input(type="number", id="chapter", name="chapter", placeholder="몇 장인지 입력하세요.", required)
+                input(type="number", id="chapter", name="chapter", placeholder="몇 장인지 입력하세요.", required, value=data.chapter)
                 label(for="verse") 시작 절
-                input(type="number", id="verse", name="verse", placeholder="시작 절을 입력하세요.", required)
+                input(type="number", id="verse", name="verse", placeholder="시작 절을 입력하세요.", required, value=data.verse)
                 label(for="verse_end") 끝 절
-                input(type="number", id="verse_end", name="verse_end", placeholder="끝 절을 입력하세요.", required)
+                input(type="number", id="verse_end", name="verse_end", placeholder="끝 절을 입력하세요.", required, value=data.verse_end)
             label(for="pastor") 강론
-            input(type="text", name="pastor", required, id="pastor", placeholder="강론")
+            input(type="text", name="pastor", required, id="pastor", placeholder="강론", value=data.pastor)
             label(for="worshipTeam") 경배와 찬양 
-            input(type="text", name="worshipTeam", required, id="worshipTeam", placeholder="경배와 찬양")
+            input(type="text", name="worshipTeam", required, id="worshipTeam", placeholder="경배와 찬양", value=data.worshipTeam)
             label(for="prayer") 대표기도
-            input(type="text", name="prayer", required, id="prayer", placeholder="대표기도")
+            input(type="text", name="prayer", required, id="prayer", placeholder="대표기도", value=data.prayer)
             label(for="advertisement") 광고
-            input(type="text", name="advertisement", required, id="advertisement", placeholder="광고")
+            input(type="text", name="advertisement", required, id="advertisement", placeholder="광고", value=data.advertisement)
             label(for="reader") 성경봉독
-            input(type="text", name="reader", required, id="reader", placeholder="성경봉독")
-            label(for="offering") 헌금
-            input(type="text", name="offering", id="offering", placeholder="헌금")
+            input(type="text", name="reader", required, id="reader", placeholder="성경봉독", value=data.reader)
             label(for="benediction") 축도
-            input(type="text", name="benediction", required, id="benediction", placeholder="축도")
+            input(type="text", name="benediction", required, id="benediction", placeholder="축도", value=data.benediction)

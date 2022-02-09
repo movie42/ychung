@@ -4,13 +4,13 @@ block content
     .inform_wrapper
         h1.head_title 공지사항 쓰기
         div.button_wrapper
-            button(type="button").send_btn
+            button(type="button").create_button.send-notice-data-button
                 span.material-icons-outlined send
-    .form_container.editor_container
+    .form_container.notice-editor-container
         form
             input(type="text" name="title" class="title" placeholder="제목을 입력하세요.")
             div
                 input(type='checkbox' id="isWeekly" name="isWeekly")
                 label(for='isWeekly') 주보에 광고 넣기
-    div#editor
+    div#notice-editor
     

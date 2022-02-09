@@ -4,10 +4,10 @@ block content
     .inform_wrapper
         h1.head_title #{pageName} 쓰기
         div.button_wrapper
-            button(type="button").send_btn
+            button(type="button" data-set-pathname=pathName).send_btn.send-documents-data-button
                 span.material-icons-outlined send
-    .form_container.editor_container
+    .form_container.documents-editor-container
         form
             input(type="text" name="title" class="title" placeholder="제목을 입력하세요." required)
-    div#editor
+    div#documents-editor
     
