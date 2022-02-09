@@ -101,15 +101,15 @@ export class Join {
     return;
   }
 
-  joinDataSubmintToDB = async (e) => {
-    e.preventDefault();
+  joinDataSubmintToDB = async (event) => {
+    event.preventDefault();
     if (
       Array.from(this.inputs).filter(
         (input) => input.dataset.isError === "true" || input.value === "",
       ).length !== 0
     ) {
       // modal
-      console.log("hi");
+      console.log("modal");
       return;
     }
 
