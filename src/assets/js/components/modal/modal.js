@@ -26,17 +26,12 @@ class Modal extends HTMLElement {
     `;
 
     this.shadowRoot.appendChild(style);
-
-    const slots = this.shadowRoot.querySelectorAll("slot");
-    slots[1].addEventListener("slotchange", (event) => {
-      console.dir(slots[1].assignedNodes());
-    });
     const backdrop = this.shadowRoot.querySelector("#backdrop");
     const cancelButton = this.shadowRoot.querySelector("#cancel");
     const confirmButton = this.shadowRoot.querySelector("#confirm");
-    backdrop.addEventListener("click", this._cancel.bind(this));
-    cancelButton.addEventListener("click", this._cancel.bind(this));
-    confirmButton.addEventListener("click", this._confirm.bind(this));
+    backdrop.addEventListener("click", this.#cancel.bind(this));
+    cancelButton.addEventListener("click", this.#cancel.bind(this));
+    confirmButton.addEventListener("click", this.#confirm.bind(this));
   }
 
   attributeChangeCallback(name, oldValue, newValue) {
@@ -58,13 +53,13 @@ class Modal extends HTMLElement {
     this.isOpen = false;
   }
 
-  _cancel(event) {
+  #cancel(event) {
     this.hide();
     const cancelEvent = new Event("cancel", { bubbles: true, composed: true });
     event.target.dispatchEvent(cancelEvent);
   }
 
-  _confirm(event) {
+  #confirm(event) {
     this.hide();
     const confirm = new Event("confirm", { bubbles: true, composed: true });
     event.target.dispatchEvent(confirm);

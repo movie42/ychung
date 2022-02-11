@@ -1,4 +1,11 @@
-webcomponent
+# 웹 컴포넌트
+
+해야할일
+
+- [ ] webcomponent 복습하기
+- [ ] modal 테스트 (회원가입 경고창 아이템 삭제시 확인 취소 버튼으로 경고하기)
+- [ ] component 분리하기
+- [ ] 실재로 서비스 하고 있는 git과 분리하기(https://velog.io/@hoo00nn/Git-Repository-%EB%B3%B5%EC%82%AC%ED%95%98%EA%B8%B0)
 
 웹 컴포넌트 기본
 
@@ -311,3 +318,5 @@ https://developer.mozilla.org/en-US/docs/Web/Web_Components/Using_templates_and_
 ::slotted(title)
 
 slot[name=title]
+
+https://dev.to/m4thieulavoie/how-i-managed-to-use-scss-inside-web-components-3lk9

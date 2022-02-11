@@ -10,16 +10,6 @@
   pointer-events: none;
 }
 
-:host([opened]) #backdrop,
-:host([opened]) #modal {
-  opacity: 1;
-  pointer-events: all;
-}
-
-:host([opened]) #modal {
-  top: 50%;
-}
-
 #modal {
   position: fixed;
   top: 40%;
@@ -38,14 +28,26 @@
   transition: all 0.3s ease-out;
 }
 
+:host([opened]) {
+  #backdrop {
+    opacity: 1;
+    pointer-events: all;
+  }
+  #modal {
+    opacity: 1;
+    pointer-events: all;
+    top: 50%;
+  }
+}
+
 header {
   padding: 1.5rem;
   border-bottom: 1px solid #ccc;
-}
 
-slot[name="title"] {
-  font-size: 3rem;
-  margin: 0;
+  slot[name="title"] {
+    font-size: 3rem;
+    margin: 0;
+  }
 }
 
 #main {
@@ -58,8 +60,7 @@ slot[name="title"] {
   padding: 1.5rem;
   display: flex;
   justify-content: flex-end;
-}
-
-#actions button {
-  margin: 0 0.25rem;
+  button {
+    margin: 0 0.25rem;
+  }
 }

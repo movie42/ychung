@@ -3,7 +3,7 @@ import { HTTP_METHOD, request, requestWithoutJson } from "../utils/fetch";
 import { $, $All, getFormData, redirectItemDetail } from "../utils/utils";
 import {
   paintErrorMessage,
-  paintSuccessMessage,
+  paintSuccessMessage
 } from "../../components/paintMessage";
 
 export class Join {
@@ -17,14 +17,14 @@ export class Join {
       password:
         "비밀번호는 특수문자, 영문, 숫자, 8글자 이상으로 작성되어야합니다.",
       password2: "비밀번호가 앞에 입력한 비밀번호와 다릅니다.",
-      exist: "이미 다른 사람이 사용하는 중이에요!",
+      exist: "이미 다른 사람이 사용하는 중이에요!"
     };
     this.VERIFING_SUCCESS_MESSAGE = {
       email: "좋은 이메일이네요.",
       userName: "좋은 닉네임이네요.",
       name: "이름이 이뻐요.",
       password: "비밀번호로 사용하기 좋아요!",
-      password2: "앞의 비밀번호와 똑같습니다.",
+      password2: "앞의 비밀번호와 똑같습니다."
     };
     this.REGULAR_EXPRESSION_OBJECT = {
       email:
@@ -32,7 +32,7 @@ export class Join {
       name: /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]{2,6}$/,
       userName: /^[a-zA-Z0-9]{5,10}$/,
       password:
-        /^(?=.*[a-zA-z])(?=.*[0-9])(?=.*[$`~!@$!%*#^?&\\(\\)\-_=+]).{8,}$/,
+        /^(?=.*[a-zA-z])(?=.*[0-9])(?=.*[$`~!@$!%*#^?&\\(\\)\-_=+]).{8,}$/
     };
     this.init();
   }
@@ -43,12 +43,12 @@ export class Join {
       (event) => {
         this.verifyInputValue(event.currentTarget);
       },
-      "focusout",
+      "focusout"
     );
     eventTrigger(
       ".join-form-container form button",
       this.joinDataSubmintToDB,
-      "click",
+      "click"
     );
   }
 
@@ -59,7 +59,7 @@ export class Join {
 
     const { exist } = await request(
       `/api/checked-db/${node.name}=${node.value}`,
-      HTTP_METHOD.GET(),
+      HTTP_METHOD.GET()
     );
 
     if (exist) {
@@ -81,7 +81,7 @@ export class Join {
     }
 
     const checkedString = this.REGULAR_EXPRESSION_OBJECT[node.name].exec(
-      node.value,
+      node.value
     );
 
     if (checkedString !== null && checkedString.length !== 0) {
@@ -105,11 +105,12 @@ export class Join {
     event.preventDefault();
     if (
       Array.from(this.inputs).filter(
-        (input) => input.dataset.isError === "true" || input.value === "",
+        (input) => input.dataset.isError === "true" || input.value === ""
       ).length !== 0
     ) {
-      // modal
-      console.log("modal");
+      const modal = document.createElement("yc-style-modal");
+      modal.setAttribute("opened", "");
+      document.body.appendChild(modal);
       return;
     }
 
