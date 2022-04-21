@@ -1,5 +1,7 @@
 # ![양청](/favicon/favicon-32x32.png) 양청 웹 어플리케이션
 
+이 프로젝트는 [React](https://github.com/movie42/ychung-frontend)로 새롭게 마이그레이션 되었습니다.
+
 [![Website](https://img.shields.io/website?color=2eaee5&style=flat-square&url=https%3A%2F%2Fy-chung.com)](https://y-chung.com)
 
 ## 📜 목차
